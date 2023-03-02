@@ -5,6 +5,7 @@ import {
 
 import Login from "~/pages/Login.vue";
 import NotFound from "~/pages/404.vue";
+import HomeLayout from "~/layouts/HomeLayout.vue";
 import Home from "~/pages/Home.vue";
 import Test from "~/pages/Test.vue";
 import Admin from "~/layouts/Admin.vue"
@@ -19,13 +20,17 @@ const routes = [{
     meta: {
         title: "登录页"
     }
-},, {
+}, {
     path: '/',
-    name: 'Home',
-    component: Home,
-    meta: {
-        title: "Home"
-    },
+    name: '首页Layout',
+    component: HomeLayout,
+    children: [{
+        path: '/',
+        component: Home,
+        meta: {
+            title: "首页"
+        }
+    }],
 
 },  {
     path: '/:pathMatch(.*)*',
@@ -59,8 +64,7 @@ const routes = [{
             title: "用户管理"
         }
     }]
-
-}
+},
 ]
 
 const router = createRouter({

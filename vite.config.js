@@ -12,8 +12,10 @@ export default defineConfig({
   server:{
     proxy:{
       '/api': {
-        // target: 'http://ceshi13.dishait.cn',
-        target: 'http://localhost:8093',
+        //本地测试
+        // target: 'http://localhost:8093',
+        //连接远程API接口
+        target: 'http://175.178.9.163:8093',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       },

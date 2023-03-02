@@ -10,26 +10,15 @@
   - npm run serve
   - 
 
+  
 
 
-
-
+- 后端API接口查看访问路径为 ： http://localhost:8093/doc.html
 - 暂时不设置页面白名单，所有操作需要登入获取token后才可进行操作
   - 初始登入管理账号密码为  ====》  admin  admin
   - 首页路径为 “/”   后端管理为“/admin”
 
-
-​	
-
-​	
-
-
-
-
-
-
-
-
+  
 
 - 项目目录（plant-gene-client）：
 
