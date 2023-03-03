@@ -13,10 +13,12 @@
   
 
 
-- 后端API接口查看访问路径为 ： http://localhost:8093/doc.html
+- 后端API接口查看访问路径为 ： http://175.178.9.163:8093/doc.html
+                        http://175.178.9.163:8093/swagger-ui.html#/
+- Postman 的API导入路径为 ：http://175.178.9.163:8093/v2/api-docs
 - 暂时不设置页面白名单，所有操作需要登入获取token后才可进行操作
   - 初始登入管理账号密码为  ====》  admin  admin
-  - 首页路径为 “/”   后端管理为“/admin”
+  - 首页路径为 “/”   后端管理为“/admin” 登录路径为“/login”
 
   
 

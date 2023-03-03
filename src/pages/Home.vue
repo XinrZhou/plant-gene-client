@@ -23,7 +23,7 @@
     </el-col>
     <el-col :lg="12" :md="20" :sm="20"  class="bodyright">
       <div >
-        <el-carousel :interval="5000" arrow="always" style="width: 100%;">
+        <el-carousel :interval="5000" arrow="always" style="width: 100%;  height: 400px;">
           <el-carousel-item v-for="item in 4" :key="item" style="height:400px; ">
             <h3 text="2xl">{{ item }}</h3>
           </el-carousel-item>
@@ -93,7 +93,7 @@ const handleSelect = (key,keyPath) => {
 }
 .bodyright{
   @apply my-4 ;
-  height: 400px;
+
 }
 .all-charts{
   @apply my-8

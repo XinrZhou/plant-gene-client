@@ -37,16 +37,16 @@
   </div>
   <form-drawer ref="formDrawerRef" title="修改密码" destroyOnClose @submit="onSubmit">
     <el-form ref="formRef" :rules="rules" :model="form" class="w-[250px]" label-width="80px">
-      <el-form-item prop="oldpassword" label="旧密码">
-        <el-input v-model="form.oldpassword" placeholder="请输入旧密码">
+      <el-form-item prop="oldPassword" label="旧密码">
+        <el-input v-model="form.oldPassword" placeholder="请输入旧密码">
         </el-input>
       </el-form-item>
       <el-form-item  prop="password" label="新密码">
         <el-input  v-model="form.password" placeholder="输入新密码" type="password" show-password>
         </el-input>
       </el-form-item>
-      <el-form-item  prop="repassword" label="新密码">
-        <el-input v-model="form.repassword" placeholder="请再次确认密码" type="password" show-password>
+      <el-form-item  prop="rePassword" label="新密码">
+        <el-input v-model="form.rePassword" placeholder="请再次确认密码" type="password" show-password>
         </el-input>
       </el-form-item>
     </el-form>

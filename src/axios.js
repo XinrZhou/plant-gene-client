@@ -1,8 +1,8 @@
 import axios from "axios"
-import { ElNotification } from 'element-plus'
 import {getToken} from "~/composables/auth.js";
 import {toast} from "~/composables/util.js";
-
+import {useRouter} from "vue-router";
+const router = useRouter()
 const service = axios.create({
     baseURL:import.meta.env.VITE_BASE_URL,
 })
@@ -12,7 +12,6 @@ service.interceptors.request.use(function (config) {
     if(token){
         config.headers["token"] = token
     }
-
     return config;
 }, function (error) {
     toast(error.response.data.msg||"请求失败","error")
@@ -26,13 +25,16 @@ service.interceptors.response.use(function (response) {
     let res = response.data
     if(res.code === 200)
         return response.data;
-    else
+    if(res.code === 401)
+        router.push("/login").catch(() => {})
         toast(res.msg,"error")
-        // return Promise.reject(res.msg);
+    toast(res.msg,"error")
+    console.log("asdsa")
+    return Promise.reject(res.msg);
 
 }, function (error) {
     console.log(error.response.data.msg)
-    toast(error.response.data.msg||"返回数据失败","error")
+    toast(error.response.data.msg||"服务器维护中请求失败","error")
 
     return Promise.reject(error);
 })

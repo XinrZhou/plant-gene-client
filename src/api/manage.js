@@ -7,7 +7,7 @@ export function login(username,password){
     })
 }
 export function getInfo(){
-    return axios.post("/admin/getinfo")
+    return axios.post("/admin/getInfo")
 }
 
 export function logout(){
@@ -15,5 +15,5 @@ export function logout(){
 }
 
 export function updatepassword(data){
-    return axios.post("/admin/updatepassword",data)
+    return axios.post("/admin/updatePassword",data)
 }

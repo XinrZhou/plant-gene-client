@@ -9,13 +9,13 @@ export function useRePassword(){
     const router = useRouter()
     const formRef = ref(null)
     const form = reactive({
-        oldpassword:'',
+        oldPassword:'',
         password: '',
-        repassword: ''
+        rePassword: ''
     })
     const formDrawerRef = ref(null)
     const rules = {
-        oldpassword:[
+        oldPassword:[
             {
                 required: true,
                 message: '旧密码不能为空',
@@ -29,7 +29,7 @@ export function useRePassword(){
                 trigger: 'blur'
             },
         ],
-        repassword:[
+        rePassword:[
             {
                 required: true,
                 message: '确认密码不能为空',
@@ -46,7 +46,7 @@ export function useRePassword(){
             updatepassword(form).then(res=>{
                 toast("修改密码成功，请重新登入")
                 store.dispatch("logout")
-                router.push("/index")
+                router.push("/login")
             }).finally(()=>{
                 formDrawerRef.value.hideLoading()
             })
@@ -69,7 +69,7 @@ export function  useLogOut(){
             logout().finally(()=>{
                 //移除token--清除当前用户状态--跳转回登录页--提示退出登入成功
                 store.dispatch("logout")
-                router.push("/index")
+                router.push("/login")
                 toast("退出登录成功")
             })
         })
