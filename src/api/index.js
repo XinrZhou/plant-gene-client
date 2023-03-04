@@ -1,11 +1,14 @@
 import axios from "axios"
-import {getToken} from "~/composables/auth.js";
-import {toast} from "~/composables/util.js";
-import {useRouter} from "vue-router";
+import {getToken} from "~/composables/auth.js"
+import {toast} from "~/composables/util.js"
+import {useRouter} from "vue-router"
+
 const router = useRouter()
+
 const service = axios.create({
     baseURL:import.meta.env.VITE_BASE_URL,
 })
+
 service.interceptors.request.use(function (config) {
     // 往header头自动添加token
     const token = getToken()

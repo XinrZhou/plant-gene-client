@@ -3,7 +3,6 @@ import {getToken} from "~/composables/auth.js";
 import {toast,showFullLoading,hideFullLoading} from "~/composables/util.js";
 import store from "~/store/index.js";
 
-
 //全局前置首位
 let hasGetInfo = false
 router.beforeEach(async (to,from,next)=>{
@@ -28,5 +27,6 @@ router.beforeEach(async (to,from,next)=>{
     judge==true ? next(to.fullPath) :next()
 
 })
+
 // 全局后置守卫
 router.afterEach((to, from) => hideFullLoading())

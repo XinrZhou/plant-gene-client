@@ -7,7 +7,7 @@
 - 项目运行
   - npm install 
   - 
-  - npm run serve
+  - npm run dev
   - 
 
   
@@ -33,16 +33,20 @@
     ├── assets -- 静态图片资源文件
     ├── components -- 通用组件封装
     ├── composables -- 通用js函数封装
-    ├── layout -- 通用页面加载框架
+    ├── layout -- 通用页面加载框架(不需要，回头删了)
     ├── router -- vue-router路由配置
+        ├── index.js -- router基础配置
+        ├── permission.js -- 路由守卫
     ├── store -- vuex的状态管理
-    └── pages -- 前端页面
-        ├── Home -- 首页
-        ├── login -- 登录页
-        ├── chart -- 图表组件模块
-    └──axios  -- 配置文件，设置请求和响应拦截器
-    └──menu.js  后台管理页菜单项
-    └── premission 全局守卫配置 
+    ├── style -- 全局样式
+    └── views -- 前端页面
+        ├── home -- 首页
+        ├── browse -- 浏览
+        ├── download -- 下载
+        ├── helps --帮助
+        ├── Login.vue -- 登录
+        ├── Layout.vue -- 通用布局
+        ├── Error.vue -- 错误页
     ```
 
 - 项目技术选型：

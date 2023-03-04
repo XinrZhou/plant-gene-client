@@ -1,11 +1,11 @@
-import {reactive, ref} from "vue";
-import {logout, updatepassword} from "~/api/manage.js";
-import {showModal, toast} from "~/composables/util.js";
-import {useRouter} from "vue-router";
-import {useStore} from "vuex";
+import {reactive, ref} from "vue"
+import {logout, updatepassword} from "~/api/manage.js"
+import {showModal, toast} from "~/composables/util.js"
+import {useRouter} from "vue-router"
+import {useStore} from "vuex"
+
 export function useRePassword(){
     const store  = useStore()
-
     const router = useRouter()
     const formRef = ref(null)
     const form = reactive({

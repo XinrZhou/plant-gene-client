@@ -1,5 +1,4 @@
-import axios from "~/axios"
-
+import axios from "~/api/index"
 
 export function login(username,password){
     return axios.post("/admin/login",{

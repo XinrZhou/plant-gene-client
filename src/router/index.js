@@ -1,76 +1,45 @@
-import {
-    createRouter,
-    createWebHashHistory
-} from "vue-router";
-
-import Login from "~/pages/Login.vue";
-import NotFound from "~/pages/404.vue";
-import HomeLayout from "~/layouts/HomeLayout.vue";
-import Home from "~/pages/Home.vue";
-import Test from "~/pages/Test.vue";
-import Admin from "~/layouts/Admin.vue"
-
-import User from "~/pages/admin/user/list.vue";
-import AdminHome from "~/pages/AdminHome.vue";
-
-const routes = [{
-    path: '/login',
-    name: '登录页',
-    component: Login,
-    meta: {
-        title: "登录页"
-    }
-}, {
-    path: '/',
-    name: '首页Layout',
-    component: HomeLayout,
-    children: [{
-        path: '/',
-        component: Home,
-        meta: {
-            title: "Home"
-        }
-    }],
-
-},  {
-    path: '/:pathMatch(.*)*',
-    name: 'NotFound',
-    component: NotFound,
-    meta: {
-        title: "未开发"
-    },
-
-}, {
-    path: '/',
-    name: '后台Layout',
-    component: Admin,
-    children: [
-    {
-        path: '/admin',
-        component: AdminHome,
-        meta: {
-            title: "测试"
-        }
-    },{
-        path: '/admin/test',
-        component: Test,
-        meta: {
-            title: "测试"
-        }
-    }, {
-        path: '/admin/user',
-        component: User,
-        meta: {
-            title: "用户管理"
-        }
-    }]
-},
-]
+import { createRouter, createWebHashHistory } from "vue-router";
 
 const router = createRouter({
-    // 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
     history: createWebHashHistory(),
-    routes, // `routes: routes` 的缩写
+    routes: [
+        {
+            path: '/login',
+            name: 'login',
+            component: () => import('~/views/Login.vue')
+        },
+        {
+            path: '/',
+            component: () => import('~/views/Layout.vue'),
+            children: [
+                {
+                    name: 'home',
+                    path: 'home',
+                    component: () => import('~/views/home/Home.vue')
+                },
+                {
+                    name: 'browse',
+                    path: 'browse',
+                    component: () => import('~/views/browse/Browse.vue')
+                },
+                {
+                    name: 'helps',
+                    path: 'helps',
+                    component: () => import('~/views/helps/Helps.vue')
+                },
+                {
+                    name: 'download',
+                    path: 'download',
+                    component: () => import('~/views/download/Download.vue')
+                }
+            ],
+        },
+        {
+            path: '/:pathMatch(.*)*',
+            name: 'NotFound',
+            component: () => import('~/views/Error.vue')
+        }
+    ]
 })
 
 export default router
