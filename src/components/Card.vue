@@ -2,21 +2,23 @@
     <el-card class="box-card">
         <template #header>
           <div class="card-header">
-            <span>Card name</span>
+            <span>{{info.title}}</span>
           </div>
         </template>
         <el-row>
           <el-col :span="10">
-            <img src="/src/assets/gene.jpg"/>
+            <img :src="info.picture"/>
           </el-col>
           <el-col :span="10" :offset="2">
-                PQSROdb covers
+                {{info.content}}
           </el-col>
         </el-row>
       </el-card>
 </template>
 
 <script setup>
+  import { defineProps } from 'vue'
+  let props = defineProps(['info'])
 
 </script>
 

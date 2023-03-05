@@ -37,7 +37,9 @@
     ├── router -- vue-router路由配置
         ├── index.js -- router基础配置
         ├── permission.js -- 路由守卫
-    ├── store -- vuex的状态管理
+    ├── store -- pinia
+        ├── browse.js -- browse仓库
+        ├── userInfo.js -- 用户信息仓库
     ├── style -- 全局样式
     └── views -- 前端页面
         ├── home -- 首页
@@ -54,7 +56,7 @@
 - ```
   - VUE3 前端框架
   - Vue-router 路由框架
-  - Vuex  全局状态管理框架
+  - Pinia  全局状态管理框架
   - Element-Plus 前端UI框架
   - tailwind 前端CSS框架
   - Axios 前端HTTP 框架

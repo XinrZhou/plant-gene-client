@@ -6,9 +6,7 @@
 
 <script setup>
     import { defineProps } from 'vue'
-    defineProps({
-        name 
-    })
+    defineProps(['name'])
 </script>
 
 <style scoped>
