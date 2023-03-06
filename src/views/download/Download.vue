@@ -1,5 +1,5 @@
 <template>
-    <page-tip name="Download" />
+    <PageLeftTitle page-title="Download" />
     <el-row>
         <el-col :offset="1" :span="22">
             <div class="demo-collapse">
@@ -40,7 +40,7 @@
 </template>
 
 <script setup>
-    import PageTip from '~/components/PageTip.vue'
+    import PageLeftTitle from '~/components/PageLeftTitle.vue'
     import { ref } from 'vue'
 
     const activeName = ref('1')
@@ -65,6 +65,7 @@
     let handleDownload = () => {
 
     }
+    
 </script>
 
 <style scoped>

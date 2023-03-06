@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col :span="24">
-      <div class="welecome"><span>Welecome to PASRGdb!</span></div>
+      <PageCenterTitle page-title="Welcome to PASRGdb!"/>
     </el-col>
   </el-row>
   <el-row class="flex justify-center">
@@ -41,7 +41,7 @@
   </el-row>
   <el-row :gutter="20" class="flex justify-center" v-for="item in 2">
     <el-col :lg="8" :md="12" :sm="16" v-for="item in 3">
-      <Chart />
+      <DataChart />
     </el-col>
   </el-row>
 </template>
@@ -50,7 +50,8 @@
   import * as echarts from 'echarts'
   import { ref, onMounted } from 'vue'
   import { useResizeObserver } from "@vueuse/core"
-  import Chart from '/src/components/Chart.vue'
+  import DataChart from '~/components/DataChart.vue'
+  import PageCenterTitle from '~/components/PageCenterTitle.vue'
 
   const activeIndex2 = ref('1')
   const handleSelect = (key, keyPath) => {
@@ -66,10 +67,6 @@
 
   .demonstration {
     color: var(--el-text-color-secondary);
-  }
-
-  .welecome {
-    @apply flex justify-center items-center font-bold pt-5 pb-5 text-3xl
   }
 
   .bodyleft {

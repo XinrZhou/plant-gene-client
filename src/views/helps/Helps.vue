@@ -1,10 +1,10 @@
 <template>
-    <page-tip name="Helps" />
+    <PageLeftTitle page-title="Helps" />
     <v-md-editor v-model="text" autofocus="true" height="80vh" @save="save"></v-md-editor>
 </template>
 
 <script setup>
-    import PageTip from '~/components/PageTip.vue'
+    import PageLeftTitle from '~/components/PageLeftTitle.vue'
     import { ref } from 'vue'
 
     let text = ref('Please leave your thoughts here...')

@@ -2,7 +2,7 @@ import { defineStore } from "pinia"
 import { reqGetInfo, reqLogin } from "~/api/index.js"
 import { removeToken, setToken } from "~/composables/auth.js"
 
-export const userInfoStore = defineStore('userInfo', {
+export const useUserInfoStore = defineStore('userInfo', {
     state: () => {
         return {
             user: {}
@@ -10,14 +10,14 @@ export const userInfoStore = defineStore('userInfo', {
     },
     actions: {
         // 登录
-        async login(data) {
+        login(data) {
             reqLogin(data).then(res => {
                 setToken(res.data.token)
             }).catch(err => reject(err))
         },
 
         // 获取当前用户信息
-        async getInfo() {
+        getInfo() {
             reqGetInfo().then(res => {
                 this.user = res.data
             }).catch(err => reject(err))

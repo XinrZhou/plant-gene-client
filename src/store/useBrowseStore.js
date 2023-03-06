@@ -1,16 +1,16 @@
 import { defineStore } from "pinia"
 import { reqGetBrowseList } from "~/api/index.js"
 
-export const browseStore = defineStore('browseInfo', {
+export const useBrowseStore = defineStore('browse', {
     state: () => {
         return {
-            browseList: []
+            browseDataList: []
         }
     },
     actions: {
-        getBrowseList() {
+        async getBrowseListData() {
             reqGetBrowseList().then(res => {
-                this.browseList = res.data
+                this.browseDataList = res.data
             }).catch(err=>reject(err))
         }
     }

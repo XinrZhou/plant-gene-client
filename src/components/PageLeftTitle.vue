@@ -1,12 +1,14 @@
 <template>
     <el-row>
-      <el-col :span="12" class="page-info m-9">{{name}}</el-col>
+      <el-col :span="12" class="page-info m-9">{{pageTitle}}</el-col>
     </el-row>
 </template>
 
 <script setup>
     import { defineProps } from 'vue'
-    defineProps(['name'])
+    defineProps({
+        pageTitle: String
+    })
 </script>
 
 <style scoped>
