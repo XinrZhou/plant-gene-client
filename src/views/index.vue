@@ -1,33 +1,18 @@
 <template>
   <el-row>
     <el-col :span="24">
-      <PageCenterTitle page-title="Welcome to PASRGdb!"/>
+      <PageCenterTitle :page-title="homeContentData.bodyTitle"/>
     </el-col>
   </el-row>
   <el-row class="flex justify-center">
     <el-col :lg="12" :md="20" :sm="20">
-      <span class="bodyleft"> PASRGdb (Plant abiotic stress resistance genes database)
-        is an open space for updating plant abiotic stress resistance
-        genes, including drought resistance, salt resistance, and UV
-        resistance. The database enables search function by stress
-        type, plant species, affected phenotype, gene sequence,
-        pathway, etc. It also provides blast plug-in to search
-        homologous nucleic acid or amino acid sequences in local
-        database. More resistance genes are predicted based on
-        machine learning to extract resistance gene features, and
-        the database stores, manages and discusses all available
-        information of these genes. The aim of our work is to create
-        a database for the study of abiotic stress resistance genes in
-        plants and to continuously update aspects of these research
-        areas and encourage scientists to become participants in the
-        exchange of data.
-      </span>
+      <span class="bodyleft">{{homeContentData.bodyContent}}</span>
     </el-col>
     <el-col :lg="12" :md="20" :sm="20" class="bodyright">
       <div>
-        <el-carousel :interval="5000" arrow="always" style="width: 100%;  height: 400px;">
-          <el-carousel-item v-for="item in 4" :key="item" style="height:400px; ">
-            <h3 text="2xl">{{ item }}</h3>
+        <el-carousel :interval="5000" arrow="always" style="width: 100%;  height: 400px;" autoplay>
+          <el-carousel-item v-for="item in homeContentData.bodyPicture" :key="item.picture" style="height:350px;">
+            <img :src="item.picture">
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -48,21 +33,26 @@
 
 <script setup>
   import * as echarts from 'echarts'
+  import { storeToRefs } from 'pinia'
   import { ref, onMounted } from 'vue'
   import { useResizeObserver } from "@vueuse/core"
   import DataChart from '~/components/DataChart.vue'
   import PageCenterTitle from '~/components/PageCenterTitle.vue'
+  import { useIndexStore } from '~/store/useIndexStore.js'
 
   const activeIndex2 = ref('1')
-  const handleSelect = (key, keyPath) => {
-    console.log(key, "+++++", keyPath)
-  }
+
+  const store = useIndexStore()
+
+  store.getHomeContentData()
+
+  const { homeContentData } = storeToRefs(store)
 
 </script>
 
 <style scoped>
   .el-header {
-    padding: 0 0px;
+    padding: 0 0;
   }
 
   .demonstration {

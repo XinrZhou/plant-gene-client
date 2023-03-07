@@ -4,7 +4,7 @@
         <el-col :offset="1" :span="22">
             <div class="demo-collapse">
                 <el-collapse v-model="activeName" accordion>
-                    <el-collapse-item v-for="(item,index) in name" :name="index+1">
+                    <el-collapse-item v-for="(item,index) in name" :name="(index+1).toString()">
                         <template #title>
                             <p class="collapse-name">Download by Gene Family</p>
                         </template>
