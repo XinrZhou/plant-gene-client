@@ -12,7 +12,19 @@ export default [{
         {
             name: 'stresstype',
             path: 'stresstype',
-            component: () => import('~/views/browse/browse-detail/StressType.vue')
+            component: () => import('~/views/browse/browse-detail/StressType.vue'),
+            children: [
+                {
+                    name: 'stresstypelist',
+                    path:'',
+                    component: () => import('~/views/browse/components/StreeTypeList.vue')
+                },
+                {
+                    name: 'streetypelistdetail',
+                    path: 'list',
+                    component: () => import('~/views/browse/components/StressTypeListItem.vue')
+                }
+            ]
         },
         {
             name: 'expressionorgans',

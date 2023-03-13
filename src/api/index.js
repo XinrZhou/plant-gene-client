@@ -32,7 +32,15 @@ export function reqGetBrowseList() {
     return axios.post("/browse-item/listDataType")
 }
 
-// 获取Brose页面stress type详情页列表
+// 获取Browse页面stress type详情页列表
 export function reqGetStressTypeList() {
     return axios.post("/browse-item/listStressType")
+}
+
+// 获取Browse页面stress type详情页各项基因list
+export function reqGetStressTypeItemList(data) {
+    return axios.post({
+        url: '/search/listGeneByStressName',
+        data
+    })
 }
