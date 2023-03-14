@@ -15,21 +15,21 @@ export const useBrowseStore = defineStore('browse', {
         async getBrowseListData() {
             reqGetBrowseList().then(res => {
                 this.browseDataList = res.data
-            }).catch(err => Promise.reject(new Error(err.message)))
+            }).catch(err => new Promise(new Error(err)))
         },
 
         // browse -- street type详情数据
         async getStressTypeListData() {
             reqGetStressTypeList().then(res => {
                 this.stressTypeDataList = res.data
-            }).catch(err => Promise.reject(new Error(err.message)))
+            }).catch(err => new Promise(new Error(err)))
         },
 
         // browse -- stress type详情页各项基因list
         async getStressTypeListItemData(data) {
-            console.log(data)
             reqGetStressTypeItemList(data).then(res => {
-            }).catch(err => Promise.reject(new Error(err.message)))
+                this.stressTypeItemDataList = res.data.records
+            }).catch(err => new Promise(new Error(err)))
         }
     }
 })

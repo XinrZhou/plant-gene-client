@@ -11,7 +11,7 @@ export const useIndexStore = defineStore('index', {
         async getHomeContentData() {
             reqGetHomeContent().then(res=>{
                 this.homeContentData = res.data
-            }).catch(err => reject(err))
+            }).catch(err => new Promise(new Error(err)))
         }
     }
 })

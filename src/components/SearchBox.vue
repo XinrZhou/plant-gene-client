@@ -1,7 +1,10 @@
 <template>
     <el-row>
-        <el-input v-model="input" class="w-50  mb-4 " size="large" placeholder="Search" :prefix-icon="Search"
-            @change="change" />
+        <el-input v-model="input" class="w-50  mb-4 " size="large" placeholder="Search" @change="change">
+            <template #append>
+                <el-button :icon="Search" />
+            </template>
+        </el-input>
     </el-row>
 </template>
 

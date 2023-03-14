@@ -39,8 +39,5 @@ export function reqGetStressTypeList() {
 
 // 获取Browse页面stress type详情页各项基因list
 export function reqGetStressTypeItemList(data) {
-    return axios.post({
-        url: '/search/listGeneByStressName',
-        data
-    })
+    return axios.post('/search/listGeneByStressName',data)
 }
