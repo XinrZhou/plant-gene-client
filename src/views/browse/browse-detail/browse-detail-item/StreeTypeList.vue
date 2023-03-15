@@ -12,7 +12,7 @@
 <script setup>
     import PageCenterTitle from '~/components/PageCenterTitle.vue'
     import { storeToRefs } from 'pinia'
-    import BrowseCard from '../components/BrowseCard.vue'
+    import BrowseCard from '../../components/BrowseCard.vue'
     import { useBrowseStore } from '~/store/useBrowseStore.js'
     import { onMounted } from 'vue'
     import router from "~/router"

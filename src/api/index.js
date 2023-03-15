@@ -43,6 +43,16 @@ export function reqGetStressTypeItemList(data) {
 }
 
 // 获取Browse页面基因详情数据
-export function reqGetGeneOverview(data) {
-    return axios.post('/search/getGeneDetails',data)
+export function reqGetGeneOverview(geneName) {
+    return axios.get(`/search/getGeneDetails?gene=${geneName}`)
+}
+
+// 获取download模块文件列表
+export function reqGetFileList() {
+    return axios.post('/file-model/list')
+}
+
+// 获取Search模块属性列表
+export function reqGetAttributeList() {
+    return axios.post('/searchBrowse/listAttributeCount')
 }

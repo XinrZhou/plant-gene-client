@@ -17,17 +17,17 @@ export default [{
                 {
                     name: 'stresstypelist',
                     path:'',
-                    component: () => import('~/views/browse/components/StreeTypeList.vue')
+                    component: () => import('~/views/browse/browse-detail/browse-detail-item/StreeTypeList.vue')
                 },
                 {
                     name: 'streetypelistdetail',
                     path: 'list',
-                    component: () => import('~/views/browse/components/StressTypeListItem.vue')
+                    component: () => import('~/views/browse/browse-detail/browse-detail-item/StressTypeListItem.vue')
                 },
                 {
                     name: 'geneoverview',
                     path: 'geneoverview',
-                    component: () => import('~/views/browse/components/GeneOverview.vue')
+                    component: () => import('~/views/browse/browse-detail/browse-detail-item/GeneOverview.vue')
                 }
             ]
         },

@@ -42,8 +42,14 @@
 <script setup>
     import PageLeftTitle from '~/components/PageLeftTitle.vue'
     import { ref } from 'vue'
+    import { storeToRefs } from 'pinia'
+    import { useDownloadStore } from '~/store/useDownloadStore.js'
 
     const activeName = ref('1')
+
+    const store = useDownloadStore()
+
+    store.getFileListData()
 
     //Gene- 测试数据，真实数据需要后端生成
     let name = [1, 2, 3, 4, 5]

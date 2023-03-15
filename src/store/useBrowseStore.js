@@ -7,7 +7,8 @@ export const useBrowseStore = defineStore('browse', {
         return {
             browseDataList: [],
             stressTypeDataList: [],
-            stressTypeItemDataList: []
+            stressTypeItemDataList: [],
+            geneOverviewDataList: {}
         }
     },
     actions: {
@@ -33,9 +34,9 @@ export const useBrowseStore = defineStore('browse', {
         },
 
         // browse -- 根据基因名获取基因概述
-        async getGeneOverviewData(data) {
-            reqGetGeneOverview(data).then(res => {
-                console.log(res)
+        async getGeneOverviewData(geneName) {
+            reqGetGeneOverview(geneName).then(res => {
+                this.geneOverviewDataList = res.data
             }).catch(err => new Promise(new Error(err)))
         }
     }
