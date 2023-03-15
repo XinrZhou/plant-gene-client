@@ -41,3 +41,8 @@ export function reqGetStressTypeList() {
 export function reqGetStressTypeItemList(data) {
     return axios.post('/search/listGeneByStressName',data)
 }
+
+// 获取Browse页面基因详情数据
+export function reqGetGeneOverview(data) {
+    return axios.post('/search/getGeneDetails',data)
+}

@@ -1,6 +1,6 @@
 import { async } from "@kangc/v-md-editor"
 import { defineStore } from "pinia"
-import { reqGetBrowseList, reqGetStressTypeList, reqGetStressTypeItemList } from "~/api/index.js"
+import { reqGetBrowseList, reqGetStressTypeList, reqGetStressTypeItemList, reqGetGeneOverview } from "~/api/index.js"
 
 export const useBrowseStore = defineStore('browse', {
     state: () => {
@@ -29,6 +29,13 @@ export const useBrowseStore = defineStore('browse', {
         async getStressTypeListItemData(data) {
             reqGetStressTypeItemList(data).then(res => {
                 this.stressTypeItemDataList = res.data.records
+            }).catch(err => new Promise(new Error(err)))
+        },
+
+        // browse -- 根据基因名获取基因概述
+        async getGeneOverviewData(data) {
+            reqGetGeneOverview(data).then(res => {
+                console.log(res)
             }).catch(err => new Promise(new Error(err)))
         }
     }

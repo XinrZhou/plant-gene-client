@@ -1,15 +1,12 @@
 <template>
-    <Title page-title="List of Drought resistance genes" />
+    <Title :page-title="pageTitle" />
     <el-row>
-        <el-input v-model="searchContent" class="w-50  mb-4 " size="large" placeholder="Search" @change="change">
-            <template #append>
-                <el-button :icon="Search" @click="change" />
-            </template>
-        </el-input>
+        <el-input v-model="searchContent" class="w-50  mb-4 " size="large" placeholder="Search" @input="change"
+        :suffix-icon="Search" />
     </el-row>
     <!-- <SearchBox /> -->
     <el-row>
-        <el-table :data="tableData" style="width: 100%" height="80vh">
+        <el-table :data="tableData" style="width: 100%" height="80vh" stripe @row-click="handleClick">
             <el-table-column fixed prop="gene" label="Gene" fit />
             <el-table-column prop="name" label="Scientific Name" type="name" fit />
             <el-table-column prop="product" label="Gene Product" type="product" fit />
@@ -33,6 +30,7 @@
     import SearchBox from '~/components/SearchBox.vue'
     import { ref, reactive, defineAsyncComponent } from 'vue'
     import { useBrowseStore } from '~/store/useBrowseStore.js'
+    import router from "~/router"
     import { useRoute } from 'vue-router'
     import { Search } from '@element-plus/icons-vue'
 
@@ -45,6 +43,7 @@
     const background = ref(true)
     const { stressTypeItemDataList } = storeToRefs(store)
     const tagType = reactive(['success','info','warning','danger'])
+    const pageTitle = "List of "+route.query.stressName+" genes"
 
 
     let getStressTypeItemData = () => store.getStressTypeListItemData({
@@ -63,10 +62,20 @@
         getStressTypeItemData()
     }
 
-    // 搜索框失去焦点触发
+    // input值改变时触发
     let change = () => {
         getStressTypeItemData()
     }
+
+    let handleClick = (row) => {
+        router.push({
+            name: 'geneoverview',
+            query: {
+                geneName: row.gene
+            }
+        })
+    }
+
 
 </script>
 

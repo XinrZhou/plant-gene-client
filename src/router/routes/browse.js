@@ -23,6 +23,11 @@ export default [{
                     name: 'streetypelistdetail',
                     path: 'list',
                     component: () => import('~/views/browse/components/StressTypeListItem.vue')
+                },
+                {
+                    name: 'geneoverview',
+                    path: 'geneoverview',
+                    component: () => import('~/views/browse/components/GeneOverview.vue')
                 }
             ]
         },
