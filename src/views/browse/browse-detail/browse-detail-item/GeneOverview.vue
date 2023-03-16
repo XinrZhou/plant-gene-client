@@ -10,30 +10,30 @@
         <h1 class="text-4xl">{{geneName}}</h1>
         <p>GenBank:</p>
         <p>GenBank Locus:</p>
-        <p>pmid:{{pmid}}</p>
+        <p>pmid:{{geneInfo.pmid}}</p>
         <div class="description-list">
             <el-descriptions border :column="4">
                 <el-descriptions-item label="Gene name" label-align="right" align="center" label-class-name="my-label"
                     class-name="my-content" width="150px">
-                    {{geneOverviewDataList.gene}}
+                    {{geneInfo.gene}}
                 </el-descriptions-item>
                 <el-descriptions-item label="TF" label-align="right" align="center">
-                    {{geneOverviewDataList.transcriptionFactor}}
+                    {{geneInfo.transcriptionFactor}}
                 </el-descriptions-item>
                 <el-descriptions-item label="Gene product" label-align="right" align="center" :span="2">
-                    {{geneOverviewDataList.geneProduct}}
+                    {{geneInfo.geneProduct}}
                 </el-descriptions-item>
                 <el-descriptions-item label="Phenotype Influenced" label-align="right" align="center" :span="2">
-                    {{geneOverviewDataList.phenotypeInfluenced}}
+                    {{geneInfo.phenotypeInfluenced}}
                 </el-descriptions-item>
                 <el-descriptions-item label="Subcellular Localization" label-align="right" align="center">
-                    {{geneOverviewDataList.subCellularLocalization}}
+                    {{geneInfo.subCellularLocalization}}
                 </el-descriptions-item>
                 <el-descriptions-item label="Expression Organs/ Location" label-align="right" align="center" :span="2">
-                    {{geneOverviewDataList.expressionOrgans}}
+                    {{geneInfo.expressionOrgans}}
                 </el-descriptions-item>
                 <el-descriptions-item label="Description" label-align="right" align="center">
-                    {{geneOverviewDataList.description}}
+                    {{geneInfo.description}}
                 </el-descriptions-item>
             </el-descriptions>
         </div>
@@ -55,12 +55,14 @@
     import { Histogram } from '@element-plus/icons-vue'
     import { useBrowseStore } from '~/store/useBrowseStore.js'
     import { storeToRefs } from 'pinia'
+    import { computed } from 'vue'
 
     const route = useRoute()
     const store = useBrowseStore()
+    const geneInfo = computed(() => store.geneOverviewDataList)
 
     const geneName = route.query.geneName
-    const { geneOverviewDataList } = storeToRefs(store)
+    // const { geneOverviewDataList } = storeToRefs(store)
     store.getGeneOverviewData(geneName)
 
     // 调用API

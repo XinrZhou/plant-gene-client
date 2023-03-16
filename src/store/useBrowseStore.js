@@ -13,28 +13,28 @@ export const useBrowseStore = defineStore('browse', {
     },
     actions: {
         // browse首页数据
-        async getBrowseListData() {
+        getBrowseListData() {
             reqGetBrowseList().then(res => {
                 this.browseDataList = res.data
             }).catch(err => new Promise(new Error(err)))
         },
 
         // browse -- street type详情数据
-        async getStressTypeListData() {
+        getStressTypeListData() {
             reqGetStressTypeList().then(res => {
                 this.stressTypeDataList = res.data
             }).catch(err => new Promise(new Error(err)))
         },
 
         // browse -- stress type详情页各项基因list
-        async getStressTypeListItemData(data) {
+        getStressTypeListItemData(data) {
             reqGetStressTypeItemList(data).then(res => {
                 this.stressTypeItemDataList = res.data.records
             }).catch(err => new Promise(new Error(err)))
         },
 
         // browse -- 根据基因名获取基因概述
-        async getGeneOverviewData(geneName) {
+        getGeneOverviewData(geneName) {
             reqGetGeneOverview(geneName).then(res => {
                 this.geneOverviewDataList = res.data
             }).catch(err => new Promise(new Error(err)))

@@ -4,7 +4,6 @@
         <el-input v-model="searchContent" class="w-50  mb-4 " size="large" placeholder="Search" @input="change"
         :suffix-icon="Search" />
     </el-row>
-    <!-- <SearchBox /> -->
     <el-row>
         <el-table :data="tableData" style="width: 100%" height="80vh" stripe @row-click="handleClick">
             <el-table-column fixed prop="gene" label="Gene" fit />
@@ -27,7 +26,6 @@
 <script setup>
     import { storeToRefs } from 'pinia'
     import Title from '~/components/PageCenterTitle.vue'
-    import SearchBox from '~/components/SearchBox.vue'
     import { ref, reactive, defineAsyncComponent } from 'vue'
     import { useBrowseStore } from '~/store/useBrowseStore.js'
     import router from "~/router"

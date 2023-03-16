@@ -56,3 +56,13 @@ export function reqGetFileList() {
 export function reqGetAttributeList() {
     return axios.post('/searchBrowse/listAttributeCount')
 }
+
+// 获取Search模块选择属性后的列表
+export function reqGetListByAttribute(attrName) {
+    return axios.get(`/searchBrowse/listByAttribute?name=${attrName}`)
+}
+
+// 获取Search模块根据属性和名称查询的列表
+export function reqGetListByAttrAndName(data) {
+    return axios.post('/searchBrowse/listByAttributeAndName',data)
+}

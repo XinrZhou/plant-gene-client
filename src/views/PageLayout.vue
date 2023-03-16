@@ -1,5 +1,5 @@
 <template>
-  <div class="common-layout">
+  <div>
     <el-container>
       <el-header>
         <el-row>
@@ -32,6 +32,7 @@
     </el-container>
   </div>
 </template>
+
 <script setup>
   import router from "~/router"
   import { ref, onMounted } from 'vue'
@@ -80,6 +81,7 @@
 
   .el-main {
     @apply bg-gray-100 px-20;
+    height: 90vh
   }
 
   .f-footer {

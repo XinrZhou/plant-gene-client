@@ -8,7 +8,7 @@ export const useDownloadStore = defineStore('download', {
         }
     },
     actions: {
-        async getFileListData() {
+        getFileListData() {
             reqGetFileList().then(res => {
                 console.log(res)
             }).catch(err => new Promise(new Error(err)))
