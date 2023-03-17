@@ -22,6 +22,7 @@
 
     store.getStressTypeListData()
 
+    // 路由跳转
     const goListItem = (title) => {
         router.push({
             name: 'streetypelistdetail',

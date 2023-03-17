@@ -6,11 +6,15 @@
             </el-icon>Sample overview
         </el-col>
     </el-row>
+
     <el-card>
-        <h1 class="text-4xl">{{geneName}}</h1>
-        <p>GenBank:</p>
-        <p>GenBank Locus:</p>
-        <p>pmid:{{geneInfo.pmid}}</p>
+        <div class="card-nav">
+            <h1>{{geneName}}</h1>
+            <p>GenBank:</p>
+            <p>GenBank Locus:</p>
+            <p>pmid:{{geneInfo.pmid}}</p>
+        </div>
+        <!-- 基因卡片表格 -->
         <div class="description-list">
             <el-descriptions border :column="4">
                 <el-descriptions-item label="Gene name" label-align="right" align="center" label-class-name="my-label"
@@ -37,13 +41,14 @@
                 </el-descriptions-item>
             </el-descriptions>
         </div>
-        <div>
+
+        <div class="bottom-collapse">
             <el-collapse @change="handleChange" accordion>
                 <el-collapse-item title="Click here to view the DNA sequence" name="1">
                 </el-collapse-item>
                 <el-collapse-item title="Click here to view the Protein sequence" name="2">
                 </el-collapse-item>
-              </el-collapse>
+            </el-collapse>
         </div>
     </el-card>
 
@@ -62,10 +67,9 @@
     const geneInfo = computed(() => store.geneOverviewDataList)
 
     const geneName = route.query.geneName
-    // const { geneOverviewDataList } = storeToRefs(store)
     store.getGeneOverviewData(geneName)
 
-    // 调用API
+    // API调用
     let handleChange = (event) => {
         console.log(event)
     }
@@ -76,16 +80,19 @@
     .page-info {
         @apply flex items-center font-bold pt-5 pb-3 text-4xl my-5 mx-3
     }
-    h1 {
-        @apply flex items-center font-semibold py-5 pb-3 text-2xl mx-11
-    }
-    p {
+   
+    .card-nav p{
         @apply flex items-center font-normal py-2 pb-3 text-base mx-11 tracking-wide
     }
-    div {
-        @apply mx-4 my-6
+    .card-nav  h1 {
+        @apply flex items-center font-semibold py-5  text-2xl mx-11
     }
+
     .description-list {
-        @apply flex-auto justify-self-center 
+        @apply flex-auto justify-self-center mx-4 my-6
+    }
+
+    .bottom-collapse {
+        @apply mx-4 my-6
     }
 </style>

@@ -10,20 +10,18 @@
 </template>
 
 <script setup>
-    import { storeToRefs } from 'pinia'
     import PageLeftTitle from '~/components/PageLeftTitle.vue'
     import BrowseCard from './components/BrowseCard.vue'
     import { useBrowseStore } from '~/store/useBrowseStore.js'
-    import { onMounted } from 'vue'
+    import { computed } from 'vue'
     import router from "~/router"
 
     const store = useBrowseStore()
-
     store.getBrowseListData()
 
-    const { browseDataList } = storeToRefs(store)
+    const browseDataList = computed(() => store.browseDataList)
 
-    // 点击卡片，跳转至详情页
+    // 路由跳转
     let skip = (item) => {
         switch (item.id) {
             case 5:

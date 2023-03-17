@@ -4,7 +4,7 @@ import { reqGetFileList } from "~/api/index.js"
 export const useDownloadStore = defineStore('download', {
     state: () => {
         return {
-            fileListData: []
+            fileListData: [] // 文件列表
         }
     },
     actions: {

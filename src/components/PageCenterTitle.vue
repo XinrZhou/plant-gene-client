@@ -1,3 +1,4 @@
+<!-- 中间标题组件 -->
 <template>
     <div class="title"><span>{{pageTitle}}</span></div>
 </template>

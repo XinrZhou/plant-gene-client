@@ -1,3 +1,4 @@
+<!-- 侧标题组件 -->
 <template>
     <el-row>
       <el-col :span="12" class="page-info m-9">{{pageTitle}}</el-col>
@@ -6,6 +7,7 @@
 
 <script setup>
     import { defineProps } from 'vue'
+    
     defineProps({
         pageTitle: String
     })

@@ -2,17 +2,17 @@ import { async } from "@kangc/v-md-editor"
 import { defineStore } from "pinia"
 import { reqGetBrowseList, reqGetStressTypeList, reqGetStressTypeItemList, reqGetGeneOverview } from "~/api/index.js"
 
-export const useBrowseStore = defineStore('browse', {
+export const useBrowseStore = defineStore('browseStore', {
     state: () => {
         return {
-            browseDataList: [],
-            stressTypeDataList: [],
-            stressTypeItemDataList: [],
-            geneOverviewDataList: {}
+            browseDataList: [], // 首页列表
+            stressTypeDataList: [], // stress type详情页list
+            stressTypeItemDataList: [], // stress type详情页各项基因list
+            geneOverviewDataList: {} // 基因概述列表
         }
     },
     actions: {
-        // browse首页数据
+        // browse -- 首页数据
         getBrowseListData() {
             reqGetBrowseList().then(res => {
                 this.browseDataList = res.data

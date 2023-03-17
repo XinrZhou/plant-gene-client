@@ -1,3 +1,4 @@
+<!-- 卡片组件 -->
 <template>
   <el-card class="box-card h-60">
     <template #header>
@@ -7,7 +8,7 @@
     </template>
     <el-row>
       <el-col :span="9">
-        <img :src="cardInfo.picture" class="auto bg-cover"/>
+        <img :src="cardInfo.picture" class="auto bg-cover" />
       </el-col>
       <el-col :span="13" :offset="2">
         {{cardInfo.content}}
@@ -18,6 +19,7 @@
 
 <script setup>
   import { defineProps } from 'vue'
+  
   defineProps({
     cardInfo: Object
   })

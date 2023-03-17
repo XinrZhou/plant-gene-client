@@ -27,42 +27,42 @@ export function reqGetHomeContent() {
     return axios.post("/home-content/homeContent")
 }
 
-// 获取Browse主页列表
+// Browse 主页list
 export function reqGetBrowseList() {
     return axios.post("/browse-item/listDataType")
 }
 
-// 获取Browse页面stress type详情页列表
+// Browse stress type详情页list
 export function reqGetStressTypeList() {
     return axios.post("/browse-item/listStressType")
 }
 
-// 获取Browse页面stress type详情页各项基因list
+// Browse stress type详情页各项基因list
 export function reqGetStressTypeItemList(data) {
     return axios.post('/search/listGeneByStressName',data)
 }
 
-// 获取Browse页面基因详情数据
+// Browse 根据基因名获取基因概述
 export function reqGetGeneOverview(geneName) {
     return axios.get(`/search/getGeneDetails?gene=${geneName}`)
 }
 
-// 获取download模块文件列表
-export function reqGetFileList() {
-    return axios.post('/file-model/list')
-}
+// // 获取download模块文件列表
+// export function reqGetFileList() {
+//     return axios.post('/file-model/list')
+// }
 
-// 获取Search模块属性列表
+// Search 属性list
 export function reqGetAttributeList() {
     return axios.post('/searchBrowse/listAttributeCount')
 }
 
-// 获取Search模块选择属性后的列表
+// Search 属性详情list
 export function reqGetListByAttribute(attrName) {
     return axios.get(`/searchBrowse/listByAttribute?name=${attrName}`)
 }
 
-// 获取Search模块根据属性和名称查询的列表
+//Search 根据属性和属性详情获取的基因list
 export function reqGetListByAttrAndName(data) {
     return axios.post('/searchBrowse/listByAttributeAndName',data)
 }
