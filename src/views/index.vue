@@ -33,8 +33,7 @@
 
 <script setup>
   import * as echarts from 'echarts'
-  import { storeToRefs } from 'pinia'
-  import { ref, onMounted } from 'vue'
+  import { ref, computed } from 'vue'
   import { useResizeObserver } from "@vueuse/core"
   import DataChart from '~/components/DataChart.vue'
   import PageCenterTitle from '~/components/PageCenterTitle.vue'
@@ -46,7 +45,7 @@
 
   store.getHomeContentData()
 
-  const { homeContentData } = storeToRefs(store)
+  const homeContentData  = computed(() => store.homeContentData)
 
 </script>
 

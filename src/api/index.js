@@ -47,10 +47,20 @@ export function reqGetGeneOverview(geneName) {
     return axios.get(`/search/getGeneDetails?gene=${geneName}`)
 }
 
-// // 获取download模块文件列表
-// export function reqGetFileList() {
-//     return axios.post('/file-model/list')
-// }
+// 获取download模块文件列表
+export function reqGetFileList() {
+    return axios.post('/file-model/list')
+}
+
+// search 模糊查询
+export function reqGetFuzzySearchList(searchContent) {
+    return axios.post(`/searchBrowse/searchTips?searchContent=${searchContent}`)
+}
+
+// search 根据模糊查询结果获取数据
+export function reqGetListBySearchRes(data) {
+    return axios.post('/searchBrowse/search',data)
+}
 
 // Search 属性list
 export function reqGetAttributeList() {

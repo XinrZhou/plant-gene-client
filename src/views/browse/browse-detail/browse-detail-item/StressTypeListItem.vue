@@ -28,7 +28,7 @@
         <!-- pagination -->
         <div style="margin-top: 16px;width: 100%;">
             <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize"
-                layout="prev, pager, next, jumper" :total="1000" @current-change="handleCurrentChange" />
+                layout="prev, pager, next, jumper" :total="pageTotal" @current-change="handleCurrentChange" />
         </div>
     </el-row>
 </template>
@@ -53,6 +53,7 @@
     const stressTypeGeneList = computed(() => store.stressTypeItemDataList)
 
     // pagination 数据
+    const pageTotal = computed(() => store.itemPageTotal)
     const currentPage = ref(1) 
     const pageSize = ref(15)
 
@@ -76,6 +77,7 @@
     // currentPage改变时触发，重新获取table数据
     const handleCurrentChange = () => {
         getStressTypeItemData()
+        
     }
 
     // 路由跳转-->基因概述

@@ -1,59 +1,64 @@
 <template class="page-main">
     <div class="page-main">
-    <PageCenterTitle page-title="Search" />
-    <!-- page searchbox -->
-    <el-row>
-        <el-input v-model="searchContent" class="w-50  mb-4 " size="large" placeholder="Search" @input="change"
-            :suffix-icon="Search" />
-    </el-row>
+        <PageCenterTitle page-title="Search" />
+        <!-- page searchbox -->
+        <el-row>
+            <el-select v-model="value" filterable remote clearable reserve-keyword placeholder="Please enter a keyword" :remote-method="remoteMethod" :loading="loading" class="w-full"
+                @change="handleRemoteSearch">
+                <el-option v-for="(item,index) in options" :value="item.content" :key="index">
+                    <span style="float: left">{{ item.content }}</span>
+                    <span style="float: right; color: var(--el-text-color-secondary);font-size: 13px;">{{ item.attribute
+                        }}</span>
+                </el-option>
+            </el-select>
+        </el-row>
 
-    <el-row>
-        <!-- left menu -->
-        <el-col :span="8">
-            <h5 class="menu-title">Filter Bar</h5>
-            <el-menu @open="handleOpen" @close="handleClose" unique-opened>
-                <el-sub-menu :index="''+(index+1)" v-for="(item,index) in attributeList" :key="index">
-                    <template #title>
-                        <span class="menu-item-title">
-                            {{item.name}}
-                            <el-tag class="ml-2" type="success">
-                                {{item.value}}
-                            </el-tag>
-                        </span>
-                    </template>
-                    <!-- menu searchbox -->
-                    <el-input v-model="menuSearchContent" class="left-menu-input" placeholder="Search"
-                        @input="handleChange" :prefix-icon="Search" />
-                    <!-- scroll -->
-                    <ul class="infinite-list" infinite-scroll-immediate="false" v-loading="isLoading">
-                        <li class="infinite-list-item" 
-                            v-for="(item2,index2) in attrDetailFilterList" :key="index2"
-                            @click="handleClick(item.name,item2)">
-                            {{item2.name}}
-                            <el-tag class="ml-2">
-                                {{item2.value}}
-                            </el-tag>
-                        </li>
-                    </ul>
-                </el-sub-menu>
-            </el-menu>
-        </el-col>
+        <el-row>
+            <!-- left menu -->
+            <el-col :span="8">
+                <h5 class="menu-title">Filter Bar</h5>
+                <el-menu @open="handleOpen" @close="handleClose" unique-opened>
+                    <el-sub-menu :index="''+(index+1)" v-for="(item,index) in attributeList" :key="index">
+                        <template #title>
+                            <span class="menu-item-title">
+                                {{item.name}}
+                                <el-tag class="ml-2" type="success">
+                                    {{item.value}}
+                                </el-tag>
+                            </span>
+                        </template>
+                        <!-- menu searchbox -->
+                        <el-input v-model="menuSearchContent" class="left-menu-input" placeholder="Search"
+                            @input="handleChange" :prefix-icon="Search" />
+                        <!-- scroll -->
+                        <ul class="infinite-list" infinite-scroll-immediate="false" v-loading="isLoading">
+                            <li class="infinite-list-item" v-for="(item2,index2) in attrDetailFilterList" :key="index2"
+                                @click="handleClick(item.name,item2)">
+                                {{item2.name}}
+                                <el-tag class="ml-2">
+                                    {{item2.value}}
+                                </el-tag>
+                            </li>
+                        </ul>
+                    </el-sub-menu>
+                </el-menu>
+            </el-col>
 
-        <!-- right table -->
-        <el-col :span="15" :offset="1">
-            <el-table :data="geneDataList" stripe style="width: 100%" class="right-table">
-                <el-table-column prop="gene" label="gene" width="180" />
-                <el-table-column prop="scientificName" label="scientificName" width="180" />
-                <el-table-column prop="description" label="description" />
-            </el-table>
-            <!-- pagination  -->
-            <div >
-                <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize"
-                    layout="prev, pager, next, jumper" :total="pageTotal" @current-change="handleCurrentChange" />
-            </div>
-        </el-col>
-    </el-row>
-</div>
+            <!-- right table -->
+            <el-col :span="15" :offset="1">
+                <el-table :data="geneDataList" stripe style="width: 100%" class="right-table">
+                    <el-table-column prop="gene" label="gene" width="180" />
+                    <el-table-column prop="scientificName" label="scientificName" width="180" />
+                    <el-table-column prop="description" label="description" />
+                </el-table>
+                <!-- pagination  -->
+                <div>
+                    <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize"
+                        layout="prev, pager, next, jumper" :total="pageTotal" @current-change="handleCurrentChange" />
+                </div>
+            </el-col>
+        </el-row>
+    </div>
 </template>
 
 <script setup>
@@ -68,20 +73,25 @@
     // attribute 列表
     const attributeList = computed(() => store.attributeDataList)
     // attribute 详情列表 
-    let attrDetailList = ref([]) 
+    let attrDetailList = ref([])
     // attribute 详情列表(结合搜索条件)
-    let attrDetailFilterList = reactive([]) 
+    let attrDetailFilterList = reactive([])
     // gene 列表（右侧表格数据）
-    const geneDataList = computed(() => store.geneDataList) 
+    const geneDataList = computed(() => store.geneDataList)
     const isLoading = ref(true)
 
-    // munu searchbox
-    const menuSearchContent = ref('') 
+    const list = reactive([])
+    let options = computed(() => store.searchDataList)
+    const value = ref([])
+    const loading = ref(false)
+
+    // menu searchbox
+    const menuSearchContent = ref('')
 
     // 属性名
-    let attrName = ref('') 
+    let attrName = ref('')
     // 属性item
-    let attrItem = reactive({}) 
+    let attrItem = reactive({})
     const currentPage = ref(1)
     const pageSize = ref(10)
     let pageTotal = ref(1)
@@ -103,9 +113,13 @@
         attrDetailList = ref([])
     }
 
-    // 页面搜索框改变时触发
-    let change = () => {
-
+    // 远程搜索
+    const remoteMethod = (query) => {
+        if (query) {
+            store.getFuzzySearchListData(query)
+        } else {
+            options.value = []
+        }
     }
 
     // 菜单搜索框改变时触发
@@ -140,12 +154,19 @@
             "pageSize": pageSize.value
         })
     }
+
+    const handleRemoteSearch = () => {
+        store.getListDataByFuzzyRes({
+            "pageNum": currentPage.value,
+            "pageSize": pageSize.value,
+            "searchContent": value.value
+        })
+    }
 </script>
 
 <style scoped>
-    .page-main {
-        
-    }
+    .page-main {}
+
     .menu-title {
         @apply mb-4 mt-4 text-2xl font-semibold;
     }
@@ -186,6 +207,7 @@
 
     .el-pagination {
         justify-content: center;
-        margin-top: 16px;width: 100%;
+        margin-top: 16px;
+        width: 100%;
     }
 </style>

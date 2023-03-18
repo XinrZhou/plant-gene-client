@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import { reqGetAttributeList, reqGetListByAttribute, reqGetListByAttrAndName} from "~/api/index.js"
+import { reqGetAttributeList, reqGetListByAttribute, reqGetListByAttrAndName, reqGetFuzzySearchList, reqGetListBySearchRes} from "~/api/index.js"
 
 export const useSearchStore = defineStore('search', {
     state: () => {
@@ -7,6 +7,7 @@ export const useSearchStore = defineStore('search', {
             attributeDataList: [], // 属性列表
             attrDetailDataList: [],// 属性详情列表
             geneDataList: [], // 基因列表
+            searchDataList: [], //模糊查询列表
             isLoading: true 
         }
     },
@@ -32,6 +33,20 @@ export const useSearchStore = defineStore('search', {
             reqGetListByAttrAndName(data).then(res => {
                 this.geneDataList = res.data.records
             }).catch(err => new Promise(new Error(err)))
+        },
+
+        // search -- 模糊查询
+        getFuzzySearchListData(searchContent) {
+            reqGetFuzzySearchList(searchContent).then(res => {
+                this.searchDataList = res.data.list
+            })
+        },
+
+        // search -- 根据模糊查询结果获取数据 
+        getListDataByFuzzyRes(data) {
+            reqGetListBySearchRes(data).then(res => {
+                this.geneDataList = res.data.list.records
+            })
         }
     }
 })

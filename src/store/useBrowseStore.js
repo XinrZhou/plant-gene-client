@@ -8,6 +8,7 @@ export const useBrowseStore = defineStore('browseStore', {
             browseDataList: [], // 首页列表
             stressTypeDataList: [], // stress type详情页list
             stressTypeItemDataList: [], // stress type详情页各项基因list
+            itemPageTotal: 1,
             geneOverviewDataList: {} // 基因概述列表
         }
     },
@@ -30,6 +31,8 @@ export const useBrowseStore = defineStore('browseStore', {
         getStressTypeListItemData(data) {
             reqGetStressTypeItemList(data).then(res => {
                 this.stressTypeItemDataList = res.data.records
+                this.itemPageTotal = res.data.total
+                console.log(res)
             }).catch(err => new Promise(new Error(err)))
         },
 
