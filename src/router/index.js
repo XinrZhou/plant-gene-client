@@ -4,7 +4,9 @@ import browse from "./routes/browse"
 import download from "./routes/download"
 import helps from "./routes/helps"
 import search from "./routes/search"
+import submit from "./routes/submit"
 import index from "./routes"
+
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -23,7 +25,8 @@ const router = createRouter({
                 ...browse,
                 ...download,
                 ...helps,
-                ...search
+                ...search,
+                ...submit
             ]
         },
         {

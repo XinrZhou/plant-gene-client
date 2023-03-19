@@ -49,7 +49,7 @@
 
     const store = useDownloadStore()
 
-    store.getFileListData()
+    // store.getFileListData()
 
     //Gene- 测试数据，真实数据需要后端生成
     let name = [1, 2, 3, 4, 5]

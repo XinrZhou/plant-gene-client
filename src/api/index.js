@@ -76,3 +76,8 @@ export function reqGetListByAttribute(attrName) {
 export function reqGetListByAttrAndName(data) {
     return axios.post('/searchBrowse/listByAttributeAndName',data)
 }
+
+// Submit 文件上传
+export function reqPostUploadFile(data,file) {
+    return axios.post(`/file-model/upload?blast=${data.blast}?description=${data.description}?stressType=?${data.stressType}`,file)
+}

@@ -8,7 +8,8 @@ export const useSearchStore = defineStore('search', {
             attrDetailDataList: [],// 属性详情列表
             geneDataList: [], // 基因列表
             searchDataList: [], //模糊查询列表
-            isLoading: true 
+            isLoading: true,
+            recordsCount: 0
         }
     },
     actions: {
@@ -39,14 +40,15 @@ export const useSearchStore = defineStore('search', {
         getFuzzySearchListData(searchContent) {
             reqGetFuzzySearchList(searchContent).then(res => {
                 this.searchDataList = res.data.list
-            })
+            }).catch(err => new Promise(new Error(err)))
         },
 
         // search -- 根据模糊查询结果获取数据 
         getListDataByFuzzyRes(data) {
             reqGetListBySearchRes(data).then(res => {
                 this.geneDataList = res.data.list.records
-            })
+                this.recordsCount = res.data.list.total
+            }).catch(err => new Promise(new Error(err)))
         }
     }
 })

@@ -103,6 +103,10 @@
         isLoading.value = store.isLoading
     })
 
+    watch(() => store.recordsCount, () => {
+        pageTotal.value = store.recordsCount
+    })
+
     // menu展开时触发
     let handleOpen = (index) => {
         store.getAttrDetailListData(attributeList.value[index - 1].name)
@@ -185,6 +189,7 @@
         padding: 0;
         margin: 0;
         list-style: none;
+        height: 100% !important;
     }
 
     .infinite-list .infinite-list-item {

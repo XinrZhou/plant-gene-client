@@ -10,7 +10,7 @@
     <el-row>
         <!-- table -->
         <el-table :data="stressTypeGeneList" style="width: 100%" height="80vh" stripe @row-click="handleClick">
-            <el-table-column fixed prop="gene" label="Gene" fit />
+            <el-table-column fixed prop="gene" label="Gene" fit class="underline"/>
             <el-table-column prop="name" label="Scientific Name" type="name" fit />
             <el-table-column prop="product" label="Gene Product" type="product" fit />
             <el-table-column prop="localization" label="Subcellular Localization" type="localization" fit />

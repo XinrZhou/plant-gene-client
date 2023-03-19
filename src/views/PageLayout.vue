@@ -5,7 +5,7 @@
         <el-row>
           <el-col :span="24">
             <el-menu :default-active="activeIndex" class="elmenu" mode="horizontal" text-color="#F3F4F6"
-              active-text-color="#D1FAE5" @select="handleSelect" background-color="#10B981" show-timeout="5000">
+              active-text-color="#D1FAE5" @select="handleSelect" background-color="#609966" show-timeout="5000">
               <el-menu-item index="1">
                 <el-icon :size="30">
                   <Management />
@@ -63,6 +63,9 @@
         break
       case '6':
         router.push('/helps')
+        break
+        case '7':
+        router.push('/submit')
         break
     }
 
