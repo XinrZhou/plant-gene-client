@@ -5,14 +5,14 @@
         <el-form :model="form" label-width="120px" label-position="left">
             <el-form-item label="BLAST type">
                 <el-select v-model="form.blast" placeholder="select BLAST type" clearable>
-                    <el-option label="Zone one" value="shanghai" />
-                    <el-option label="Zone two" value="beijing" />
+                    <el-option value="shanghai" />
+                    <el-option value="beijing" />
                 </el-select>
             </el-form-item>
             <el-form-item label="Stress type">
-                <el-select v-model="form.stresstype" placeholder="select Stress type" clearable> 
-                    <el-option label="Zone one" value="shanghai" />
-                    <el-option label="Zone two" value="beijing" />
+                <el-select v-model="form.stresstype" placeholder="select Stress type" clearable>
+                    <el-option  value="shanghai" />
+                    <el-option value="beijing" />
                 </el-select>
             </el-form-item>
             <el-form-item label="Description">
@@ -25,7 +25,8 @@
                 </el-radio-group>
             </el-form-item>
             <el-form-item label="Select File">
-                <el-upload v-model:file-list="fileList" :auto-upload="false" :on-change="change" class="upload-demo">
+                <el-upload ref="uploadRef" :file-list="fileList" :auto-upload="false" :on-change="change"
+                    class="upload-demo">
                     <el-button class="form-btn">Click to upload</el-button>
                     <template #tip>
                         <div class="el-upload__tip">
@@ -46,11 +47,11 @@
     import PageLeftTitle from '~/components/PageLeftTitle.vue'
     import { reactive, toRaw, ref } from 'vue'
     import { useSubmitStore } from '~/store/useSubmitStore.js'
-    import { ElMessageBox } from 'element-plus'
+    import { ElMessageBox, ElMessage } from 'element-plus'
 
     const store = useSubmitStore()
 
-    let form = reactive({
+    let form = ref({
         blast: '',
         streeStype: '',
         description: '',
@@ -60,6 +61,7 @@
 
     let fileList = reactive([])
     let fileCount = ref(0)
+    let uploadRef = ref()
 
     const change = (file, lists) => {
         let list = toRaw(lists)
@@ -81,16 +83,15 @@
     }
 
     const onReset = () => {
-        fileList = []
+        uploadRef.value.clearFiles()
         formData = new FormData()
         fileCount.value = 0
-        form = {
+        form.value = {
             blast: '',
             streeStype: '',
             description: '',
             resource: ''
         }
-        ElMessage('Reset successfully!')
     }
 
 </script>

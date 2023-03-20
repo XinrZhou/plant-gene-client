@@ -197,7 +197,6 @@
         padding: 0;
         margin: 0;
         list-style: none;
-        height: 100% !important;
     }
 
     .infinite-list .infinite-list-item {
