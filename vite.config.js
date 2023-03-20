@@ -10,6 +10,8 @@ export default defineConfig({
     }
   },
   server:{
+    host: '0.0.0.0',
+    port: 8080,
     proxy:{
       '/api': {
         //本地测试

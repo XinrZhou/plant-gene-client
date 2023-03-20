@@ -1,4 +1,15 @@
 <template>
+
+</template>
+
+<script setup>
+
+</script>
+
+<style scoped>
+
+</style>
+<!-- <template>
   <el-row class="login-container">
     <el-col :lg="16" :md="12" class="left">
       <div>
@@ -44,7 +55,7 @@
 
 <script setup>
   import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
-  import { userInfoStore } from '~/store/userInfo'
+  // import { userInfoStore } from '~/store/userInfo'
   import { useRouter } from "vue-router";
   import { toast } from "~/composables/util.js";
 
@@ -133,4 +144,4 @@
   .right .line {
     @apply h-[1px] w-16 bg-gray-200;
   }
-</style>
+</style> -->

@@ -10,6 +10,8 @@ const service = axios.create({
     timeout: 20000
 })
 
+service.defaults.baseURL = '/api'
+
 // 请求拦截器
 service.interceptors.request.use(function (config) {
     const token = getToken()

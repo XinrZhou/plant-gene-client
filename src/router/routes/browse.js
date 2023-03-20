@@ -5,11 +5,6 @@ export default [{
     component: () => import('~/views/browse/Browse.vue'),
     children: [
         {
-            name: 'browse',
-            path: '',
-            component: () => import('~/views/browse/BrowseIndex.vue')
-        },
-        {
             name: 'stresstype',
             path: 'stresstype',
             component: () => import('~/views/browse/browse-detail/StressType.vue'),
@@ -42,9 +37,9 @@ export default [{
             component: () => import('~/views/browse/browse-detail/GeneFamily.vue')
         },
         {
-            name: 'phenotypeinfluence',
-            path: 'phenotypeinfluence',
-            component: () => import('~/views/browse/browse-detail/PhenotypeInfluence.vue')
+            name: 'phenotypeinfluenced',
+            path: 'phenotypeinfluenced',
+            component: () => import('~/views/browse/browse-detail/PhenotypeInfluenced.vue')
         },
         {
             name: 'species',

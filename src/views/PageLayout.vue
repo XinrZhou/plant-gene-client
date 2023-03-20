@@ -12,7 +12,11 @@
                 </el-icon><img src="/src/assets/logo.png" class="ml-5" style="height: 32px">
               </el-menu-item>
               <div class="right">
-                <el-menu-item index="2">Data Browse</el-menu-item>
+                <el-sub-menu index="2">
+                  <template #title>Data Browse</template>
+                  <el-menu-item :index="item.title" v-for="(item,index) in browseDataList"
+                    :ket="item.id">{{item.title}}</el-menu-item>
+                </el-sub-menu>
                 <el-menu-item index="3">Search</el-menu-item>
                 <el-menu-item index="4">Analysis</el-menu-item>
                 <el-menu-item index="5">Download</el-menu-item>
@@ -35,8 +39,14 @@
 
 <script setup>
   import router from "~/router"
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, computed } from 'vue'
   import { useResizeObserver } from "@vueuse/core"
+  import { useBrowseStore } from '~/store/useBrowseStore.js'
+
+  const store = useBrowseStore()
+  store.getBrowseListData()
+
+  const browseDataList = computed(() => store.browseDataList)
 
   let activeIndex = ref('1')
 
@@ -45,12 +55,11 @@
   })
 
   let handleSelect = (key, keyPath) => {
+    key = key.split(' ').join('').toLowerCase()
+    key = key.replace("/location","")
     switch (key) {
       case '1':
         router.push('/')
-        break
-      case '2':
-        router.push('/browse')
         break
       case '3':
         router.push('/search')
@@ -64,9 +73,11 @@
       case '6':
         router.push('/helps')
         break
-        case '7':
+      case '7':
         router.push('/submit')
         break
+      default:
+        router.push(`/browse/${key}`)
     }
 
   }
