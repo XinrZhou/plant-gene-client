@@ -12,7 +12,7 @@ export const useIndexStore = defineStore('index', {
         getHomeContentData() {
             reqGetHomeContent().then(res=>{
                 this.homeContentData = res.data
-            }).catch(err => new Promise(new Error(err)))
+            }).catch(err => Promise.reject(err))
         }
     }
 })

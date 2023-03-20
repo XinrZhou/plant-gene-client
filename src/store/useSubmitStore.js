@@ -11,7 +11,7 @@ export const useSubmitStore = defineStore('submit', {
         uploadFile(data,file) {
             reqPostUploadFile(data,file).then(res=>{
                 console.log(res)
-            }).catch(err => new Promise(new Error(err)))
+            }).catch(err => Promise.reject(err))
         }
     }
 })

@@ -13,14 +13,14 @@ export const useUserInfoStore = defineStore('userInfo', {
         login(data) {
             reqLogin(data).then(res => {
                 setToken(res.data.token)
-            }).catch(err => new Promise(new Error(err)))
+            }).catch(err => Promise.reject(err))
         },
 
         // 获取当前用户信息
         getInfo() {
             reqGetInfo().then(res => {
                 this.user = res.data
-            }).catch(err => new Promise(new Error(err)))
+            }).catch(err => Promise.reject(err))
         },
 
         // 退出登录

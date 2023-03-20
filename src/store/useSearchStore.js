@@ -17,7 +17,7 @@ export const useSearchStore = defineStore('search', {
         getAttributeListData() {
             reqGetAttributeList().then(res => {
                 this.attributeDataList = res.data
-            }).catch(err => new Promise(new Error(err)))
+            }).catch(err => Promise.reject(err))
         },
 
         // search -- 获取属性详情列表
@@ -26,21 +26,21 @@ export const useSearchStore = defineStore('search', {
             reqGetListByAttribute(attrName).then(res => {
                 this.attrDetailDataList = res.data
                 this.isLoading = false
-            }).catch(err => new Promise(new Error(err)))
+            }).catch(err => Promise.reject(err))
         },
 
         // search -- 根据属性和属性详情获取基因列表
         getListData(data) {
             reqGetListByAttrAndName(data).then(res => {
                 this.geneDataList = res.data.records
-            }).catch(err => new Promise(new Error(err)))
+            }).catch(err => Promise.reject(err))
         },
 
         // search -- 模糊查询
         getFuzzySearchListData(searchContent) {
             reqGetFuzzySearchList(searchContent).then(res => {
                 this.searchDataList = res.data.list
-            }).catch(err => new Promise(new Error(err)))
+            }).catch(err => Promise.reject(err))
         },
 
         // search -- 根据模糊查询结果获取数据 
@@ -48,7 +48,7 @@ export const useSearchStore = defineStore('search', {
             reqGetListBySearchRes(data).then(res => {
                 this.geneDataList = res.data.list.records
                 this.recordsCount = res.data.list.total
-            }).catch(err => new Promise(new Error(err)))
+            }).catch(err => Promise.reject(err))
         }
     }
 })

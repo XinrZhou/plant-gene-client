@@ -3,8 +3,8 @@
         <PageCenterTitle page-title="Search" />
         <!-- page searchbox -->
         <el-row>
-            <el-select v-model="value" filterable remote clearable reserve-keyword placeholder="Please enter a keyword" :remote-method="remoteMethod" :loading="loading" class="w-full"
-                @change="handleRemoteSearch">
+            <el-select v-model="value" filterable remote clearable reserve-keyword placeholder="Please enter a keyword"
+                :remote-method="remoteMethod" :loading="loading" class="w-full" @change="handleRemoteSearch">
                 <el-option v-for="(item,index) in options" :value="item.content" :key="index">
                     <span style="float: left">{{ item.content }}</span>
                     <span style="float: right; color: var(--el-text-color-secondary);font-size: 13px;">{{ item.attribute
@@ -151,12 +151,20 @@
 
     // 分页器数据改变时触发
     const handleCurrentChange = () => {
-        store.getListData({
-            "attribute": attrName.value,
-            "name": attrItem.name,
-            "pageNum": currentPage.value,
-            "pageSize": pageSize.value
-        })
+        if (attrItem.name == undefined) { // 根据模糊搜索结果进行查询
+            store.getListDataByFuzzyRes({
+                "pageNum": currentPage.value,
+                "pageSize": pageSize.value,
+                "searchContent": value.value
+            })
+        } else {
+            store.getListData({ // 通过选择attribute和attrItem进行查询
+                "attribute": attrName.value,
+                "name": attrItem.name,
+                "pageNum": currentPage.value,
+                "pageSize": pageSize.value
+            })
+        }
     }
 
     const handleRemoteSearch = () => {
