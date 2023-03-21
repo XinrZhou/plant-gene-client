@@ -47,11 +47,6 @@ export function reqGetGeneOverview(geneName) {
     return axios.get(`/search/getGeneDetails?gene=${geneName}`)
 }
 
-// 获取download模块文件列表
-export function reqGetFileList() {
-    return axios.post('/file-model/list')
-}
-
 // Search 属性list
 export function reqGetAttributeList() {
     return axios.post('/searchBrowse/listAttributeCount')
@@ -80,4 +75,44 @@ export function reqGetListBySearchRes(data) {
 // Submit 文件上传
 export function reqPostUploadFile(data,file) {
     return axios.post(`/file-model/upload?blast=${data.blast}?description=${data.description}?stressType=?${data.stressType}`,file)
+}
+
+// Species -- SpeciesNameList
+export function reqGetSpeciesList() {
+    return axios.post('/browseSpecies/count')
+}
+
+// Species -- SpeciesGeneList
+export function reqGetGeneListBySciName(scientificName) {
+    return axios.get(`/browseSpecies/geneList?scientificName=${scientificName}`)
+}
+
+// Download -- stresstype
+export function reqGetDownStressTypeList() {
+    return axios.post('/browseSubcellular/stressType')
+}
+
+// Download -- species
+export function reqGetDownSpeciesList() {
+    return axios.post('/browseSubcellular/species')
+}
+
+// Download -- phenotype
+export function reqGetDownPhenotypeList() {
+    return axios.post('/browseSubcellular/phenotype')
+}
+
+// Download -- geneFamily
+export function reqGetDownGeneFamilyList() {
+    return axios.post('/browseSubcellular/geneFamily')
+}
+
+// Download -- geneList
+export function reqGetGeneList(downLoadQuery) {
+    return axios.post('/browseSubcellular/geneList', downLoadQuery)
+}
+
+// Download
+export function reqDownloadSequence(ids) {
+    return axios.post(`/browseSubcellular/geneSequence?ids=${ids}`)
 }

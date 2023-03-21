@@ -1,14 +1,19 @@
-<template class="page-main">
-    <div class="page-main">
+<template>
         <PageCenterTitle page-title="Search" />
         <!-- page searchbox -->
         <el-row>
             <el-select v-model="value" filterable remote clearable reserve-keyword placeholder="Please enter a keyword"
                 :remote-method="remoteMethod" :loading="loading" class="w-full" @change="handleRemoteSearch">
                 <el-option v-for="(item,index) in options" :value="item.content" :key="index">
-                    <span style="float: left">{{ item.content }}</span>
-                    <span style="float: right; color: var(--el-text-color-secondary);font-size: 13px;">{{ item.attribute
-                        }}</span>
+                    <span style="float: left">
+                        {{ item.content }}
+                        <span style="color: var(--el-text-color-secondary);font-size: 13px;" class="p-4" v-if="item.gene==null?false:true">
+                            Gene:{{ item.gene }}
+                        </span>
+                    </span>
+                    <span style="float: right; color: var(--el-text-color-secondary);font-size: 13px;">
+                        {{ item.attribute}}
+                    </span>
                 </el-option>
             </el-select>
         </el-row>
@@ -58,7 +63,6 @@
                 </div>
             </el-col>
         </el-row>
-    </div>
 </template>
 
 <script setup>
@@ -177,8 +181,6 @@
 </script>
 
 <style scoped>
-    .page-main {}
-
     .menu-title {
         @apply mb-4 mt-4 text-2xl font-semibold;
     }

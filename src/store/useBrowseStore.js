@@ -1,6 +1,6 @@
 import { async } from "@kangc/v-md-editor"
 import { defineStore } from "pinia"
-import { reqGetBrowseList, reqGetStressTypeList, reqGetStressTypeItemList, reqGetGeneOverview } from "~/api/index.js"
+import { reqGetBrowseList, reqGetStressTypeList, reqGetStressTypeItemList, reqGetGeneOverview, reqGetSpeciesList, reqGetGeneListBySciName } from "~/api/index.js"
 
 export const useBrowseStore = defineStore('browseStore', {
     state: () => {
@@ -9,7 +9,9 @@ export const useBrowseStore = defineStore('browseStore', {
             stressTypeDataList: [], // stress type详情页list
             stressTypeItemDataList: [], // stress type详情页各项基因list
             itemPageTotal: 1,
-            geneOverviewDataList: {} // 基因概述列表
+            geneOverviewDataList: {}, // 基因概述列表
+            speciesDataList: [], // 物种名列表
+            geneDataList: [] //基因列表
         }
     },
     actions: {
@@ -41,6 +43,21 @@ export const useBrowseStore = defineStore('browseStore', {
             reqGetGeneOverview(geneName).then(res => {
                 this.geneOverviewDataList = res.data
             }).catch(err => Promise.reject(err))
+        },
+
+        // browse -- species获取物种名称
+        getSpeciesListData() {
+            reqGetSpeciesList().then(res => {
+                this.speciesDataList = res.data
+            }).catch(err => Promise.reject(err))
+        },
+
+        // browse -- species获取基因名称
+        getGeneListDataBySciName(scientificName) {
+            reqGetGeneListBySciName(scientificName).then(res => {
+                this.geneDataList = res.data
+            })
         }
+
     }
 })

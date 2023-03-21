@@ -1,17 +1,51 @@
 import { defineStore } from "pinia"
-import { reqGetFileList } from "~/api/index.js"
+import { reqGetDownStressTypeList, reqGetDownGeneFamilyList, reqGetDownPhenotypeList, reqGetDownSpeciesList, reqGetGeneList, reqDownloadSequence } from "~/api/index.js"
 
 export const useDownloadStore = defineStore('download', {
     state: () => {
         return {
-            fileListData: [] // 文件列表
+            stressTypeList: [],
+            geneFamilyList: [],
+            phenotypeList: [],
+            speciesList: [],
+            geneList: []
         }
     },
     actions: {
-        getFileListData() {
-            reqGetFileList().then(res => {
+        getStressTypeListData() {
+            reqGetDownStressTypeList().then(res => {
+                this.stressTypeList = res.data['Stress Type']
+            })
+        },
+
+        getGeneFamilyListData() {
+            reqGetDownGeneFamilyList().then(res => {
+                this.geneFamilyList = res.data['Gene Family']
+            })
+        },
+
+        getPhenotypeListData() {
+            reqGetDownPhenotypeList().then(res => {
+                this.phenotypeList = res.data['Phenotype Group']
+            })
+        },
+
+        getSpeciesListData() {
+            reqGetDownSpeciesList().then(res => {
+                this.speciesList = res.data.Species
+            })
+        },
+
+        getGeneListData(downLoadQuery) {
+            reqGetGeneList(downLoadQuery).then(res => {
+                this.geneList = res.data
+            })
+        },
+
+        downloadSequence(ids) {
+            reqDownloadSequence(ids).then(res => {
                 console.log(res)
-            }).catch(err => Promise.reject(err))
+            })
         }
     }
 })
