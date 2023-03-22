@@ -1,13 +1,67 @@
 <template>
-    <PageCenterTitle page-title="Phenotype Influence"/>
-    <div id="jsmind_container"></div>
-  </template>
-  
-  <script setup>
-  import PageCenterTitle from "~/components/PageCenterTitle.vue";
-  </script>
-  
-  <script>
+  <PageCenterTitle page-title="Phenotype Influenced" />
+  <el-row>
+    <el-col :span="menuCol">
+      <LeftMenu :attribute-list="phenoList" @openMenu="handleOpen" @clickList="handleClick" :isLoading="loading"
+        :attr-detail-list="phenoSubList" />
+    </el-col>
+    <el-col :span="tableCol" :offset="1">
+      <el-input :prefix-icon="Search" v-model="tableInput" @input="handleTableFilter" clearable />
+      <el-table :data="tableInput==''?phenoGeneList:phenoGeneFilterList" class="el-table-vertical-demo" height="550px"
+        stripe>
+        <el-table-column prop="gene" label="gene name" />
+      </el-table>
+    </el-col>
+  </el-row>
+  <div id="jsmind_container"></div>
+
+</template>
+
+<script setup>
+  import PageCenterTitle from "~/components/PageCenterTitle.vue"
+  import LeftMenu from '~/components/LeftMenu.vue'
+  import { Search } from '@element-plus/icons-vue'
+  import { useBrowseStore } from '~/store/useBrowseStore.js'
+  import { ref, computed, toRaw } from 'vue'
+
+  const store = useBrowseStore()
+  store.getPhenoTypeListData()
+
+  let phenoList = computed(() => store.phenoTypeDataList)
+  let phenoSubList = computed(() => store.phenoTypeSubDataList)
+  let phenoGeneList = computed(() => store.phenoTypeGeneDataList)
+  let phenoGeneFilterList = ref([])
+  let tableInput = ref('')
+  let loading = computed(() => store.isLoading)
+
+  let tableCol = ref(0)
+  let menuCol = ref(24)
+
+  let handleOpen = (value) => {
+    store.getPhenoTypeSubListData(value)
+  }
+
+  let handleClick = (attrName, attrItem2) => {
+    tableCol.value = 11
+    menuCol.value = 12
+    store.getPhenoGeneListData({
+      phenotype: toRaw(attrItem2).name,
+      phenotypeGroup: attrName
+    })
+  }
+
+  let handleTableFilter = () => {
+    if (tableInput.value) {
+      phenoGeneFilterList.value = toRaw(phenoGeneList.value).filter(item => item.gene.indexOf(tableInput.value) !== -1)
+    } else {
+      phenoGeneFilterList.value = toRaw(phenoGeneList.value)
+    }
+  }
+
+
+</script>
+
+<script>
   import 'jsmind/style/jsmind.css'
   import jsMind from 'jsmind/js/jsmind.js'
   import axios from "axios";
@@ -74,41 +128,49 @@
     },
     mounted() {
       axios.post('http://175.178.9.163:8093/browseSpecies/mindMapping')
-          .then(response => {
-            this.mind.data.children = response.data.data.map((item, index) => {
-              return {
-                id: item.phenotypeGroup.toString(),
-                topic: item.phenotypeGroup,
-                direction: index % 2 === 0 ? 'left' : 'right',
-                expanded: false
+        .then(response => {
+          this.mind.data.children = response.data.data.map((item, index) => {
+            return {
+              id: item.phenotypeGroup.toString(),
+              topic: item.phenotypeGroup,
+              direction: index % 2 === 0 ? 'left' : 'right',
+              expanded: false
+            }
+          })
+          this.mind.data.children.forEach(item => {
+            item.children = []
+            response.data.data.forEach(item2 => {
+              console.log(item2)
+              if (item.id === item2.phenotypeGroup.toString()) {
+                item2.phenotypes.forEach(item3 => {
+                  item.children.push({
+                    id: item3.toString(),
+                    topic: item3
+                  })
+                })
               }
             })
-            this.mind.data.children.forEach(item => {
-              item.children = []
-              response.data.data.forEach(item2 => {
-                console.log(item2)
-                if (item.id === item2.phenotypeGroup.toString()) {
-                  item2.phenotypes.forEach(item3 => {
-                    item.children.push({
-                      id: item3.toString(),
-                      topic: item3
-                    })
-                  })
-                }
-              })
-            })
-            this.jm = jsMind.show(this.options, this.mind)
           })
-          .catch(error => {
-            console.error(error)
-          })
+          this.jm = jsMind.show(this.options, this.mind)
+        })
+        .catch(error => {
+          console.error(error)
+        })
     }
   }
-  </script>
-  
-  <style scoped>
+</script>
+
+<style scoped>
   #jsmind_container {
     width: 100%;
     height: 150vh;
   }
-  </style>
+
+  ::v-deep .el-row {
+    background-color: white;
+  }
+
+  .el-table-vertical-demo {
+    @apply mt-5;
+  }
+</style>

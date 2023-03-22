@@ -95,7 +95,7 @@
     }
 
     let handleClick = (item) => {
-        store
+        
     }
 
     let onReset = () => {
@@ -105,6 +105,7 @@
             species: "",
             stressType: ""
         }
+        ids.value = []
         ElMessage.success("Reset Successfully!")
     }
 

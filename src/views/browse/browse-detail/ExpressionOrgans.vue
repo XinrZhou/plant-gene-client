@@ -1,9 +1,10 @@
 <template>
-    <h1>expressi onorgans</h1>
+    <PageCenterTitle page-title="Expression Organs" />
 </template>
 
 <script setup>
-
+  import PageCenterTitle from "~/components/PageCenterTitle.vue"
+  
 </script>
 
 <style scoped>

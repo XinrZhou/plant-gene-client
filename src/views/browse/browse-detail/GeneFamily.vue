@@ -1,9 +1,10 @@
 <template>
-    <h1>gene family</h1>
+    <PageCenterTitle page-title="Gene Family" />
 </template>
 
 <script setup>
-
+  import PageCenterTitle from "~/components/PageCenterTitle.vue"
+  
 </script>
 
 <style scoped>

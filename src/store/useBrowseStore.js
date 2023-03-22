@@ -1,6 +1,17 @@
 import { async } from "@kangc/v-md-editor"
 import { defineStore } from "pinia"
-import { reqGetBrowseList, reqGetStressTypeList, reqGetStressTypeItemList, reqGetGeneOverview, reqGetSpeciesList, reqGetGeneListBySciName } from "~/api/index.js"
+import { 
+    reqGetBrowseList, 
+    reqGetStressTypeList, 
+    reqGetStressTypeItemList, 
+    reqGetGeneOverview, 
+    reqGetSpeciesList, 
+    reqGetGeneListBySciName, 
+    reqGetExpressionOrgansList,
+    reqGetPhenoTypeList,
+    reqGetPhenoTypeSubList,
+    reqGetPhenoTypeGeneList 
+} from "~/api/browse.js"
 
 export const useBrowseStore = defineStore('browseStore', {
     state: () => {
@@ -11,7 +22,12 @@ export const useBrowseStore = defineStore('browseStore', {
             itemPageTotal: 1,
             geneOverviewDataList: {}, // 基因概述列表
             speciesDataList: [], // 物种名列表
-            geneDataList: [] //基因列表
+            geneDataList: [], //基因列表
+            expOrgansDataList: [], //表达器官列表,
+            phenoTypeDataList: [],
+            phenoTypeSubDataList: [],
+            phenoTypeGeneDataList: [],
+            isLoading: true
         }
     },
     actions: {
@@ -34,7 +50,6 @@ export const useBrowseStore = defineStore('browseStore', {
             reqGetStressTypeItemList(data).then(res => {
                 this.stressTypeItemDataList = res.data.records
                 this.itemPageTotal = res.data.total
-                console.log(res)
             }).catch(err => Promise.reject(err))
         },
 
@@ -57,7 +72,35 @@ export const useBrowseStore = defineStore('browseStore', {
             reqGetGeneListBySciName(scientificName).then(res => {
                 this.geneDataList = res.data
             })
-        }
+        },
 
+        // browse -- expressionOrgans
+        getExpressionListData() {
+            reqGetExpressionOrgansList().then(res => {
+                this.expOrgansDataList = res.data
+            })
+        },
+
+        // browse -- PhenoTypeList
+        getPhenoTypeListData() {
+            reqGetPhenoTypeList().then(res => {
+                this.phenoTypeDataList = res.data
+            })
+        }, 
+
+        // browse -- PhenoTypeSubList
+        getPhenoTypeSubListData(name) {
+            this.isLoading = true
+            reqGetPhenoTypeSubList (name).then(res => {
+                this.phenoTypeSubDataList = res.data
+                this.isLoading = false
+            })
+        }, 
+
+        getPhenoGeneListData(phenotypeQuery) {
+            reqGetPhenoTypeGeneList(phenotypeQuery).then(res => {
+                this.phenoTypeGeneDataList = res.data
+            })
+        }
     }
 })

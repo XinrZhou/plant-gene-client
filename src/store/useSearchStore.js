@@ -1,5 +1,11 @@
 import { defineStore } from "pinia"
-import { reqGetAttributeList, reqGetListByAttribute, reqGetListByAttrAndName, reqGetFuzzySearchList, reqGetListBySearchRes} from "~/api/index.js"
+import { 
+    reqGetAttributeList, 
+    reqGetListByAttribute, 
+    reqGetListByAttrAndName, 
+    reqGetFuzzySearchList, 
+    reqGetListBySearchRes
+} from "~/api/search.js"
 
 export const useSearchStore = defineStore('search', {
     state: () => {
