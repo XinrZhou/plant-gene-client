@@ -4,25 +4,26 @@ export default {
             "name": "主页",
             "icon": "shopping-bag",
             "child":[{
-                "name":"后台面板",
+                "name":"后台系统监控面板",
                 "icon":"shopping-cart-full",
-                "frontpath":"/admin"
+                "frontpath":"/admin/home"
             }]
-        },{
-            "name": "测试模块",
+        },
+        {
+            "name": "文件管理",
             "icon": "help",
             "child":[{
-                "name":"测试页",
+                "name":"文件管理",
                 "icon":"home-filled",
-                "frontpath":"/admin/test"
+                "frontpath":"/admin/files"
             }]
         },{
-            "name": "系统用户",
+            "name": "数据管理",
             "icon": "shopping-bag",
             "child":[{
-                "name":"用户管理",
+                "name":"数据管理",
                 "icon":"shopping-cart-full",
-                "frontpath":"/admin/user"
+                "frontpath":"/admin/data"
             }]
         }
     ]

@@ -4,10 +4,6 @@
       <el-icon class="mr-5"><SuitcaseLine /></el-icon>
       后台管理系统
     </span>
-    <el-icon class="icon-button" @click="$store.commit('handleAsideWidth')">
-      <Fold v-if="$store.state.asideWidth=='250px'"/>
-      <Expand v-else/>
-    </el-icon>
     <el-tooltip content="刷新" placement="bottom" effect="light">
       <el-icon class="icon-button" @click="handleRefresh"><Refresh /></el-icon>
     </el-tooltip>
@@ -20,8 +16,8 @@
       </el-tooltip>
       <el-dropdown class="dropdown" @command="handleCommand">
         <span class="el-dropdown-link flex items-center text-white">
-          <el-avatar class="mr-3" :size="25" :src="$store.state.user.avatar"/>
-          {{$store.state.user.username}}
+          <el-avatar class="mr-3" :size="25" :src="user.avatarUrl"/>
+          {{user.username}}
           <el-icon class="el-icon--right">
             <arrow-down />
           </el-icon>
@@ -54,39 +50,40 @@
 </template>
 
 <script setup>
-import {logout} from "~/api/manage"
-import {useRouter} from "vue-router";
-import {useStore} from "vuex";
-import { useFullscreen } from '@vueuse/core'
-import FormDrawer from "~/components/FormDrawer.vue";
-import {useLogOut, useRePassword} from "~/composables/useManager"
-// import store from "~/store/index.js";
-const store = useStore()
-const {
-  // 是否全屏状态
-  isFullscreen,
-  // 切换全屏
-  toggle
-} = useFullscreen()
-const {
-  formRef,form,formDrawerRef,rules,onSubmit,openRePasswordForm
-} = useRePassword()
-const {
-  handleLogout
-} = useLogOut()
+  import {useRouter} from "vue-router";
+  import { useFullscreen } from '@vueuse/core'
+  import FormDrawer from "~/components/FormDrawer.vue";
+  import {useLogOut, useRePassword} from "~/composables/useManager"
+  import { useUserInfoStore } from '~/store/useUserInfoStore.js'
+  import {computed} from "vue";
+  const store = useUserInfoStore()
 
-const router = useRouter()
-const  handleCommand =(c)=>{
-  switch (c) {
-    case "rePassword":
-      openRePasswordForm()
-      break;
-    case "logout":
-      handleLogout()
-      break;
+  const user = computed(() => store.user)
+  const {
+    // 是否全屏状态
+    isFullscreen,
+    // 切换全屏
+    toggle
+  } = useFullscreen()
+  const {
+    formRef,form,formDrawerRef,rules,onSubmit,openRePasswordForm
+  } = useRePassword()
+  const {
+    handleLogout
+  } = useLogOut()
+
+  const router = useRouter()
+  const  handleCommand =(c)=>{
+    switch (c) {
+      case "rePassword":
+        openRePasswordForm()
+        break;
+      case "logout":
+        handleLogout()
+        break;
+    }
   }
-}
-const handleRefresh = ()=>location.reload()
+  const handleRefresh = ()=>location.reload()
 
 </script>
 

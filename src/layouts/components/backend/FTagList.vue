@@ -1,5 +1,5 @@
 <template>
-  <div class="f-list-tag" :style="{left:$store.state.asideWidth}">
+  <div class="f-list-tag" style="left:250px;">
     <el-tabs
         v-model="activeTab"
         type="card"
@@ -48,7 +48,7 @@ const activeTab = ref(route.path)
 const tabList = ref([
   {
     title: '后台首页',
-    path:"/admin"
+    path:"/admin/home"
   }
 ])
 
@@ -59,6 +59,7 @@ onBeforeRouteUpdate((to,from)=>{
     path:to.path
   })
 })
+
 function addTab(tab){
   let noTab = tabList.value.findIndex(t=>t.path == tab.path)==-1
   if(noTab){
@@ -99,15 +100,15 @@ function initTabList(){
 const handleClose = (c) => {
   if (c == "clearAll") {
     // 切换回首页
-    activeTab.value = "/admin"
+    activeTab.value = "/admin/home"
     // 过滤只剩下首页
     tabList.value = [{
       title: '后台首页',
-      path: "/admin"
+      path: "/admin/home"
     }]
   } else if (c == "clearOther") {
     // 过滤只剩下首页和当前激活
-    tabList.value = tabList.value.filter(tab => tab.path == "/admin" || tab.path == activeTab.value)
+    tabList.value = tabList.value.filter(tab => tab.path == "/admin/home" || tab.path == activeTab.value)
   }
   cookie.set("tabList", tabList.value)
 }

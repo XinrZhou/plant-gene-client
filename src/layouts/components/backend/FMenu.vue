@@ -1,7 +1,6 @@
 <template>
-  <div class="f-menu" :style="{width:$store.state.asideWidth}">
+  <div class="f-menu" style="width:250px;">
     <el-menu default-active="defaultActive" :collapse="isCollapse"  @select="handleSelect" :collapse-transition="false" unique-opened>
-
       <template v-for="(item,index) in asideMenus" :key="index">
         <el-sub-menu :index=item.name  v-if="item.child &&item.child.length>0" >
           <template #title>
@@ -25,14 +24,12 @@
 
 <script setup>
 import {useRouter,useRoute} from "vue-router";
-import {computed,ref} from "vue";
-import {useStore} from "vuex";
-import Menu from '~/menu'
+import {ref} from "vue";
+import Menu from '~/layouts/components/backend/menu'
 const router = useRouter()
-const store  = useStore()
 const route = useRoute()
 //是否折叠状态
-const isCollapse = computed(()=>!(store.state.asideWidth=="250px"))
+// const isCollapse = computed(()=>!(store.state.asideWidth=="250px"))
 //默认选择路径
 const defaultActive = ref(route.path)
 const asideMenus = Menu.asideMenus

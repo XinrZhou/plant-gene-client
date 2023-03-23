@@ -5,6 +5,7 @@ import download from "./routes/download"
 import helps from "./routes/helps"
 import search from "./routes/search"
 import submit from "./routes/submit"
+import backend from "./routes/backend"
 import index from "./routes"
 
 
@@ -27,6 +28,14 @@ const router = createRouter({
                 ...helps,
                 ...search,
                 ...submit
+            ]
+        },
+        {
+            name: 'admin',
+            path: '/admin',
+            component: () => import('~/layouts/components/backend/AdminLayout.vue'),
+            children: [
+                ...backend
             ]
         },
         {

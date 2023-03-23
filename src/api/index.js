@@ -1,10 +1,8 @@
 import axios from "~/api/http"
 
 // 登录
-export function reqLogin(username,password) {
-    return axios.post("/admin/login",{
-        username,password
-    })
+export function reqLogin(data) {
+    return axios.post("/admin/login",data)
 }
 
 // 获取用户信息

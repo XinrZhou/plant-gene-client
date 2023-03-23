@@ -4,7 +4,7 @@
       <f-header/>
     </el-header>
     <el-container>
-      <el-aside :width="$store.state.asideWidth">
+      <el-aside width="250px">
         <f-menu/>
       </el-aside>
       <el-container>
@@ -24,9 +24,9 @@
 </template>
 
 <script setup>
-import  FHeader from './components/FHeader.vue'
-import  FMenu from './components/FMenu.vue'
-import  FTagList from './components/FTagList.vue'
+import  FHeader from '~/layouts/components/backend/FHeader.vue'
+import  FMenu from '~/layouts/components/backend/FMenu.vue'
+import  FTagList from '~/layouts/components/backend/FTagList.vue'
 
 </script>
 

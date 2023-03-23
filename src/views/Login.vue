@@ -1,15 +1,4 @@
 <template>
-
-</template>
-
-<script setup>
-
-</script>
-
-<style scoped>
-
-</style>
-<!-- <template>
   <el-row class="login-container">
     <el-col :lg="16" :md="12" class="left">
       <div>
@@ -55,12 +44,10 @@
 
 <script setup>
   import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
-  // import { userInfoStore } from '~/store/userInfo'
-  import { useRouter } from "vue-router";
+  import router from "~/router"
   import { toast } from "~/composables/util.js";
-
-  const store = userInfoStore()
-  const router = useRouter()
+  import { useUserInfoStore } from '~/store/useUserInfoStore.js'
+  const store = useUserInfoStore()
 
   const loading = ref(false)
   const form = reactive({
@@ -90,8 +77,12 @@
       if (!valid) {
         return false
       }
-      loading.value = true
-      store.login(form)
+      // loading.value = true
+      store.login(form).then(() => {
+        store.getInfo()
+        router.push('/admin/home')
+        toast("登入成功")
+      })
     })
   }
 
@@ -144,4 +135,4 @@
   .right .line {
     @apply h-[1px] w-16 bg-gray-200;
   }
-</style> -->
+</style>
