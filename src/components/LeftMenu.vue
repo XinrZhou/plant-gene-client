@@ -15,8 +15,9 @@
                     :prefix-icon="Search" />
                 <!-- scroll -->
                 <ul class="infinite-list" infinite-scroll-immediate="false" v-loading="isLoading">
-                    <li class="infinite-list-item" v-for="(item2,index2) in (menuSearchContent==''?props.attrDetailList:attrDetailFilterList)" :key="index2"
-                        @click="handleClick(item.name,item2)">
+                    <li class="infinite-list-item"
+                        v-for="(item2,index2) in (menuSearchContent==''?props.attrDetailList:attrDetailFilterList)"
+                        :key="index2" @click="handleClick(item.name,item2)">
                         {{item2.name}}
                         <el-tag class="ml-2">
                             {{item2.value}}
@@ -101,6 +102,10 @@
 
     .infinite-list .infinite-list-item+.list-item {
         margin-top: 10px;
+    }
+
+    .infinite-list::-webkit-scrollbar {
+        display: none;
     }
 
     .right-table {

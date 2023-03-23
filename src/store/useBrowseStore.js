@@ -8,6 +8,7 @@ import {
     reqGetSpeciesList, 
     reqGetGeneListBySciName, 
     reqGetExpressionOrgansList,
+    reqGetSubExpressionOrgansList,
     reqGetPhenoTypeList,
     reqGetPhenoTypeSubList,
     reqGetPhenoTypeGeneList 
@@ -24,6 +25,7 @@ export const useBrowseStore = defineStore('browseStore', {
             speciesDataList: [], // 物种名列表
             geneDataList: [], //基因列表
             expOrgansDataList: [], //表达器官列表,
+            expOrgansSubDataList: [],
             phenoTypeDataList: [],
             phenoTypeSubDataList: [],
             phenoTypeGeneDataList: [],
@@ -74,10 +76,17 @@ export const useBrowseStore = defineStore('browseStore', {
             })
         },
 
-        // browse -- expressionOrgans
+        // browse -- expressionOrgansList
         getExpressionListData() {
             reqGetExpressionOrgansList().then(res => {
                 this.expOrgansDataList = res.data
+            })
+        },
+
+        // browse -- expressionOrgansSubList
+        getExpressionSubListData() {
+            reqGetSubExpressionOrgansList().then(res => {
+                this.expOrgansSubDataList = res.data
             })
         },
 

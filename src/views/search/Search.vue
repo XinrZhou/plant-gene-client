@@ -21,14 +21,14 @@
 
     <el-row>
         <!-- left menu -->
-        <el-col :span="8">
+        <el-col :span="6">
             <h5 class="menu-title">Filter Bar</h5>
             <LeftMenu :attribute-list="attributeList" @openMenu="handleOpen" @clickList="handleClick" :isLoading="isLoading "
                 :attr-detail-list="attrDetailList" />
         </el-col>
 
         <!-- right table -->
-        <el-col :span="15" :offset="1">
+        <el-col :span="17" :offset="1">
             <el-table :data="geneDataList" stripe style="width: 100%" class="right-table">
                 <el-table-column prop="gene" label="gene" width="180" />
                 <el-table-column prop="scientificName" label="scientificName" width="180" />

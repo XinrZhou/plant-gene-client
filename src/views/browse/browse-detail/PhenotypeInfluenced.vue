@@ -1,16 +1,18 @@
 <template>
   <PageCenterTitle page-title="Phenotype Influenced" />
   <el-row>
-    <el-col :span="menuCol">
-      <LeftMenu :attribute-list="phenoList" @openMenu="handleOpen" @clickList="handleClick" :isLoading="loading"
-        :attr-detail-list="phenoSubList" />
-    </el-col>
-    <el-col :span="tableCol" :offset="1">
-      <el-input :prefix-icon="Search" v-model="tableInput" @input="handleTableFilter" clearable />
-      <el-table :data="tableInput==''?phenoGeneList:phenoGeneFilterList" class="el-table-vertical-demo" height="550px"
-        stripe>
-        <el-table-column prop="gene" label="gene name" />
-      </el-table>
+      <el-col :span="menuCol">
+        <LeftMenu :attribute-list="phenoList" @openMenu="handleOpen" @clickList="handleClick" :isLoading="loading"
+          :attr-detail-list="phenoSubList" class="leftArea"/>
+      </el-col>
+    <el-col :span="tableCol" :offset="2">
+      <div class="rightArea">
+        <el-input :prefix-icon="Search" v-model="tableInput" @input="handleTableFilter" clearable />
+        <el-table :data="tableInput==''?phenoGeneList:phenoGeneFilterList" class="el-table-vertical-demo" height="550px"
+          stripe>
+          <el-table-column prop="gene" label="gene name" />
+        </el-table>
+      </div>
     </el-col>
   </el-row>
   <div id="jsmind_container"></div>
@@ -18,6 +20,7 @@
 </template>
 
 <script setup>
+  import {TweenMax} from 'gsap'
   import PageCenterTitle from "~/components/PageCenterTitle.vue"
   import LeftMenu from '~/components/LeftMenu.vue'
   import { Search } from '@element-plus/icons-vue'
@@ -42,8 +45,12 @@
   }
 
   let handleClick = (attrName, attrItem2) => {
+    if(!tableCol.value) {
+      TweenMax.fromTo('.leftArea', 1.5, {x:300}, {x:0})
+      TweenMax.fromTo('.rightArea', 1.5, {x:300}, {x:0})
+    }
     tableCol.value = 11
-    menuCol.value = 12
+    menuCol.value = 11
     store.getPhenoGeneListData({
       phenotype: toRaw(attrItem2).name,
       phenotypeGroup: attrName
@@ -169,8 +176,9 @@
   ::v-deep .el-row {
     background-color: white;
   }
-
+  
   .el-table-vertical-demo {
     @apply mt-5;
   }
+
 </style>
