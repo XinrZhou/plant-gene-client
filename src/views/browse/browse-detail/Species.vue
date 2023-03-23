@@ -56,10 +56,10 @@
     })
 
     let handleMenuClick = (item) => {
-        if (!tableCol.value) {
-            TweenMax.fromTo('.leftArea', 1.5, { x: 300 }, { x: 0 })
-            TweenMax.fromTo('.rightArea', 1.5, { x: 300 }, { x: 0 })
-        }
+        // if (!tableCol.value) {
+        //     TweenMax.fromTo('.leftArea', 1.5, { x: 300 }, { x: 0 })
+        //     TweenMax.fromTo('.rightArea', 1.5, { x: 300 }, { x: 0 })
+        // }
         menuCol.value = 11
         tableCol.value = 11
         store.getGeneListDataBySciName(item.name)

@@ -25,9 +25,5 @@ export function reqGetHomeContent() {
     return axios.post("/home-content/homeContent")
 }
 
-// Submit 文件上传
-export function reqPostUploadFile(data,file) {
-    return axios.post(`/file-model/upload?blast=${data.blast}?description=${data.description}?stressType=?${data.stressType}`,file)
-}
 
 

@@ -41,7 +41,7 @@
                         <p class="checkbox-title">Gene Name</p>
                         <el-scrollbar height="400px">
                             <el-checkbox-group v-model="ids">
-                                <el-checkbox :label="item.id" v-for="item in geneList" :id="item.id"
+                                <el-checkbox :label="item.id" v-for="item in geneList" :id="item.id+''"
                                     class="checkbox-content">
                                     {{item.gene}}
                                 </el-checkbox>

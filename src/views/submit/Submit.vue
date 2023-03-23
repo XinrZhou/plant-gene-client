@@ -1,30 +1,15 @@
 <template>
-    <PageLeftTitle page-title="BLAST" />
-    <p class="submit-tip">Blastx/Blastp can be excuted on data stored in our database.</p>
+    <PageLeftTitle page-title="Submit" />
+    <p class="submit-tip">You can upload the data to our database, and once the review is completed, we will notify you of the results via email.</p>
     <div class="submit-form">
         <el-form :model="form" label-width="120px" label-position="left">
-            <el-form-item label="BLAST type">
-                <el-select v-model="form.blast" placeholder="select BLAST type" clearable>
-                    <el-option value="shanghai" />
-                    <el-option value="beijing" />
-                </el-select>
-            </el-form-item>
-            <el-form-item label="Stress type">
-                <el-select v-model="form.stresstype" placeholder="select Stress type" clearable>
-                    <el-option  value="shanghai" />
-                    <el-option value="beijing" />
-                </el-select>
-            </el-form-item>
             <el-form-item label="Description">
                 <el-input v-model="form.description" />
             </el-form-item>
-            <el-form-item label="Input">
-                <el-radio-group v-model="form.resource">
-                    <el-radio label="query sequence" />
-                    <el-radio label="locus name(At1g01030)" />
-                </el-radio-group>
+            <el-form-item label="Emails">
+                <el-input v-model="form.emails" />
             </el-form-item>
-            <el-form-item label="Select File">
+            <el-form-item label="File">
                 <el-upload ref="uploadRef" :file-list="fileList" :auto-upload="false" :on-change="change"
                     class="upload-demo">
                     <el-button class="form-btn">Click to upload</el-button>
@@ -35,9 +20,15 @@
                     </template>
                 </el-upload>
             </el-form-item>
+            <el-form-item label="Name">
+                <el-input v-model="form.name" />
+            </el-form-item>
+            <el-form-item label="Organization">
+                <el-input v-model="form.organization" />
+            </el-form-item>
             <el-form-item>
                 <el-button @click="onReset" class="form-btn">Reset</el-button>
-                <el-button @click="onSubmit" class="form-btn">Run BLAST</el-button>
+                <el-button @click="onSubmit" class="form-btn">Submit</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -52,10 +43,10 @@
     const store = useSubmitStore()
 
     let form = ref({
-        blast: '',
-        streeStype: '',
         description: '',
-        resource: ''
+        emails: '',
+        name: '',
+        rganization: ''
     })
     let formData = new FormData()
 
@@ -103,6 +94,10 @@
 
     .submit-form {
         @apply ml-9 px-7 py-10 bg-white rounded-md text-left;
+    }
+
+    .el-input {
+        @apply w-1/2;
     }
 
     .form-btn {

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import { reqPostUploadFile } from "~/api/index.js"
+import { reqPostUploadFile } from "~/api/file.js"
 import { ElMessageBox, ElMessage } from 'element-plus'
 
 export const useSubmitStore = defineStore('submit', {

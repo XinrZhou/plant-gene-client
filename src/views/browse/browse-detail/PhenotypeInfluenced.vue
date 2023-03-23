@@ -45,10 +45,6 @@
   }
 
   let handleClick = (attrName, attrItem2) => {
-    if(!tableCol.value) {
-      TweenMax.fromTo('.leftArea', 1.5, {x:300}, {x:0})
-      TweenMax.fromTo('.rightArea', 1.5, {x:300}, {x:0})
-    }
     tableCol.value = 11
     menuCol.value = 11
     store.getPhenoGeneListData({
