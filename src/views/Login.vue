@@ -43,12 +43,11 @@
 </template>
 
 <script setup>
-  import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
+import {ref, reactive, onMounted, onBeforeUnmount, computed} from 'vue'
   import router from "~/router"
   import { toast } from "~/composables/util.js";
   import { useUserInfoStore } from '~/store/useUserInfoStore.js'
   const store = useUserInfoStore()
-
   const loading = ref(false)
   const form = reactive({
     username: '',
@@ -79,9 +78,9 @@
       }
       // loading.value = true
       store.login(form).then(() => {
-        store.getInfo()
-        router.push('/admin/home')
-        toast("登入成功")
+          store.getInfo()
+          router.push('/admin/home')
+          toast("登入成功")
       })
     })
   }

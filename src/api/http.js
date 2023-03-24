@@ -26,10 +26,15 @@ service.interceptors.request.use(function (config) {
 
 // 响应拦截器
 service.interceptors.response.use(function (response) {
+    const contentType = response.headers['content-type']
+    if (contentType === 'application/vnd.ms-excel;charset=utf-8') {
+        // 处理文件流响应
+        return response
+    }
     let res = response.data
-    if (res.code === 200)
+    if (res && res.code === 200)
         return response.data;
-    if (res.code === 401)
+    if (res && res.code === 401)
         router.push("/login").catch(() => { })
     toast(res.msg, "error")
     return Promise.reject(res.msg);

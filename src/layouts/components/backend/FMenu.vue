@@ -23,21 +23,21 @@
 </template>
 
 <script setup>
-import {useRouter,useRoute} from "vue-router";
-import {ref} from "vue";
-import Menu from '~/layouts/components/backend/menu'
-const router = useRouter()
-const route = useRoute()
-//是否折叠状态
-// const isCollapse = computed(()=>!(store.state.asideWidth=="250px"))
-//默认选择路径
-const defaultActive = ref(route.path)
-const asideMenus = Menu.asideMenus
-// const asideMenus = computed(()=>store.state.menus)
-const handleSelect=(e)=>{
-  console.log(e)
-  router.push(e)
-}
+  import {useRouter,useRoute} from "vue-router";
+  import {ref} from "vue";
+  import Menu from '~/layouts/components/backend/menu'
+  const router = useRouter()
+  const route = useRoute()
+  //是否折叠状态
+  // const isCollapse = computed(()=>!(store.state.asideWidth=="250px"))
+  //默认选择路径
+  const defaultActive = ref(route.path)
+  const asideMenus = Menu.asideMenus
+  // const asideMenus = computed(()=>store.state.menus)
+  const handleSelect=(e)=>{
+    console.log(e)
+    router.push(e)
+  }
 </script>
 
 <style scoped>

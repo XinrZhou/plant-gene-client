@@ -54,11 +54,11 @@ export const useDownloadStore = defineStore('download', {
             }).catch(err => Promise.reject(err))
         },
 
-        // download -- GeneSequence
-        downloadSequence(ids) {
-            reqDownloadSequence(ids).then(res => {
-                console.log(res)
-            }).catch(err => Promise.reject(err))
-        }
+        async downloadSequence(ids) {
+            return reqDownloadSequence(ids).then(res => {
+                return Promise.resolve(res)
+                }).catch(err => Promise.reject(err))
+            },
+
     }
 })

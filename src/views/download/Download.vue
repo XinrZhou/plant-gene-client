@@ -59,6 +59,7 @@
     import { ref, computed } from 'vue'
     import { useDownloadStore } from '~/store/useDownloadStore.js'
     import { ElMessage, ElMessageBox } from 'element-plus'
+    import {reqDownloadSequence} from "~/api/download.js";
 
     const store = useDownloadStore()
     const stressTypeList = computed(() => store.stressTypeList)
@@ -126,7 +127,14 @@
                 }
             )
         } else {
-            store.downloadSequence(ids.value)
+            store.downloadSequence(ids.value).then(res => {
+              const url = window.URL.createObjectURL(new Blob([res.data]));
+              const link = document.createElement('a');
+              link.href = url;
+              link.setAttribute('download', 'Sequence.xlsx');
+              document.body.appendChild(link);
+              link.click();
+            })
         }
     }
 </script>

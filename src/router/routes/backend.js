@@ -4,6 +4,6 @@ export default [
     {
         name: 'home',
         path: 'home',
-        component: () => import('~/views/backend/AdminHome.vue')
+        component: () => import('~/views/backstage/AdminHome.vue')
     }
 ]

@@ -18,6 +18,7 @@ const router = createRouter({
             component: () => import('~/views/Login.vue')
         },
         {
+            name: 'frontLayout',
             path: '/',
             component: () => import('~/views/PageLayout.vue'),
             children: [
@@ -39,8 +40,8 @@ const router = createRouter({
             ]
         },
         {
-            path: '/:pathMatch(.*)*',
             name: 'NotFound',
+            path: '/:pathMatch(.*)*',
             component: () => import('~/views/Error.vue')
         }
     ]
