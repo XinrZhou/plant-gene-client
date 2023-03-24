@@ -1,18 +1,16 @@
 <template>
   <PageCenterTitle page-title="Phenotype Influenced" />
   <el-row>
-      <el-col :span="menuCol">
+      <el-col :span="menuCol" :class="menuClass">
         <LeftMenu :attribute-list="phenoList" @openMenu="handleOpen" @clickList="handleClick" :isLoading="loading"
-          :attr-detail-list="phenoSubList" class="leftArea"/>
+          :attr-detail-list="phenoSubList"/>
       </el-col>
-    <el-col :span="tableCol" :offset="2">
-      <div class="rightArea">
+    <el-col :span="tableCol" :offset="2" class="animate__animated animate__backInDown">
         <el-input :prefix-icon="Search" v-model="tableInput" @input="handleTableFilter" clearable />
         <el-table :data="tableInput==''?phenoGeneList:phenoGeneFilterList" class="el-table-vertical-demo" height="550px"
           stripe>
           <el-table-column prop="gene" label="gene name" />
         </el-table>
-      </div>
     </el-col>
   </el-row>
   <div id="jsmind_container"></div>
@@ -20,7 +18,6 @@
 </template>
 
 <script setup>
-  import {TweenMax} from 'gsap'
   import PageCenterTitle from "~/components/PageCenterTitle.vue"
   import LeftMenu from '~/components/LeftMenu.vue'
   import { Search } from '@element-plus/icons-vue'
@@ -39,12 +36,14 @@
 
   let tableCol = ref(0)
   let menuCol = ref(24)
+  let menuClass = ref('')
 
   let handleOpen = (value) => {
     store.getPhenoTypeSubListData(value)
   }
 
   let handleClick = (attrName, attrItem2) => {
+    menuClass.value = 'animate__animated animate__backInUp'
     tableCol.value = 11
     menuCol.value = 11
     store.getPhenoGeneListData({

@@ -91,7 +91,6 @@
     }
 
     .infinite-list .infinite-list-item {
-        display: flex;
         align-items: center;
         justify-content: left;
         background: white;
@@ -106,6 +105,10 @@
 
     .infinite-list::-webkit-scrollbar {
         display: none;
+    }
+
+    .el-tag {
+        @apply float-right;
     }
 
     .right-table {
