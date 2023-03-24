@@ -57,8 +57,8 @@ export const useDownloadStore = defineStore('download', {
         async downloadSequence(ids) {
             return reqDownloadSequence(ids).then(res => {
                 return Promise.resolve(res)
-                }).catch(err => Promise.reject(err))
-            },
+            }).catch(err => Promise.reject(err))
+        },
 
     }
 })

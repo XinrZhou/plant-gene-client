@@ -28,5 +28,7 @@ export function reqGetGeneList(downLoadQuery) {
 
 // Download
 export function reqDownloadSequence(ids) {
-    return axios.post(`/down/geneSequence?ids=${ids}`)
+    return axios.post(`/down/geneSequence?ids=${ids}`, null, {
+        responseType: 'blob'
+    });
 }
