@@ -8,9 +8,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import router from './router'
 import { createPinia } from 'pinia'
 
-import '/src/style/style.css'
 import '/src/style/index.css'
-import "nprogress/nprogress.css"
 
 //富文本编辑器
 import VMdEditor from '@kangc/v-md-editor';

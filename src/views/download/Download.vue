@@ -38,14 +38,18 @@
                         </el-form>
                     </el-col>
                     <el-col :span="10" :offset="2">
-                        <p class="checkbox-title">Gene Name</p>
+                        <p class="checkbox-title inline-block">Gene Name</p>
+                        <el-button type="info" v-model:checked="isSelectAll" @click="handleSelectAll(!isSelectAll)"
+                                   class="inline-block ml-10 text-black" round
+                                   v-if="geneList && geneList.length > 0"
+                        >Select All</el-button>
                         <el-scrollbar height="400px">
-                            <el-checkbox-group v-model="ids">
-                                <el-checkbox :label="item.id" v-for="item in geneList" :id="item.id+''"
-                                    class="checkbox-content">
-                                    {{item.gene}}
-                                </el-checkbox>
-                            </el-checkbox-group>
+                          <el-checkbox-group v-model="ids">
+                            <el-checkbox :label="item.id" v-for="item in geneList" :id="item.id+''"
+                                         class="checkbox-content">
+                              {{item.gene}}
+                            </el-checkbox>
+                          </el-checkbox-group>
                         </el-scrollbar>
                     </el-col>
                 </el-row>
@@ -77,7 +81,6 @@
     let ids = ref([])
 
     let handleFocus = (index) => {
-        console.log(index)
         switch (index) {
             case 1:
                 store.getStressTypeListData()
@@ -94,9 +97,9 @@
         }
     }
 
-    let handleClick = (item) => {
-        
-    }
+    // let handleClick = (item) => {
+    //
+    // }
 
     let onReset = () => {
         form.value = {
@@ -110,6 +113,10 @@
     }
 
     let onConfirm = () => {
+        if (!form.value.stressType) {
+          ElMessage.error("Please select a stressType!")
+          return
+        }
         store.getGeneListData(form.value)
     }
 
@@ -138,6 +145,10 @@
           })
         }
     }
+    let handleSelectAll = (selected) => {
+      ids.value = selected ? geneList.value.map(item => item.id) : []
+    }
+    let isSelectAll = computed(() => ids.value.length === geneList.value.length)
 </script>
 
 <style scoped>

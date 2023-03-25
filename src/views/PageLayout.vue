@@ -94,7 +94,7 @@
   }
 
   .el-main {
-    @apply bg-gray-100 px-20;
+    @apply bg-gray-50 px-20;
     height: 90vh
   }
 

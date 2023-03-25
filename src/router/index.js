@@ -7,6 +7,8 @@ import search from "./routes/search"
 import submit from "./routes/submit"
 import backend from "./routes/backend"
 import index from "./routes"
+import {useCookies} from "@vueuse/integrations/useCookies";
+import {getToken} from "~/composables/auth.js";
 
 
 const router = createRouter({
@@ -47,33 +49,24 @@ const router = createRouter({
     ]
 })
 
-// //全局前置首位
-// let hasGetInfo = false
-// let store = useUserInfoStore()
-// router.beforeEach(async (to,from,next)=>{
+//全局前置首位
+let hasGetInfo = false;
+router.beforeEach(async (to, from, next) => {
+    let title = (to.meta.title ? to.meta.title : "") + "-plantasrg";
+    document.title = title;
+    // 判断是否后台，后台需要登陆
+    if(to.meta.requiresAuth){
+        const cookie = useCookies()
+        const userInfo = cookie.get("userInfo")
+        const token = getToken()
+        if(!token || !userInfo){
+            next({ path: "/login" });
+        }
+    }
+    next();
+});
 
-//     showFullLoading()
-//     const token = getToken()
-//     let title = (to.meta.title ? to.meta.title : "") + "-xxxxx"
-//     document.title = title
-//     if(token && to.path == "/login"){
-//         toast("请勿重复登录","error")
-//         return next({ path:from.path ? from.path : "/login" })
-//     }
-    
-//     let judge = false
-//     if(token && !hasGetInfo){
-//         await store.dispatch("getInfo")
-//         console.log("=======hasGetInfo为",hasGetInfo)
-//         hasGetInfo = true
-//         console.log("修改后=======hasGetInfo为",hasGetInfo)
-//         judge = true
-//     }
-//     judge==true ? next(to.fullPath) :next()
-
-// })
-
-// // 全局后置守卫
+// 全局后置守卫
 // router.afterEach((to, from) => hideFullLoading())
 
 export default router

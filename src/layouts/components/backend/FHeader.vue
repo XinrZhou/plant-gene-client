@@ -61,7 +61,6 @@
   import {useCookies} from "@vueuse/integrations/useCookies";
   const cookie = useCookies()
   const user = cookie.get("userInfo")
-  console.log(user)
   const {
     // 是否全屏状态
     isFullscreen,

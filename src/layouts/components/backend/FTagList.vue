@@ -121,6 +121,7 @@ initTabList()
   top: 64px;
   right: 0;
   height: 44px;
+  z-index: 999;
 }
 .tag-btn{
   @apply bg-white rounded ml-auto flex items-center justify-center px-2;

@@ -14,22 +14,24 @@ service.defaults.baseURL = '/api'
 
 // 请求拦截器
 service.interceptors.request.use(function (config) {
-    const token = getToken()
-    if (token) {
-        config.headers["token"] = token
+    console.log(config.url)
+    const isBackendRoute = config.url.includes("/admin"); // 检查是否为后端管理页面的路由路径
+    if (isBackendRoute) {
+        const token = getToken()
+        config.headers["token"] = token;
     }
     return config;
 }, function (error) {
-    toast(error.response.data.msg || "请求失败", "error")
+    toast(error.response.data.msg || "The request failed", "error")
     return Promise.reject(error);
 });
 
 // 响应拦截器
 service.interceptors.response.use(function (response) {
-    const contentType = response.headers['content-type']
-    if (contentType === 'application/vnd.ms-excel;charset=utf-8') {
+    const contentDisposition = response.headers['content-disposition'];
+    if (contentDisposition && contentDisposition.indexOf('attachment') !== -1) {
         // 处理文件流响应
-        return response
+        return response;
     }
     let res = response.data
     if (res && res.code === 200)
@@ -40,7 +42,7 @@ service.interceptors.response.use(function (response) {
     return Promise.reject(res.msg);
 }, function (error) {
     console.log(error.response.data.msg)
-    toast(error.response.data.msg || "服务器维护中请求失败", "error")
+    toast(error.response.data.msg || "The request failed, the server is under maintenance!", "error")
     return Promise.reject(error);
 })
 export default service

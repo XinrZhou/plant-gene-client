@@ -9,12 +9,9 @@ export const useSubmitStore = defineStore('submit', {
     },
     actions: {
         //submit -- 上传数据
-        uploadFile(data,file) {
-            reqPostUploadFile(data,file).then(res=>{
-                ElMessage({
-                    message: 'Upload Successfully!',
-                    type: 'success',
-                  })
+        async uploadFile(data,file) {
+            return reqPostUploadFile(data,file).then(res=>{
+                return Promise.resolve()
             }).catch(err => Promise.reject(err))
         }
     }

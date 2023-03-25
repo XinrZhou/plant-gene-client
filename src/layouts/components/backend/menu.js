@@ -15,7 +15,7 @@ export default {
             "child":[{
                 "name":"文件管理",
                 "icon":"home-filled",
-                "frontpath":"/admin/files"
+                "frontpath":"/admin/file"
             }]
         },{
             "name": "数据管理",
@@ -24,6 +24,14 @@ export default {
                 "name":"数据管理",
                 "icon":"shopping-cart-full",
                 "frontpath":"/admin/data"
+            }]
+        },{
+            "name": "Help页面管理",
+            "icon": "shopping-bag",
+            "child":[{
+                "name":"Help页面管理",
+                "icon":"shopping-cart-full",
+                "frontpath":"/admin/help"
             }]
         }
     ]

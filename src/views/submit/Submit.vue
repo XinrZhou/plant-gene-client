@@ -12,7 +12,7 @@
             <el-form-item label="File">
                 <el-upload ref="uploadRef" :file-list="fileList" :auto-upload="false" :on-change="change"
                     class="upload-demo">
-                    <el-button class="form-btn">Click to upload</el-button>
+                    <el-button class="form-btn">Click to <uplo></uplo>ad</el-button>
                     <template #tip>
                         <div class="el-upload__tip">
                             jpg/png files with a size less than 500KB.
@@ -28,7 +28,7 @@
             </el-form-item>
             <el-form-item>
                 <el-button @click="onReset" class="form-btn">Reset</el-button>
-                <el-button @click="onSubmit" class="form-btn">Submit</el-button>
+                <el-button @click="onSubmit" class="form-btn" v-loading="submitting">Submit</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -43,17 +43,17 @@
     const store = useSubmitStore()
 
     let form = ref({
-        description: '',
-        emails: '',
-        name: '',
-        rganization: ''
+      description: '',
+      emails: '',
+      name: '',
+      organization: ''
     })
     let formData = new FormData()
 
     let fileList = reactive([])
     let fileCount = ref(0)
     let uploadRef = ref()
-
+    let submitting = ref(false)
     const change = (file, lists) => {
         let list = toRaw(lists)
         fileCount.value = list.length
@@ -64,12 +64,43 @@
 
     const onSubmit = () => {
         if (fileCount.value == 0) {
-            ElMessageBox.alert('The file cannot be empty!', 'Tip', {
+            ElMessageBox.alert('Hello!The file cannot be empty!', 'Tip', {
                 confirmButtonText: 'OK'
             })
-        } else {
-            store.uploadFile(form, formData)
-            onReset()
+        } else if (!/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(form.value.emails)) {
+            ElMessageBox.alert('Hello!Please input a valid email address so we can contact you!', 'Tip', {
+              confirmButtonText: 'OK'
+            })
+        } else if (!form.value.description) {
+          ElMessageBox.alert('Hello!Please enter file description', 'Tip', {
+            confirmButtonText: 'OK'
+          })
+        } else if (!form.value.name) {
+          ElMessageBox.alert('Hello!Please enter your name so we can contact you!', 'Tip', {
+            confirmButtonText: 'OK'
+          })
+        }else if (!form.value.organization) {
+          ElMessageBox.alert('Hello!Please enter organization so we can contact you!', 'Tip', {
+            confirmButtonText: 'OK'
+          })
+        }else {
+          submitting.value = true
+          store.uploadFile(form.value, formData)
+              .then(() => {
+                submitting.value = false
+                ElMessage({
+                  message: 'Upload Successfully!',
+                  type: 'success',
+                })
+              })
+              .catch((err) => {
+                submitting.value = false
+                console.error(err)
+                ElMessageBox.alert('Failed to upload file, please try again later.', 'Tip', {
+                  confirmButtonText: 'OK'
+                })
+              })
+          // onReset()
         }
     }
 
@@ -78,10 +109,10 @@
         formData = new FormData()
         fileCount.value = 0
         form.value = {
-            blast: '',
-            streeStype: '',
-            description: '',
-            resource: ''
+          description: '',
+          emails: '',
+          name: '',
+          organization: ''
         }
     }
 
