@@ -2,7 +2,7 @@
     <PageCenterTitle page-title="Species" />
 
     <el-row>
-        <el-col :span="menuCol" style="height: 550px;">
+        <el-col :span="menuCol" style="height: 550px;" :class="menuClass">
             <el-input :prefix-icon="Search" v-model="navInput" @input="handleNavChange" clearable />
             <el-scrollbar max-height="550px" class="scrollbar-demo-item">
                 <p :index="index+''" v-for="(item,index) in speciesFilterList" :key="index"
@@ -17,7 +17,7 @@
             </el-scrollbar>
         </el-col>
 
-        <el-col :span="tableCol" :offset="2">
+        <el-col :span="tableCol" :offset="2" class="animate__animated animate__backInUp">
             <div>
                 <Suspense v-if="show">
                     <template #default>
@@ -33,7 +33,6 @@
 </template>
 
 <script setup>
-    import { TweenMax } from 'gsap'
     import PageCenterTitle from "~/components/PageCenterTitle.vue"
     import { Search } from '@element-plus/icons-vue'
     import { useBrowseStore } from '~/store/useBrowseStore.js'
@@ -50,6 +49,7 @@
 
     let menuCol = ref(24)
     let tableCol = ref(0)
+    let menuClass = ref('')
     let navInput = ref('')
 
     watch(() => store.speciesDataList, () => {
@@ -57,6 +57,7 @@
     })
 
     let handleMenuClick = (item) => {
+        menuClass.value = 'animate__animated animate__backInLeft'
         show.value = true
         speciesName.value = item.name
         menuCol.value = 11
