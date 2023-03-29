@@ -9,8 +9,12 @@
     <!-- 基因列表 -->
     <el-row>
         <!-- table -->
-        <el-table :data="stressTypeGeneList" style="width: 100%" height="80vh" stripe @row-click="handleClick">
-            <el-table-column fixed prop="gene" label="Gene" fit class="underline"/>
+        <el-table :data="stressTypeGeneList" style="width: 100%" height="80vh" stripe>
+            <el-table-column fixed prop="gene" label="Gene"  fit>
+              <template v-slot="{ row }">
+                <a href="" @click.prevent="handleClick(row)" class="underline">{{row.gene}}</a>
+              </template>
+            </el-table-column>
             <el-table-column prop="name" label="Scientific Name" type="name" fit />
             <el-table-column prop="product" label="Gene Product" type="product" fit />
             <el-table-column prop="localization" label="Subcellular Localization" type="localization" fit />

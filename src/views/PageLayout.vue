@@ -40,7 +40,6 @@
 <script setup>
   import router from "~/router"
   import { ref, onMounted, computed } from 'vue'
-  import { useResizeObserver } from "@vueuse/core"
   import { useBrowseStore } from '~/store/useBrowseStore.js'
 
   const store = useBrowseStore()
@@ -94,18 +93,24 @@
   }
 
   .el-main {
-    @apply bg-gray-50 px-20;
-    height: 90vh
+    @apply bg-gray-50;
   }
-
+  .el-container {
+    min-height: 100vh;
+    position: relative;
+  }
   .f-footer {
-    @apply flex justify-center bg-gray-200 pt-4 pb-4
+    @apply flex justify-center bg-gray-100 pt-4 pb-4;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
 
   .elmenu {
     @apply flex font-bold items-center;
     height: 64px;
     z-index: 1000;
+
   }
 
   .right {

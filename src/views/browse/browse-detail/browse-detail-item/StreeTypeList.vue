@@ -1,11 +1,9 @@
 <template>
     <PageCenterTitle page-title="Stress Type" />
-    <el-row>
-        <template v-for="item in stressTypeDataList" :key="item.id">
-            <el-col :lg="9" :xs="24" :offset="2" class="el-col">
-                <BrowseCard :card-info="item" @click="goListItem(item.title)" />
-            </el-col>
-        </template>
+    <el-row :gutter="10">
+        <el-col :lg="12" :md="24"  class="el-col" v-for="item in stressTypeDataList" :key="item.id">
+            <BrowseCard :card-info="item" @click="goListItem(item.title)" />
+        </el-col>
     </el-row>
 </template>
 
@@ -37,7 +35,23 @@
 
 
 <style scoped>
+    @media screen and (min-width: 992px) {
+      .el-row {
+        max-width: 70%;
+        margin: 0 auto;
+      }
+    }
+    /* 手机端 */
+    @media screen and (max-width: 993px) {
+      .el-row {
+        max-width: 100%;
+      }
+    }
     .el-col {
         @apply mb-6;
+    }
+    ::v-deep(.el-row){
+      margin-left: 0!important;
+      margin-right: 0!important;
     }
 </style>

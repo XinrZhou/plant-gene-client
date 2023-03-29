@@ -12,7 +12,7 @@
     <el-row class="pt-4">
       <el-table :data="backStageHelpsList" style="width: 100%" stripe @row-click="handleRowClick">
         <el-table-column prop="title" label="标题" />
-        <el-table-column label="标题" ><span class="text-blue-500 text-sm font-bold">点击按钮查看</span></el-table-column>
+        <el-table-column label="内容" ><span class="text-blue-500 text-sm font-bold">右侧按钮查看</span></el-table-column>
         <el-table-column prop="updateTime" label="更新时间" />
         <el-table-column prop="createTime" label="创建时间" />
         <el-table-column prop="status" label="状态" />

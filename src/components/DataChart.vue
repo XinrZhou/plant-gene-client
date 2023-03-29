@@ -1,6 +1,6 @@
 <template>
   <el-card class="charts-card">
-    <div :id="chartId" ref="el" style="height:300px;"></div>
+    <div :id="chartId" ref="el" style="height:350px;"></div>
   </el-card>
 </template>
 
@@ -12,11 +12,7 @@ import axios from "axios"
 import router from "~/router/index.js";
 
 const props = defineProps({
-  x: {
-    type: Number,
-    required: true
-  },
-  y: {
+  id: {
     type: Number,
     required: true
   },
@@ -76,31 +72,30 @@ onMounted(async () => {
 
   };
 
-  let x = props.x
-  let y = props.y
-  let id = x - 1 + y * 3 - 3
-  // console.log(id)
+  let x = props.id
+  let id = x -1
+  console.log(id)
 
   switch (id) {
     case 0: // 数据包含的物种所占有抗性基因的数量
-      renderChart(barConfig('Stress Type Count'), 'http://175.178.9.163:8093/plant-details/plantGeneCount')
+      renderChart(barConfig('Species'), 'http://175.178.9.163:8093/plant-details/plantGeneCount')
       myChart.setOption({
         dataZoom: {
-          type: 'slider', // 支持手动滑动和缩放
+          type: 'inside', // 支持手动滑动和缩放
           start: 0,
           end: 25
         }
       });
       break
     case 1: // 各胁迫类型基因的统计数据比例
-      renderChart(pieConfig('Stress Type Count', ['50%', '70%'], ['50%', '65%']), 'http://175.178.9.163:8093/plant-details/StressTypeCount')
+      renderChart(pieConfig('Stress Type', ['50%', '70%'], ['50%', '65%']), 'http://175.178.9.163:8093/plant-details/StressTypeCount')
       myChart.on('click', function (params) {
         const url = '/browse/stresstype/list?stressName='
         router.push(url + params.name.replaceAll(' ', '+'))
       });
       break
     case 2: // 各基因家族的占比
-      renderChart(pieConfig('Gene Family Count', ['50%', '70%'], ['50%', '65%']), 'http://175.178.9.163:8093/plant-details/GeneFamilyCount')
+      renderChart(pieConfig('Gene Family', ['50%', '70%'], ['50%', '65%']), 'http://175.178.9.163:8093/plant-details/GeneFamilyCount')
       break
     case 3: // 大类表型出现的概率
       option.legend = {
@@ -115,13 +110,13 @@ onMounted(async () => {
         }
       }
       option && myChart.setOption(option)
-      renderChart(pieConfig('Phenotype Count', ['40%', '60%'], ['50%', '67%']), 'http://175.178.9.163:8093/plant-details/PhenotypeCount')
+      renderChart(pieConfig('Phenotype Influenced', ['40%', '60%'], ['50%', '67%']), 'http://175.178.9.163:8093/plant-details/PhenotypeCount')
       break
     case 4:
-      renderChart(pieConfig('Expression Organs Gene Count'), 'http://175.178.9.163:8093/plant-details/expressionOrgansGeneCount')
+      renderChart(pieConfig('Expression Organs'), 'http://175.178.9.163:8093/plant-details/expressionOrgansGeneCount')
       break
     case 5:
-      renderChart(barConfig('SubCellular Localization Count'), 'http://175.178.9.163:8093/plant-details/subCellularLocalizationCount')
+      renderChart(barConfig('SubCellular Localization'), 'http://175.178.9.163:8093/plant-details/subCellularLocalizationCount')
       break
     default:
       option && myChart.setOption(option);
@@ -246,8 +241,8 @@ function barConfig(title = '') {
       },
       axisLabel: {
         interval: 0,
-        rotate: 45,
-        fontSize: 12,
+        rotate: 30,
+        fontSize: 8,
       }
     },
     yAxis: {
@@ -279,11 +274,4 @@ function barConfig(title = '') {
 </script>
 
 <style scoped>
-.charts-card {
-  @apply my-4;
-}
-
-.el-card {
-  --el-card-padding: 10px;
-}
 </style>

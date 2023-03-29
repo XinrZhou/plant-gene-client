@@ -7,7 +7,7 @@
         </el-col>
     </el-row>
 
-    <el-card>
+    <el-card shadow="hover">
         <div class="card-nav">
             <h1>{{geneName}}</h1>
             <p>GenBank:</p>

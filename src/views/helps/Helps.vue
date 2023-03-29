@@ -1,7 +1,7 @@
 <template>
     <PageLeftTitle page-title="Helps" />
-    <el-row>
-        <el-col :span="20" :offset="2">
+    <el-row class="flex justify-center">
+        <el-col :span="22" :offset="2">
             <el-collapse v-model="activeNames" @change="handleChange">
               <el-collapse-item :span="6" v-for="(item, index) in helpsList" :key="index" :title=item.title  :name=index>
                 <div>{{item.content}}</div>
@@ -28,6 +28,18 @@
 </script>
 
 <style scoped>
+    @media screen and (min-width: 992px) {
+      .el-row {
+        max-width: 70%;
+        margin: 0 auto;
+      }
+    }
+    /* 手机端 */
+    @media screen and (max-width: 993px) {
+      .el-row {
+        max-width: 100%;
+      }
+    }
     ::v-deep .el-collapse-item__header {
         color: #758e61;
         position: relative;

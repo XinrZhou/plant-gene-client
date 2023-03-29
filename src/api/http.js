@@ -14,7 +14,6 @@ service.defaults.baseURL = '/api'
 
 // 请求拦截器
 service.interceptors.request.use(function (config) {
-    console.log(config.url)
     const isBackendRoute = config.url.includes("/admin"); // 检查是否为后端管理页面的路由路径
     if (isBackendRoute) {
         const token = getToken()

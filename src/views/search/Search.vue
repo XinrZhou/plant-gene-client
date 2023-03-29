@@ -21,18 +21,22 @@
 
     <el-row>
         <!-- left menu -->
-        <el-col :span="8">
+        <el-col :lg="7" :md="12">
             <h5 class="menu-title">Filter Bar</h5>
             <LeftMenu :attribute-list="attributeList" @openMenu="handleOpen" @clickList="handleClick" :isLoading="isLoading "
                 :attr-detail-list="attrDetailList" />
         </el-col>
 
         <!-- right table -->
-        <el-col :span="15" :offset="1">
-            <el-table :data="geneDataList" stripe style="width: 100%" class="right-table">
-                <el-table-column prop="gene" label="gene" width="180" />
+        <el-col  :lg="16"  :md="11" v-if="$mq.lg" :offset="1">
+            <el-table :data="geneDataList" stripe  class="right-table">
+                <el-table-column fixed prop="gene" label="Gene" width="180">
+                  <template v-slot="{ row }">
+                    <a href="" @click.prevent="handleGeneClick(row)" class="underline">{{row.gene}}</a>
+                  </template>
+                </el-table-column>
                 <el-table-column prop="scientificName" label="scientificName" width="180" />
-                <el-table-column prop="description" label="description" />
+                <el-table-column prop="description" label="description" fit/>
             </el-table>
             <!-- pagination  -->
             <div>
@@ -49,6 +53,7 @@
     import { Search } from '@element-plus/icons-vue'
     import { useSearchStore } from '~/store/useSearchStore.js'
     import { ref, computed, reactive, watch, toRaw } from 'vue'
+    import router from "~/router/index.js";
 
     const store = useSearchStore()
     store.getAttributeListData()
@@ -98,7 +103,14 @@
             options.value = []
         }
     }
-
+    let handleGeneClick = (row) => {
+      router.push({
+        name: 'geneoverview',
+        query: {
+          geneName: row.gene
+        }
+      })
+    }
     // 点击菜单项时触发：获取基因数据
     const handleClick = (attr, item) => {
         attrName.value = attr
@@ -140,6 +152,19 @@
 </script>
 
 <style scoped>
+    /* PC端 */
+    @media screen and (min-width: 992px) {
+      .el-row {
+        max-width: 70%;
+        margin: 0 auto;
+      }
+    }
+    /* 手机端 */
+    @media screen and (max-width: 993px) {
+      .el-row {
+        max-width: 100%;
+      }
+    }
     .menu-title {
         @apply mb-4 mt-4 text-2xl font-semibold;
     }

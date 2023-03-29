@@ -1,61 +1,60 @@
 <template>
-    <PageLeftTitle page-title="Download" />
-    <el-row>
-        <el-col :offset="3" :span="18">
-            <el-card>
-                <el-row>
-                    <el-col :span="11">
-                        <el-form :model="form" label-position="top" class="el-form-style">
-                            <el-form-item label="Stress Type">
-                                <el-select v-model="form.stressType" placeholder="Select Stress Type"
-                                    @focus="handleFocus(1)" class="select-item" clearable required>
-                                    <el-option :value="item" v-for="(item,index) in stressTypeList " :key="index" />
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item label="Species">
-                                <el-select v-model="form.species" placeholder="Select Species" @focus="handleFocus(2)"
-                                    class="select-item" clearable>
-                                    <el-option :value="item" v-for="(item,index) in speciesList " :key="index" />
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item label="Gene Family">
-                                <el-select v-model="form.geneFamily" placeholder="Select Gene Family"
-                                    @focus="handleFocus(3)" class="select-item" clearable>
-                                    <el-option :value="item" v-for="(item,index) in geneFamilyList " :key="index" />
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item label="Phenotype Influenced">
-                                <el-select v-model="form.phenotypeGroup" placeholder="Select Phenotype Influenced"
-                                    @focus="handleFocus(4)" class="select-item" clearable>
-                                    <el-option :value="item" v-for="(item,index) in phenotypeList " :key="index" />
-                                </el-select>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-button @click="onReset" class="download-btn">Reset</el-button>
-                                <el-button @click="onConfirm" class="download-btn">Confirm</el-button>
-                                <el-button @click="onDownload" class="download-btn">Download</el-button>
-                            </el-form-item>
-                        </el-form>
-                    </el-col>
-                    <el-col :span="10" :offset="2">
-                        <p class="checkbox-title inline-block">Gene Name</p>
-                        <el-button type="info" v-model:checked="isSelectAll" @click="handleSelectAll(!isSelectAll)"
-                                   class="inline-block ml-10 text-black" round
-                                   v-if="geneList && geneList.length > 0"
-                        >Select All</el-button>
-                        <el-scrollbar height="400px">
-                          <el-checkbox-group v-model="ids">
-                            <el-checkbox :label="item.id" v-for="item in geneList" :id="item.id+''"
-                                         class="checkbox-content">
-                              {{item.gene}}
-                            </el-checkbox>
-                          </el-checkbox-group>
-                        </el-scrollbar>
-                    </el-col>
-                </el-row>
-            </el-card>
+  <el-card shadow="hover" class="pt-4">
+    <el-row class="">
+      <el-col class="font-bold pt-2 pb-2 text-4xl">DownLoad</el-col>
+    </el-row>
+    <el-divider/>
+    <el-row class="">
+        <el-col :lg="12" :md="12">
+            <el-form :model="form" label-position="top" class="el-form-style">
+                <el-form-item label="Stress Type">
+                    <el-select v-model="form.stressType" placeholder="Select Stress Type"
+                        @focus="handleFocus(1)" class="select-item" clearable required>
+                        <el-option :value="item" v-for="(item,index) in stressTypeList " :key="index" />
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="Species">
+                    <el-select v-model="form.species" placeholder="Select Species" @focus="handleFocus(2)"
+                        class="select-item" clearable>
+                        <el-option :value="item" v-for="(item,index) in speciesList " :key="index" />
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="Gene Family">
+                    <el-select v-model="form.geneFamily" placeholder="Select Gene Family"
+                        @focus="handleFocus(3)" class="select-item" clearable>
+                        <el-option :value="item" v-for="(item,index) in geneFamilyList " :key="index" />
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="Phenotype Influenced">
+                    <el-select v-model="form.phenotypeGroup" placeholder="Select Phenotype Influenced"
+                        @focus="handleFocus(4)" class="select-item" clearable>
+                        <el-option :value="item" v-for="(item,index) in phenotypeList " :key="index" />
+                    </el-select>
+                </el-form-item>
+                <el-form-item>
+                  <el-button @click="onReset" class="download-btn">Reset</el-button>
+                  <el-button @click="onConfirm" class="download-btn">Confirm</el-button>
+                  <el-button @click="onDownload" class="download-btn">Download</el-button>
+                </el-form-item>
+            </el-form>
+        </el-col>
+        <el-col :lg="11"  :md="11" :offset="1" >
+            <p class="checkbox-title inline-block">Gene Name</p>
+            <el-button type="info" v-model:checked="isSelectAll" @click="handleSelectAll(!isSelectAll)"
+                       class="inline-block ml-10 text-black" round
+                       v-if="geneList && geneList.length > 0"
+            >Select All</el-button>
+            <el-scrollbar height="400px">
+              <el-checkbox-group v-model="ids">
+                <el-checkbox :label="item.id" v-for="item in geneList" :id="item.id+''"
+                             class="checkbox-content">
+                  {{item.gene}}
+                </el-checkbox>
+              </el-checkbox-group>
+            </el-scrollbar>
         </el-col>
     </el-row>
+  </el-card>
 </template>
 
 <script setup>
@@ -152,8 +151,20 @@
 </script>
 
 <style scoped>
+    @media screen and (min-width: 992px) {
+      .el-card {
+        max-width: 70%;
+        margin: 0 auto;
+      }
+    }
+    /* 手机端 */
+    @media screen and (max-width: 993px) {
+      .el-card {
+        max-width: 100%;
+      }
+    }
     .el-form-style {
-        height: 500px;
+        /*height: 500px;*/
     }
 
     ::v-deep .el-form-item__label {

@@ -1,16 +1,13 @@
 <!-- 卡片组件 -->
 <template>
-  <el-card class="box-card h-60">
+  <el-card class="box-card h-60" shadow="hover">
     <template #header>
       <div class="card-header">
-        <span>{{cardInfo.title}}</span>
+        <span class="my-content">{{cardInfo.title}}</span>
       </div>
     </template>
     <el-row>
-      <el-col :span="9">
-        <img :src="cardInfo.picture" class="auto bg-cover" />
-      </el-col>
-      <el-col :span="13" :offset="2">
+      <el-col :span="24">
         {{cardInfo.content}}
       </el-col>
     </el-row>
@@ -30,4 +27,13 @@
   .box {
     @apply flex space-x-4 flex-1 w-1/2;
   }
+  .my-content{
+    color: #18bc9c;
+    font-size: 22px;
+    line-height: 25px;
+  }
+  .el-card {
+    background-color: transparent !important;
+  }
+
 </style>
