@@ -1,17 +1,17 @@
 <template>
-    <PageLeftTitle page-title="Helps" />
+    <PageCenterTitle page-title="Helps" />
     <el-row class="flex justify-center">
-        <el-col :span="22" :offset="2">
+        <el-col :span="24">
             <el-collapse v-model="activeNames" @change="handleChange">
               <el-collapse-item :span="6" v-for="(item, index) in helpsList" :key="index" :title=item.title  :name=index>
-                <div>{{item.content}}</div>
+                <v-md-editor :model-value="item.content" mode="preview"></v-md-editor>
               </el-collapse-item>
             </el-collapse>
         </el-col>
     </el-row>
 </template>
 <script setup>
-    import PageLeftTitle from '~/components/PageLeftTitle.vue'
+    import PageCenterTitle from '~/components/PageCenterTitle.vue'
     import {computed, onMounted, ref} from 'vue'
     import { useHelpsStore } from '~/store/useHelpsStore.js'
     const store = useHelpsStore()

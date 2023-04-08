@@ -30,7 +30,13 @@
           <el-input v-model="currentHelps.title" />
         </el-form-item>
         <el-form-item label="内容">
-          <v-md-editor v-model="currentHelps.content" height="350px"/>
+          <v-md-editor
+              v-model="currentHelps.content"
+              height="350px"
+              @upload-image="handleUploadImage"
+              :disabled-menus="[]"
+              left-toolbar="undo redo clear | h bold italic strikethrough quote | ul ol table hr | image | save "
+              />
         </el-form-item>
         <el-form-item label="状态">
           <el-select v-model="currentHelps.status">
@@ -52,6 +58,7 @@ import {computed, onMounted, ref} from 'vue'
 import { useHelpsStore } from '~/store/useHelpsStore.js'
 import { useRouter } from 'vue-router'
 import { showModal, toast } from '~/composables/util.js'
+import axios from "~/api/http"
 
 const store = useHelpsStore()
 const router = useRouter()
@@ -112,6 +119,19 @@ const handleSubmit =() =>{
 }
 const handleSave=() =>{
   dialogVisible.value = true
+}
+
+const  handleUploadImage=(event,insertImage,files)=> {
+  const FormData1 = new FormData()
+  FormData1.append("file", files[0])
+  axios.post("/home-picture/uploadImage", FormData1, {
+    'Content-Type': 'multipart/form-data'
+  }).then(res => {
+    console.log(res.data.imagePath)
+    insertImage({
+      url: res.data.imagePath
+    });
+  })
 }
 </script>
 

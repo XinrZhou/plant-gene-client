@@ -28,7 +28,7 @@
         </el-col>
 
         <!-- right table -->
-        <el-col  :lg="16"  :md="11" v-if="$mq.lg" :offset="1">
+        <el-col  :lg="16"  :md="11" :offset="1">
             <el-table :data="geneDataList" stripe  class="right-table">
                 <el-table-column fixed prop="gene" label="Gene" width="180">
                   <template v-slot="{ row }">

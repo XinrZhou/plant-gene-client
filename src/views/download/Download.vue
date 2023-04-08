@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="hover" class="pt-4">
+  <el-card shadow="hover" class="pt-4 rounded-2xl">
     <el-row class="">
       <el-col class="font-bold pt-2 pb-2 text-4xl">DownLoad</el-col>
     </el-row>

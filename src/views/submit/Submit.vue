@@ -136,11 +136,11 @@
       }
     }
     .submit-tip {
-        @apply pl-9 mb-8;
+        @apply mb-8;
     }
 
     .submit-form {
-        @apply ml-9 px-4 py-6 bg-white rounded-md text-left;
+        @apply px-4 py-6 bg-white rounded-md text-left;
     }
 
     .el-input {

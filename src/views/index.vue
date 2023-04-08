@@ -92,7 +92,7 @@
   }
 
   .charts-card {
-    @apply my-4;
+    @apply my-4 rounded-2xl;
   }
 
   .data-text {

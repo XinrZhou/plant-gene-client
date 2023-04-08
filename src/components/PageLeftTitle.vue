@@ -13,6 +13,6 @@
 
 <style scoped>
     .page-info {
-        @apply flex items-center font-bold pt-5 pb-3 text-4xl m-9
+        @apply flex items-center font-bold pt-5 pb-3 text-4xl
     }
 </style>

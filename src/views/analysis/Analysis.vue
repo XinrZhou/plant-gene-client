@@ -1,5 +1,5 @@
 <template>
-    <PageCenterTitle page-title="Analysis" />
+    <PageLeftTitle page-title="Analysis" />
     <el-row class="flex justify-center">
       <el-col :lg="24" :md="24">
         <el-tabs style="height: 300px" class="demo-tabs">

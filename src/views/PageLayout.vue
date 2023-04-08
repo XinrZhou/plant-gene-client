@@ -94,6 +94,10 @@
 
   .el-main {
     @apply bg-gray-50;
+
+  }
+  ::v-deep(.el-main){
+    --el-main-padding:0px;
   }
   .el-container {
     min-height: 100vh;
