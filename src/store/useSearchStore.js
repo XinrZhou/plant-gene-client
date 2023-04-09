@@ -4,7 +4,8 @@ import {
     reqGetListByAttribute, 
     reqGetListByAttrAndName, 
     reqGetFuzzySearchList, 
-    reqGetListBySearchRes
+    reqGetListBySearchRes,
+    reqPostMenuList
 } from "~/api/search.js"
 
 export const useSearchStore = defineStore('search', {
@@ -14,6 +15,7 @@ export const useSearchStore = defineStore('search', {
             attrDetailDataList: [],// 属性详情列表
             geneDataList: [], // 基因列表
             searchDataList: [], //模糊查询列表
+            menuDataList: [], //菜单列表
             isLoading: true,
             recordsCount: 0
         }
@@ -54,6 +56,14 @@ export const useSearchStore = defineStore('search', {
             reqGetListBySearchRes(data).then(res => {
                 this.geneDataList = res.data.list.records
                 this.recordsCount = res.data.list.total
+            }).catch(err => Promise.reject(err))
+        },
+
+        // search -- 获取菜单列表
+        getMenuListData() {
+            reqPostMenuList().then(res => {
+                this.menuDataList = res.data
+                console.log("菜单列表",res)
             }).catch(err => Promise.reject(err))
         }
     }

@@ -25,3 +25,8 @@ export function reqGetFuzzySearchList(searchContent) {
 export function reqGetListBySearchRes(data) {
     return axios.post('/searchBrowse/search',data)
 }
+
+// search 大菜单
+export function reqPostMenuList() {
+    return axios.post('searchBrowse/searchMenu')
+}
