@@ -1,16 +1,20 @@
 <template>
   <PageCenterTitle page-title="Phenotype Influenced" />
   <el-row>
-      <el-col :span="menuCol" :class="menuClass">
-        <LeftMenu :attribute-list="phenoList" @openMenu="handleOpen" @clickList="handleClick" :isLoading="loading"
-          :attr-detail-list="phenoSubList"/>
-      </el-col>
+    <el-col :span="menuCol" :class="menuClass">
+      <LeftMenu :attribute-list="phenoList" @openMenu="handleOpen" @clickList="handleClick" :isLoading="loading"
+        :attr-detail-list="phenoSubList"/>
+    </el-col>
     <el-col :span="tableCol" :offset="2" class="animate__animated animate__backInDown">
-        <el-input :prefix-icon="Search" v-model="tableInput" @input="handleTableFilter" clearable />
-        <el-table :data="tableInput==''?phenoGeneList:phenoGeneFilterList" class="el-table-vertical-demo" height="550px"
-          stripe>
-          <el-table-column prop="gene" label="gene name" />
-        </el-table>
+      <el-input :prefix-icon="Search" v-model="tableInput" @input="handleTableFilter" clearable />
+      <el-table :data="tableInput==''?phenoGeneList:phenoGeneFilterList" class="el-table-vertical-demo" height="550px"
+        stripe>
+        <el-table-column prop="gene" label="gene name">
+          <template v-slot="{ row }">
+            <a href="" @click.prevent="goGeneDetail(row)" class="underline">{{row.gene}}</a>
+          </template>
+        </el-table-column>
+      </el-table>
     </el-col>
   </el-row>
   <div id="jsmind_container"></div>
@@ -23,6 +27,7 @@
   import { Search } from '@element-plus/icons-vue'
   import { useBrowseStore } from '~/store/useBrowseStore.js'
   import { ref, computed, toRaw } from 'vue'
+  import router from "~/router"
 
   const store = useBrowseStore()
   store.getPhenoTypeListData()
@@ -60,6 +65,15 @@
     }
   }
 
+  // 路由跳转-->基因概述
+  let goGeneDetail = (row) => {
+    router.push({
+      name: 'geneoverview',
+      query: {
+        geneName: row.gene
+      }
+    })
+  }
 
 </script>
 
@@ -171,9 +185,8 @@
   ::v-deep .el-row {
     background-color: white;
   }
-  
+
   .el-table-vertical-demo {
     @apply mt-5;
   }
-
 </style>

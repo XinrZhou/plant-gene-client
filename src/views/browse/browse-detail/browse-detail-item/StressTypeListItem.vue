@@ -12,7 +12,7 @@
         <el-table :data="stressTypeGeneList" style="width: 100%" height="80vh" stripe>
             <el-table-column fixed prop="gene" label="Gene"  fit>
               <template v-slot="{ row }">
-                <a href="" @click.prevent="handleClick(row)" class="underline">{{row.gene}}</a>
+                <a href="" @click.prevent="goGeneDetail(row)" class="underline">{{row.gene}}</a>
               </template>
             </el-table-column>
             <el-table-column prop="name" label="Scientific Name" type="name" fit />
@@ -85,7 +85,7 @@
     }
 
     // 路由跳转-->基因概述
-    let handleClick = (row) => {
+    let goGeneDetail = (row) => {
         router.push({
             name: 'geneoverview',
             query: {

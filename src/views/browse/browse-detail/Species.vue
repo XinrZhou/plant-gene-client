@@ -42,7 +42,7 @@
     store.getSpeciesListData()
     const speciesList = computed(() => store.speciesDataList)
     const GeneAsyncComponent = defineAsyncComponent(() => import('../components/SpeciesGeneList.vue'))
-    
+
     let speciesFilterList = ref([])
     let show = ref(false)
     let speciesName = ref('')
@@ -71,7 +71,6 @@
             speciesFilterList.value = toRaw(speciesList.value).filter(item => item.name.indexOf(navInput.value) !== -1)
         }
     })
-
 </script>
 
 <style scoped>
