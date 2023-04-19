@@ -5,7 +5,13 @@ import {
     reqGetListByAttrAndName, 
     reqGetFuzzySearchList, 
     reqGetListBySearchRes,
-    reqPostMenuList
+    reqPostMenuSpeciesList,
+    reqPostMenuStressTypeList,
+    reqPostMenuGeneFamilyList,
+    reqPostMenuPhenotypeGroupList, 
+    reqPostExpressionOrgansList,
+    reqPostMenuSubCellularList,
+    reqPostMultipleChoiceList
 } from "~/api/search.js"
 
 export const useSearchStore = defineStore('search', {
@@ -15,9 +21,15 @@ export const useSearchStore = defineStore('search', {
             attrDetailDataList: [],// 属性详情列表
             geneDataList: [], // 基因列表
             searchDataList: [], //模糊查询列表
-            menuDataList: [], //菜单列表
+            speciesDataList: [], // Species 
+            stressTypeDataList: [], // StressType
+            geneFamilyDataList: [], // GeneFamily
+            phenotypeGroupDataList: [], // PhenotypeGroup
+            expressionOrgansDataList: [], // ExpressionOrgans
+            subCellularDataList: [], // SubCellular
+            multipleChoiceList: [], // multipleChoice
             isLoading: true,
-            recordsCount: 0
+            recordsCount: 0,
         }
     },
     actions: {
@@ -59,11 +71,60 @@ export const useSearchStore = defineStore('search', {
             }).catch(err => Promise.reject(err))
         },
 
-        // search -- 获取菜单列表
+        // search -- menuList
         getMenuListData() {
             reqPostMenuList().then(res => {
                 this.menuDataList = res.data
-                console.log("菜单列表",res)
+            }).catch(err => Promise.reject(err))
+        },
+
+        // search -- species
+        getSpeciesMenuListData() {
+            reqPostMenuSpeciesList().then(res => {
+                this.speciesDataList = res.data
+            }).catch(err => Promise.reject(err))
+        },
+
+        // search -- StressType
+        getStressTypeMenuListData() {
+            reqPostMenuStressTypeList().then(res => {
+                this.stressTypeDataList = res.data
+            }).catch(err => Promise.reject(err))
+        },
+
+        // search -- GeneFamily
+        getGeneFamilyMenuListData() {
+            reqPostMenuGeneFamilyList().then(res => {
+                this.geneFamilyDataList = res.data
+            }).catch(err => Promise.reject(err))
+        },
+
+        // search -- PhenotypeGroup
+        getPhenoTypeGroupMenuListData() {
+            reqPostMenuPhenotypeGroupList().then(res => {
+                this.phenotypeGroupDataList = res.data
+            }).catch(err => Promise.reject(err))
+        },
+
+        // search -- ExpressionOrgans
+        getExpressionOrgansMenuListData() {
+            reqPostExpressionOrgansList().then(res => {
+                this.expressionOrgansDataList = res.data
+            }).catch(err => Promise.reject(err))
+        },
+
+        // search -- SubCellular
+        getSubCellularMenuListData() {
+            reqPostMenuSubCellularList().then(res => {
+                this.subCellularDataList = res.data
+            }).catch(err => Promise.reject(err))
+        },
+
+        // search -- MultipleChoice
+        getMultipleChoiceListData(data) {
+            reqPostMultipleChoiceList(data).then(res => {
+                this.multipleChoiceList = res.data.records
+                this.recordsCount = res.data.total
             }).catch(err => Promise.reject(err))
         }
     }

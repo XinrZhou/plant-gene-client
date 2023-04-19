@@ -1,27 +1,166 @@
 <template>
     <el-row>
         <el-col :span="7">
-            <el-card class="box-card" v-for="(item,index) in menuList" :key="index">
+            <!-- Specied -->
+            <el-card class="box-card">
                 <template #header>
-                    <div class="card-header">
+                    <div class="card-header" v-for="item in speciesList.title" :key="item.name">
                         <span>{{item.name}}</span>&nbsp;
                         <span>{{item.value}}</span>
                     </div>
                 </template>
-                <div class="infinite-list card-div">
-                    <el-radio-group v-model="radio" size="large">
-                        <el-radio-button :label="item2.name" v-for="(item2, index2) in item.chartVO" :key="index2">
+                <el-scrollbar :height="speciesScrollHeight">
+                    <el-radio-group v-model="speciesRadio" size="large">
+                        <el-radio-button :label="item.name" v-for="item in speciesList.list" :key="item.name"
+                            @click="handleBtnClick">
+                            <span class="card-item-span">{{item.name}}</span>&nbsp;
+                            <el-tag type="info" round>{{item.value}}</el-tag>
                         </el-radio-button>
                     </el-radio-group>
-                </div>
+                </el-scrollbar>
+                <el-button style="width: 100%;" @click="changeScrollHeight(1)">
+                    <el-icon>
+                        <ArrowDown />
+                    </el-icon>
+                </el-button>
+            </el-card>
+
+            <!-- StressType -->
+            <el-card class="box-card">
+                <template #header>
+                    <div class="card-header" v-for="item in stressTypeList.title" :key="item.name">
+                        <span>{{item.name}}</span>&nbsp;
+                        <span>{{item.value}}</span>
+                    </div>
+                </template>
+                <el-scrollbar :height="stressTypeScrollHeight">
+                    <el-radio-group v-model="stressTypeRadio" size="large">
+                        <el-radio-button :label="item.name" v-for="item in stressTypeList.list" :key="item.name"
+                            @click="handleBtnClick">
+                            <span class="card-item-span">{{item.name}}</span>&nbsp;
+                            <el-tag type="info" round>{{item.value}}</el-tag>
+                        </el-radio-button>
+                    </el-radio-group>
+                </el-scrollbar>
+                <el-button style="width: 100%;" @click="changeScrollHeight(2)">
+                    <el-icon>
+                        <ArrowDown />
+                    </el-icon>
+                </el-button>
+            </el-card>
+
+            <!-- GeneFamily -->
+            <el-card class="box-card">
+                <template #header>
+                    <div class="card-header" v-for="item in geneFamilyList.title" :key="item.name">
+                        <span>{{item.name}}</span>&nbsp;
+                        <span>{{item.value}}</span>
+                    </div>
+                </template>
+                <el-scrollbar :height="geneFamilyScrollHeight">
+                    <el-radio-group v-model="geneFamilyRadio" size="large">
+                        <el-radio-button :label="item.name" v-for="item in geneFamilyList.list" :key="item.name"
+                            @click="handleBtnClick">
+                            <span class="card-item-span">{{item.name}}</span>&nbsp;
+                            <el-tag type="info" round>{{item.value}}</el-tag>
+                        </el-radio-button>
+                    </el-radio-group>
+                </el-scrollbar>
+                <el-button style="width: 100%;" @click="changeScrollHeight(3)">
+                    <el-icon>
+                        <ArrowDown />
+                    </el-icon>
+                </el-button>
+            </el-card>
+
+            <!-- PhenotypeGroup -->
+            <el-card class="box-card">
+                <template #header>
+                    <div class="card-header" v-for="item in phenotypeGroupList.title" :key="item.name">
+                        <span>{{item.name}}</span>&nbsp;
+                        <span>{{item.value}}</span>
+                    </div>
+                </template>
+                <el-scrollbar :height="phenoTypeScrollHeight">
+                    <el-radio-group v-model="phenoTypeRadio" size="large">
+                        <el-radio-button :label="item.name" v-for="item in phenotypeGroupList.list" :key="item.name"
+                            @click="handleBtnClick">
+                            <span class="card-item-span">{{item.name}}</span>&nbsp;
+                            <el-tag type="info" round>{{item.value}}</el-tag>
+                        </el-radio-button>
+                    </el-radio-group>
+                </el-scrollbar>
+                <el-button style="width: 100%;" @click="changeScrollHeight(4)">
+                    <el-icon>
+                        <ArrowDown />
+                    </el-icon>
+                </el-button>
+            </el-card>
+
+            <!-- ExpressionOrgans -->
+            <el-card class="box-card">
+                <template #header>
+                    <div class="card-header" v-for="item in expressionOrgansList.title" :key="item.name">
+                        <span>{{item.name}}</span>&nbsp;
+                        <span>{{item.value}}</span>
+                    </div>
+                </template>
+                <el-scrollbar :height="expressionScrollHeight">
+                    <el-radio-group v-model="expressionRadio" size="large">
+                        <el-radio-button :label="item.name" v-for="item in expressionOrgansList.list" :key="item.name"
+                            @click="handleBtnClick">
+                            <span class="card-item-span">{{item.name}}</span>&nbsp;
+                            <el-tag type="info" round>{{item.value}}</el-tag>
+                        </el-radio-button>
+                    </el-radio-group>
+                </el-scrollbar>
+                <el-button style="width: 100%;" @click="changeScrollHeight(5)">
+                    <el-icon>
+                        <ArrowDown />
+                    </el-icon>
+                </el-button>
+            </el-card>
+
+            <!-- SubCellular -->
+            <el-card class="box-card">
+                <template #header>
+                    <div class="card-header" v-for="item in subCellularList.title" :key="item.name">
+                        <span>{{item.name}}</span>&nbsp;
+                        <span>{{item.value}}</span>
+                    </div>
+                </template>
+                <el-scrollbar :height="subCellularScrollHeight">
+                    <el-radio-group v-model="subCellularRadio" size="large">
+                        <el-radio-button :label="item.name" v-for="item in subCellularList.list" :key="item.name"
+                            @click.native="handleBtnClick">
+                            <span class="card-item-span">{{item.name}}</span>&nbsp;
+                            <el-tag type="info" round>{{item.value}}</el-tag>
+                        </el-radio-button>
+                    </el-radio-group>
+                </el-scrollbar>
+                <el-button style="width: 100%;" @click="changeScrollHeight(6)">
+                    <el-icon>
+                        <ArrowDown />
+                    </el-icon>
+                </el-button>
             </el-card>
         </el-col>
-        <el-col :span="16" :offset="1">
-            <el-table :data="tableData" border style="width: 100%">
-                <el-table-column prop="date" label="Date" width="180" />
-                <el-table-column prop="name" label="Name" width="180" />
-                <el-table-column prop="address" label="Address" />
+        <!-- right table -->
+        <el-col  :lg="16"  :md="11" :offset="1">
+            <el-table :data="multipleChoiceList" stripe  class="right-table">
+                <el-table-column fixed prop="gene" label="Gene" width="180">
+                  <template v-slot="{ row }">
+                    <a href="" @click.prevent="handleGeneClick(row)" class="underline">{{row.gene}}</a>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="scientificName" label="scientificName" width="180" />
+                <el-table-column prop="description" label="description" fit/>
             </el-table>
+            <!-- pagination  -->
+            <div>
+                <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize"
+                    layout="prev, pager, next, jumper" :total="pageTotal" @current-change="handleCurrentChange" />
+            </div>
         </el-col>
     </el-row>
 </template>
@@ -29,39 +168,103 @@
 <script setup>
     import { Search } from '@element-plus/icons-vue'
     import { useSearchStore } from '~/store/useSearchStore.js'
-    import { ref, computed, reactive, watch, toRaw } from 'vue'
+    import { ref, computed, watch } from 'vue'
+    import { ArrowDown } from '@element-plus/icons-vue'
     import router from "~/router/index.js";
 
     const store = useSearchStore()
-    store.getMenuListData()
+    store.getSpeciesMenuListData()
+    store.getStressTypeMenuListData()
+    store.getGeneFamilyMenuListData()
+    store.getPhenoTypeGroupMenuListData()
+    store.getExpressionOrgansMenuListData()
+    store.getSubCellularMenuListData()
 
-    const menuList = computed(() => store.menuDataList)
+    const speciesList = computed(() => store.speciesDataList)
+    const stressTypeList = computed(() => store.stressTypeDataList)
+    const geneFamilyList = computed(() => store.geneFamilyDataList)
+    const phenotypeGroupList = computed(() => store.phenotypeGroupDataList)
+    const expressionOrgansList = computed(() => store.expressionOrgansDataList)
+    const subCellularList = computed(() => store.subCellularDataList)
+    const multipleChoiceList = computed(() => store.multipleChoiceList)
 
-    let radio = ref('')
+    // check radio
+    let speciesRadio = ref('')
+    let stressTypeRadio = ref('')
+    let geneFamilyRadio = ref('')
+    let phenoTypeRadio = ref('')
+    let expressionRadio = ref('')
+    let subCellularRadio = ref('')
 
-    const tableData = [
-        {
-            date: '2016-05-03',
-            name: 'Tom',
-            address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-            date: '2016-05-02',
-            name: 'Tom',
-            address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-            date: '2016-05-04',
-            name: 'Tom',
-            address: 'No. 189, Grove St, Los Angeles',
-        },
-        {
-            date: '2016-05-01',
-            name: 'Tom',
-            address: 'No. 189, Grove St, Los Angeles',
-        },
-    ]
+    let speciesScrollHeight = ref('150px')
+    let stressTypeScrollHeight = ref('150px')
+    let geneFamilyScrollHeight = ref('150px')
+    let phenoTypeScrollHeight = ref('150px')
+    let expressionScrollHeight = ref('150px')
+    let subCellularScrollHeight = ref('150px')
 
+    const currentPage = ref(1)
+    const pageSize = ref(10)
+    let pageTotal = ref(1)
+
+    // 页面挂载时获取基因大表
+    store.getMultipleChoiceListData({
+            expressionOrgans: expressionRadio.value,
+            geneFamily: geneFamilyRadio.value,
+            pageNum: currentPage.value,
+            pageSize: pageSize.value,
+            phenotype: phenoTypeRadio.value,
+            species: speciesRadio.value,
+            stressType: stressTypeRadio.value,
+            subCellular: subCellularRadio.value
+        })
+
+    watch(() => store.recordsCount, () => {
+        pageTotal.value = store.recordsCount
+    })
+
+    // 展开/收起面板
+    let changeScrollHeight = (value) => {
+        console.log(value)
+        switch (value) {
+            case 1:
+                speciesScrollHeight.value = speciesScrollHeight.value == '' ? '150px' : ''
+                break
+            case 2:
+                stressTypeScrollHeight.value = stressTypeScrollHeight.value == '' ? '150px' : ''
+                break
+            case 3:
+                geneFamilyScrollHeight.value = geneFamilyScrollHeight.value == '' ? '150px' : ''
+                break
+            case 4:
+                phenoTypeScrollHeight.value = phenoTypeScrollHeight.value == '' ? '150px' : ''
+                break
+            case 5:
+                expressionScrollHeight.value = expressionScrollHeight.value == '' ? '150px' : ''
+                break
+            case 6:
+                subCellularScrollHeight.value = subCellularScrollHeight.value == '' ? '150px' : ''
+                break
+        }
+    }
+
+    // 按钮点击时触发多选
+    let handleBtnClick = (e) => {
+        //此处有坑，el - radio点击时触发两次
+        if (e.target.tagName != 'INPUT') {
+            return
+        }
+        store.getMultipleChoiceListData({
+            expressionOrgans: expressionRadio.value,
+            geneFamily: geneFamilyRadio.value,
+            pageNum: currentPage.value,
+            pageSize: pageSize.value,
+            phenotype: phenoTypeRadio.value,
+            species: speciesRadio.value,
+            stressType: stressTypeRadio.value,
+            subCellular: subCellularRadio.value
+        })
+    }
 
 </script>
 
@@ -104,11 +307,8 @@
     }
 
     ::v-deep .el-radio-button__inner {
-        display: inline-block;
         width: 100%;
         height: 100%;
-        text-align: left;
-        padding-top: 17px;
     }
 
     .card-div {
@@ -122,5 +322,20 @@
 
     .el-card {
         margin-bottom: 16px;
+    }
+
+    .card-item-span {
+        @apply float-left;
+        padding-top: 4px;
+    }
+
+    .el-tag {
+        @apply float-right;
+    }
+
+    .el-pagination {
+        justify-content: center;
+        margin-top: 16px;
+        width: 100%;
     }
 </style>
