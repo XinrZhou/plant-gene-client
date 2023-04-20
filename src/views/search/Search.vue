@@ -170,7 +170,7 @@
     import { useSearchStore } from '~/store/useSearchStore.js'
     import { ref, computed, watch } from 'vue'
     import { ArrowDown } from '@element-plus/icons-vue'
-    import router from "~/router/index.js";
+    import router from "~/router/index.js"
 
     const store = useSearchStore()
     store.getSpeciesMenuListData()
@@ -249,11 +249,12 @@
     }
 
     // 按钮点击时触发多选
-    let handleBtnClick = (e) => {
+    let handleBtnClick = (e,b) => {
         //此处有坑，el - radio点击时触发两次
         if (e.target.tagName != 'INPUT') {
             return
         }
+        console.log(e,b)
         store.getMultipleChoiceListData({
             expressionOrgans: expressionRadio.value,
             geneFamily: geneFamilyRadio.value,
@@ -266,6 +267,14 @@
         })
     }
 
+    let handleGeneClick = (row) => {
+      router.push({
+        name: 'geneoverview',
+        query: {
+          geneName: row.gene
+        }
+      })
+    }
 </script>
 
 <style scoped>
