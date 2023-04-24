@@ -68,11 +68,7 @@
     // gene 列表（右侧表格数据）
     const geneDataList = computed(() => store.geneDataList)
     const isLoading = computed(() => store.isLoading)
-
-    const list = reactive([])
-    let options = computed(() => store.searchDataList)
-    const value = ref([])
-
+   
     // 属性名
     let attrName = ref('')
     // 属性item

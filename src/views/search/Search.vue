@@ -1,5 +1,20 @@
 <template>
     <el-row>
+      <el-col :span="24">
+        <el-select v-model="value" filterable remote clearable reserve-keyword placeholder="Please enter keywords"
+            :remote-method="remoteMethod" :loading="loading" class="w-full" @change="handleRemoteSearch">
+            <el-option v-for="(item,index) in options" :value="item.content" :key="index" @click="goDetailPage(item.attribute)">
+                <span style="float: left">
+                    {{ item.content }}
+                </span>
+                <span style="float: right; color: var(--el-text-color-secondary);font-size: 13px;">
+                    {{ item.attribute}}
+                </span>
+            </el-option>
+        </el-select>
+      </el-col>
+    </el-row>
+    <el-row>
         <el-col :span="7">
             <!-- Specied -->
             <el-card class="box-card">
@@ -182,7 +197,7 @@
 <script setup>
     import { Search } from '@element-plus/icons-vue'
     import { useSearchStore } from '~/store/useSearchStore.js'
-    import { ref, computed, watch, watchEffect, toRaw } from 'vue'
+    import { ref, reactive ,computed, watch, watchEffect, toRaw } from 'vue'
     import { ArrowDown } from '@element-plus/icons-vue'
     import router from "~/router/index.js"
 
@@ -201,6 +216,11 @@
     const expressionOrgansList = computed(() => store.expressionOrgansDataList)
     const subCellularList = computed(() => store.subCellularDataList)
     const multipleChoiceList = computed(() => store.multipleChoiceList)
+
+    // remote search
+    const list = reactive([])
+    let options = computed(() => store.searchDataList)
+    const value = ref([])
 
     // filter list
     let speciesFilterList = ref([])
@@ -302,6 +322,23 @@
             case 6:
                 subCellularScrollHeight.value = subCellularScrollHeight.value == '' ? '136px' : ''
                 break
+        }
+    }
+
+    // remote Search
+    const remoteMethod = (query) => {
+        if (query) {
+            store.getFuzzySearchListData(query)
+        } else {
+            options.value = []
+        }
+    }
+
+    // 根据远程搜索结果跳转
+    let goDetailPage = (attribute) => {
+        switch(attribute) {
+            case 'Expression_Organs' :
+                router.push("/browse/expressionorgans")
         }
     }
 

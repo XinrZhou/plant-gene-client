@@ -15,7 +15,7 @@
                 <el-sub-menu index="2">
                   <template #title>Data Browse</template>
                   <el-menu-item :index="item.title" v-for="(item,index) in browseDataList"
-                    :ket="item.id">{{item.title}}</el-menu-item>
+                    :key="item.id">{{item.title}}</el-menu-item>
                 </el-sub-menu>
                 <el-menu-item index="3">Search</el-menu-item>
                 <el-menu-item index="4">Analysis</el-menu-item>

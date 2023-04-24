@@ -8,7 +8,9 @@ import {
     reqGetSpeciesList, 
     reqGetGeneListBySciName, 
     reqGetExpressionOrgansList,
-    reqGetSubExpressionOrgansList,
+    reqGetExpressionOrgansGeneList,
+    reqGetSubcellularList,
+    reqGetSubcellularGeneList,
     reqGetPhenoTypeList,
     reqGetPhenoTypeSubList,
     reqGetPhenoTypeGeneList 
@@ -24,8 +26,10 @@ export const useBrowseStore = defineStore('browseStore', {
             geneOverviewDataList: {}, // 基因概述列表
             speciesDataList: [], // 物种名列表
             geneDataList: [], //基因列表
-            expOrgansDataList: [], //表达器官列表,
-            expOrgansSubDataList: [],
+            expOrgansDataList: [], 
+            expOrgansGeneDataList: [],
+            subcellularDataList: [], 
+            subcellularGeneDataList: [],
             phenoTypeDataList: [],
             phenoTypeSubDataList: [],
             phenoTypeGeneDataList: [],
@@ -73,28 +77,42 @@ export const useBrowseStore = defineStore('browseStore', {
         getGeneListDataBySciName(scientificName) {
             reqGetGeneListBySciName(scientificName).then(res => {
                 this.geneDataList = res.data
-            })
+            }).catch(err => Promise.reject(err))
         },
 
-        // browse -- expressionOrgansList
+        // browse -- ExpressionOrgans
         getExpressionListData() {
             reqGetExpressionOrgansList().then(res => {
                 this.expOrgansDataList = res.data
-            })
+            }).catch(err => Promise.reject(err))
         },
 
-        // browse -- expressionOrgansSubList
-        getExpressionSubListData() {
-            reqGetSubExpressionOrgansList().then(res => {
-                this.expOrgansSubDataList = res.data
-            })
+        // browse -- ExpressionOrgans GeneList
+        getExpressionGeneListData(expOrgansQuery) {
+            reqGetExpressionOrgansGeneList(expOrgansQuery).then(res => {
+                this.expOrgansGeneDataList = res.data
+            }).catch(err => Promise.reject(err))
+        },
+
+         // browse -- Subcellular
+         getSubcellularListData() {
+            reqGetSubcellularList().then(res => {
+                this.subcellularDataList = res.data
+            }).catch(err => Promise.reject(err))
+        },
+
+        // browse -- Subcellular GeneList
+        getSubcellularGeneListData(subcellularQuery) {
+            reqGetSubcellularGeneList(subcellularQuery).then(res => {
+                this.subcellularGeneDataList = res.data
+            }).catch(err => Promise.reject(err))
         },
 
         // browse -- PhenoTypeList
         getPhenoTypeListData() {
             reqGetPhenoTypeList().then(res => {
                 this.phenoTypeDataList = res.data
-            })
+            }).catch(err => Promise.reject(err))
         }, 
 
         // browse -- PhenoTypeSubList
@@ -103,13 +121,13 @@ export const useBrowseStore = defineStore('browseStore', {
             reqGetPhenoTypeSubList (name).then(res => {
                 this.phenoTypeSubDataList = res.data
                 this.isLoading = false
-            })
+            }).catch(err => Promise.reject(err))
         }, 
 
         getPhenoGeneListData(phenotypeQuery) {
             reqGetPhenoTypeGeneList(phenotypeQuery).then(res => {
                 this.phenoTypeGeneDataList = res.data
-            })
-        }
+            }).catch(err => Promise.reject(err))
+        },
     }
 })

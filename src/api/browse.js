@@ -24,14 +24,25 @@ export function reqGetGeneOverview(geneName) {
 
 
 // Expression Organs
-// Browse ExpressionOrgans各表达器官对应的数量
+// Browse ExpressionOrgans
 export function reqGetExpressionOrgansList() {
     return axios.post('/browseExpressionOrgans/count')
 }
 
-// Browse ExpressionOrgans子器官列表
-export function reqGetSubExpressionOrgansList() {
-    return axios.post('/browseExpressionOrgans/child')
+// Browse ExpressionOrgans GeneList
+export function reqGetExpressionOrgansGeneList(expOrgansQuery) {
+    return axios.post(`/browseExpressionOrgans/child?expressOrgans=${expOrgansQuery}`)
+}
+
+// SubCellular
+// Browse SubCellular
+export function reqGetSubcellularList() {
+    return axios.post('/browseSubcellular/count')
+}
+
+// Browse SubCellular GeneList
+export function reqGetSubcellularGeneList(subCellularQuery) {
+    return axios.get(`/browseSubcellular/child?subCellular=${subCellularQuery}`)
 }
 
 
