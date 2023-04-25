@@ -31,7 +31,7 @@ export function reqGetExpressionOrgansList() {
 
 // Browse ExpressionOrgans GeneList
 export function reqGetExpressionOrgansGeneList(expOrgansQuery) {
-    return axios.post(`/browseExpressionOrgans/child?expressOrgans=${expOrgansQuery}`)
+    return axios.get(`/browseExpressionOrgans/child?expressOrgans=${expOrgansQuery}`)
 }
 
 // SubCellular

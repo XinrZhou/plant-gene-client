@@ -37,7 +37,9 @@
     import { Search } from '@element-plus/icons-vue'
     import { useBrowseStore } from '~/store/useBrowseStore.js'
     import { ref, computed, watch, toRaw, defineAsyncComponent } from 'vue'
+    import {useRoute} from "vue-router";
 
+    const route = useRoute()
     const store = useBrowseStore()
     store.getSpeciesListData()
     const speciesList = computed(() => store.speciesDataList)
@@ -51,6 +53,13 @@
     let tableCol = ref(0)
     let menuClass = ref('')
     let navInput = ref('')
+
+    if(route.query.species!=null) {
+      menuCol.value = 11
+      tableCol.value = 11
+      show.value = true
+      speciesName.value = route.query.species
+    }
 
     watch(() => store.speciesDataList, () => {
         speciesFilterList.value = toRaw(speciesList.value)

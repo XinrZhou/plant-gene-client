@@ -30,19 +30,27 @@
     import { useBrowseStore } from '~/store/useBrowseStore.js'
     import { ref, computed, toRaw, watch } from 'vue'
     import router from "~/router"
-  
+    import {useRoute} from "vue-router";
+
+    const route = useRoute()
     const store = useBrowseStore()
     store.getSubcellularListData()
   
     const subcellularList = computed(() => store.subcellularDataList)
     let subcellularFilterList = ref([])
     const subcellularGeneList = computed(() => store.subcellularGeneDataList)
-  
     let menuCol = ref(24)
     let tableCol = ref(0)
     let menuClass = ref('')
     let navInput = ref('')
-  
+    if(route.query.subCellular!=null) {
+      menuClass.value = 'animate__animated animate__backInLeft'
+      menuCol.value = 11
+      tableCol.value = 11
+
+      store.getSubcellularGeneListData(route.query.subCellular)
+    }
+
     watch(() => store.subcellularDataList, () => {
         subcellularFilterList.value = toRaw(subcellularList.value)
     })

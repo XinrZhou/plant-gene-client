@@ -30,7 +30,8 @@
   import { useBrowseStore } from '~/store/useBrowseStore.js'
   import { ref, computed, toRaw, watch } from 'vue'
   import router from "~/router"
-
+  import {useRoute} from "vue-router";
+  const route = useRoute()
   const store = useBrowseStore()
   store.getExpressionListData()
 
@@ -42,6 +43,12 @@
   let tableCol = ref(0)
   let menuClass = ref('')
   let navInput = ref('')
+
+  if(route.query.expressionOrgans!=null) {
+    menuCol.value = 11
+    tableCol.value = 11
+    store.getExpressionGeneListData(route.query.expressionOrgans)
+  }
 
   watch(() => store.expOrgansDataList, () => {
     expOrgansFilterList.value = toRaw(expOrgansList.value)

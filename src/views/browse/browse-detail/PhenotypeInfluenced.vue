@@ -28,9 +28,12 @@
   import { useBrowseStore } from '~/store/useBrowseStore.js'
   import { ref, computed, toRaw } from 'vue'
   import router from "~/router"
+  import {useRoute} from "vue-router";
 
   const store = useBrowseStore()
   store.getPhenoTypeListData()
+
+  const route = useRoute()
 
   let phenoList = computed(() => store.phenoTypeDataList)
   let phenoSubList = computed(() => store.phenoTypeSubDataList)
@@ -68,7 +71,7 @@
   // 路由跳转-->基因概述
   let goGeneDetail = (row) => {
     router.push({
-      name: 'geneoverview',
+      path: 'browse/stresstype/geneoverview',
       query: {
         geneName: row.gene
       }

@@ -2,8 +2,8 @@
     <el-row>
       <el-col :span="24">
         <el-select v-model="value" filterable remote clearable reserve-keyword placeholder="Please enter keywords"
-            :remote-method="remoteMethod" :loading="loading" class="w-full" @change="handleRemoteSearch">
-            <el-option v-for="(item,index) in options" :value="item.content" :key="index" @click="goDetailPage(item.attribute)">
+            :remote-method="remoteMethod" :loading="loading" class="w-full" @change="handleRemoteSearch" >
+            <el-option v-for="(item,index) in options" :value="item.content" :key="index" @click="goDetailPage(item)">
                 <span style="float: left">
                     {{ item.content }}
                 </span>
@@ -335,10 +335,59 @@
     }
 
     // 根据远程搜索结果跳转
-    let goDetailPage = (attribute) => {
+    let goDetailPage = (item) => {
+      const attribute = item.attribute
+      const content = item.content
         switch(attribute) {
-            case 'Expression_Organs' :
-                router.push("/browse/expressionorgans")
+          case 'Expression_Organs' :
+            router.push({
+              path: 'browse/expressionorgans',
+              query: {
+                expressionOrgans: content
+              }
+            })
+          case 'Scientific_Name' :
+            router.push({
+              path: 'browse/species',
+              query: {
+                species: content
+              }
+            })
+          case 'Sub_Cellular_Localization' :
+            router.push({
+              path: 'browse/subcellularlocalization',
+              query: {
+                subCellular: content
+              }
+            })
+          // case 'Gene Family' :
+          //   router.push({
+          //     path: 'browse/genefamily',
+          //     query: {
+          //       geneFamily: content
+          //     }
+          //   })
+          case 'Gene' :
+            router.push({
+              path: 'browse/stresstype/geneoverview',
+              query: {
+                geneName: content
+              }
+            })
+          // case 'Phenotype_Influenced' :
+          //   router.push({
+          //     path: 'browse/phenotypeinfluenced',
+          //     query: {
+          //       phenotype: content
+          //     }
+          //   })
+          case 'Stress_Type' :
+            router.push({
+              path: 'browse/stresstype/list',
+              query: {
+                stressName: content
+              }
+            })
         }
     }
 

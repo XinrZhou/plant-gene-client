@@ -30,7 +30,6 @@ export const useSearchStore = defineStore('search', {
         // search -- 模糊查询
         getFuzzySearchListData(searchContent) {
             reqGetFuzzySearchList(searchContent).then(res => {
-                console.log(res)
                 this.searchDataList = res.data
             }).catch(err => Promise.reject(err))
         },
