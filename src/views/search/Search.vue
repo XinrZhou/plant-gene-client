@@ -1,18 +1,19 @@
 <template>
     <el-row>
-      <el-col :span="24">
-        <el-select v-model="value" filterable remote clearable reserve-keyword placeholder="Please enter keywords"
-            :remote-method="remoteMethod" :loading="loading" class="w-full" @change="handleRemoteSearch" >
-            <el-option v-for="(item,index) in options" :value="item.content" :key="index" @click="goDetailPage(item)">
-                <span style="float: left">
-                    {{ item.content }}
-                </span>
-                <span style="float: right; color: var(--el-text-color-secondary);font-size: 13px;">
-                    {{ item.attribute}}
-                </span>
-            </el-option>
-        </el-select>
-      </el-col>
+        <el-col :span="24">
+            <el-select v-model="value" filterable remote clearable reserve-keyword placeholder="Please enter keywords"
+                :remote-method="remoteMethod" :loading="loading" class="w-full" @change="handleRemoteSearch">
+                <el-option v-for="(item,index) in options" :value="item.content" :key="index"
+                    @click="goDetailPage(item)">
+                    <span style="float: left">
+                        {{ item.content }}
+                    </span>
+                    <span style="float: right; color: var(--el-text-color-secondary);font-size: 13px;">
+                        {{ item.attribute}}
+                    </span>
+                </el-option>
+            </el-select>
+        </el-col>
     </el-row>
     <el-row>
         <el-col :span="7">
@@ -130,8 +131,8 @@
                     </div>
                 </template>
                 <el-scrollbar :height="expressionScrollHeight">
-                    <el-input :prefix-icon="Search" v-model="expressionOrgansInput" @input="handleNavChange('expression')"
-                        clearable />
+                    <el-input :prefix-icon="Search" v-model="expressionOrgansInput"
+                        @input="handleNavChange('expression')" clearable />
                     <el-radio-group v-model="expressionRadio" size="large" name="expressionOrgans">
                         <el-radio-button name="expressionRadio" :label="item.name"
                             v-for="item in expressionOrgansFilterList" :key="item.name" @change="handleBtnChange"
@@ -160,8 +161,9 @@
                     <el-input :prefix-icon="Search" v-model="subCellularInput" @input="handleNavChange('subCellular')"
                         clearable />
                     <el-radio-group v-model="subCellularRadio" size="large">
-                        <el-radio-button name="subCellularRadio" :label="item.name" v-for="item in subCellularFilterList"
-                            :key="item.name" @change="handleBtnChange" @click="handleClick">
+                        <el-radio-button name="subCellularRadio" :label="item.name"
+                            v-for="item in subCellularFilterList" :key="item.name" @change="handleBtnChange"
+                            @click="handleClick">
                             <span class="card-item-span">{{item.name}}</span>&nbsp;
                             <el-tag type="info" round>{{item.value}}</el-tag>
                         </el-radio-button>
@@ -197,7 +199,7 @@
 <script setup>
     import { Search } from '@element-plus/icons-vue'
     import { useSearchStore } from '~/store/useSearchStore.js'
-    import { ref, reactive ,computed, watch, watchEffect, toRaw } from 'vue'
+    import { ref, reactive, computed, watch, watchEffect, toRaw } from 'vue'
     import { ArrowDown } from '@element-plus/icons-vue'
     import router from "~/router/index.js"
 
@@ -336,58 +338,65 @@
 
     // 根据远程搜索结果跳转
     let goDetailPage = (item) => {
-      const attribute = item.attribute
-      const content = item.content
-        switch(attribute) {
-          case 'Expression_Organs' :
-            router.push({
-              path: 'browse/expressionorgans',
-              query: {
-                expressionOrgans: content
-              }
-            })
-          case 'Scientific_Name' :
-            router.push({
-              path: 'browse/species',
-              query: {
-                species: content
-              }
-            })
-          case 'Sub_Cellular_Localization' :
-            router.push({
-              path: 'browse/subcellularlocalization',
-              query: {
-                subCellular: content
-              }
-            })
-          // case 'Gene Family' :
-          //   router.push({
-          //     path: 'browse/genefamily',
-          //     query: {
-          //       geneFamily: content
-          //     }
-          //   })
-          case 'Gene' :
-            router.push({
-              path: 'browse/stresstype/geneoverview',
-              query: {
-                geneName: content
-              }
-            })
-          // case 'Phenotype_Influenced' :
-          //   router.push({
-          //     path: 'browse/phenotypeinfluenced',
-          //     query: {
-          //       phenotype: content
-          //     }
-          //   })
-          case 'Stress_Type' :
-            router.push({
-              path: 'browse/stresstype/list',
-              query: {
-                stressName: content
-              }
-            })
+        const attribute = item.attribute
+        const content = item.content
+        switch (attribute) {
+            case 'Expression_Organs':
+                router.push({
+                    path: 'browse/expressionorgans',
+                    query: {
+                        expressionOrgans: content
+                    }
+                })
+                break
+            case 'Scientific_Name':
+                router.push({
+                    path: 'browse/species',
+                    query: {
+                        species: content
+                    }
+                })
+                break
+            case 'Sub_Cellular_Localization':
+                router.push({
+                    path: 'browse/subcellularlocalization',
+                    query: {
+                        subCellular: content
+                    }
+                })
+                break
+            case 'Gene Family':
+                router.push({
+                    path: 'browse/genefamily',
+                    query: {
+                        geneFamily: content
+                    }
+                })
+                break
+            case 'Gene':
+                router.push({
+                    path: 'browse/stresstype/geneoverview',
+                    query: {
+                        geneName: content
+                    }
+                })
+                break
+            case 'Phenotype_Influenced':
+                router.push({
+                    path: 'browse/phenotypeinfluenced',
+                    query: {
+                        phenotype: content
+                    }
+                })
+                break
+            case 'Stress_Type':
+                router.push({
+                    path: 'browse/stresstype/list',
+                    query: {
+                        stressName: content
+                    }
+                })
+                break
         }
     }
 

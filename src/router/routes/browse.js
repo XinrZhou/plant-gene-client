@@ -34,7 +34,19 @@ export default [{
         {
             name: 'genefamily',
             path: 'genefamily',
-            component: () => import('~/views/browse/browse-detail/GeneFamily.vue')
+            component: () => import('~/views/browse/browse-detail/GeneFamily.vue'),
+            children: [
+                {
+                    name: 'genefamilydetail',
+                    path: '',
+                    component: () => import('~/views/browse/browse-detail/browse-detail-item/GeneFamily.vue')
+                },
+                {
+                    name: 'genefamilymyb',
+                    path: 'myb',
+                    component: () => import('~/views/browse/browse-detail/browse-detail-item/GeneFamilyMYB.vue')
+                },
+            ]
         },
         {
             name: 'phenotypeinfluenced',

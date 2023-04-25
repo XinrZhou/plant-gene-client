@@ -13,7 +13,11 @@ import {
     reqGetSubcellularGeneList,
     reqGetPhenoTypeList,
     reqGetPhenoTypeSubList,
-    reqGetPhenoTypeGeneList 
+    reqGetPhenoTypeGeneList,
+    reqGetTFGeneFamilyList,
+    reqGetNonTFGeneFamilyList,
+    reqGetTFGeneList,
+    reqGetNonTFGeneList
 } from "~/api/browse.js"
 
 export const useBrowseStore = defineStore('browseStore', {
@@ -33,6 +37,10 @@ export const useBrowseStore = defineStore('browseStore', {
             phenoTypeDataList: [],
             phenoTypeSubDataList: [],
             phenoTypeGeneDataList: [],
+            tFGeneFamilyDataList: [],
+            nonTFGeneFamilyDataList: [],
+            tFGeneDataList: [],
+            nonTFGeneDataList: [],
             isLoading: true
         }
     },
@@ -124,10 +132,39 @@ export const useBrowseStore = defineStore('browseStore', {
             }).catch(err => Promise.reject(err))
         }, 
 
+        // browse -- PhenoType geneList
         getPhenoGeneListData(phenotypeQuery) {
             reqGetPhenoTypeGeneList(phenotypeQuery).then(res => {
                 this.phenoTypeGeneDataList = res.data
             }).catch(err => Promise.reject(err))
         },
+
+        // browse -- GeneFamily TFList
+        getTFGeneFamilyList() {
+            reqGetTFGeneFamilyList().then(res => {
+                this.tFGeneFamilyDataList = res.data
+            }).catch(err => Promise.reject(err))
+        },
+
+        // browse -- GeneFamily NonTFList
+        getNonTFGeneFamilyList() {
+            reqGetNonTFGeneFamilyList().then(res => {
+                this.nonTFGeneFamilyDataList = res.data
+            }).catch(err => Promise.reject(err))
+        },
+
+         // browse -- GeneFamily TFGeneDeatil
+         getTFGeneList(geneName) {
+            reqGetTFGeneList(geneName).then(res => {
+                this.tFGeneDataList = res.data
+            }).catch(err => Promise.reject(err))
+        },
+
+        // browse -- GeneFamily TFGeneDeatil
+        getNonTFGeneList(geneName) {
+            reqGetNonTFGeneList(geneName).then(res => {
+                this.nonTFGeneDataList = res.data
+            }).catch(err => Promise.reject(err))
+        }
     }
 })

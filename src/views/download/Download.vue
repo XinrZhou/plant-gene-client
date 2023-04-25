@@ -42,8 +42,7 @@
             <p class="checkbox-title inline-block">Gene Name</p>
             <el-button type="info" v-model:checked="isSelectAll" @click="handleSelectAll(!isSelectAll)"
                        class="inline-block ml-10 text-black" round
-                       v-if="geneList && geneList.length > 0"
-            >Select All</el-button>
+                       v-if="geneList && geneList.length">Select All</el-button>
             <el-scrollbar height="400px">
               <el-checkbox-group v-model="ids">
                 <el-checkbox :label="item.id" v-for="item in geneList" :id="item.id+''"

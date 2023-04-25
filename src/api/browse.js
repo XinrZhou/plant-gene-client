@@ -73,3 +73,24 @@ export function reqGetPhenoTypeSubList(name) {
 export function reqGetPhenoTypeGeneList(phenotypeQuery) {
     return axios.post('/browsePhenoType/geneList',phenotypeQuery)
 }
+
+// Gene Family
+// Gene Family -- TFlist
+export function reqGetTFGeneFamilyList() {
+    return axios.post('/browse-geneFamily/tfGeneFamily')
+}
+
+// Gene Family -- NonTFlist
+export function reqGetNonTFGeneFamilyList() {
+    return axios.post('/browse-geneFamily/nonTfGeneFamily')
+}
+
+// Gene Family -- TFDeatil
+export function reqGetTFGeneList(geneName) {
+    return axios.get(`/browse-geneFamily/tfGeneByFamily?tfGene=${geneName}`)
+}
+
+// Gene Family -- NonTFDeatil
+export function reqGetNonTFGeneList(geneName) {
+    return axios.get(`/browse-geneFamily/nonTfGeneByFamily?nonTfGene=${geneName}`)
+}
