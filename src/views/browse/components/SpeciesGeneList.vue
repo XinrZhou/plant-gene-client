@@ -12,6 +12,7 @@
 <script setup>
     import { useBrowseStore } from '~/store/useBrowseStore.js'
     import { ref, computed, toRaw, watchEffect, watch } from 'vue'
+    import { Search } from '@element-plus/icons-vue'
     import router from "~/router"
 
     const props = defineProps(['name'])

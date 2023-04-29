@@ -1,24 +1,27 @@
 <template>
     <PageCenterTitle page-title="(example)MYB" />
-    <el-row>
-        <el-col :span="6" :offset="2">
-            <el-input :prefix-icon="Search" v-model="navInput" @input="handleNavChange" clearable />
-            <el-scrollbar height="330px" class="scrollbar-demo-item" v-if="geneType == 'TF'">
-                <p v-for="item in tFGeneFilterList" :key="item.gene">
-                    <span class="menu-item">
-                        {{item.gene}}
-                    </span>
-                </p>
-            </el-scrollbar>
-            <el-scrollbar height="330px" class="scrollbar-demo-item" v-if="geneType == 'NTF'">
-                <p v-for="item in nonTFGeneFilterList" :key="item.gene">
-                    <span class="menu-item">
-                        {{item.gene}}
-                    </span>
-                </p>
-            </el-scrollbar>
-        </el-col>
-    </el-row>
+    <el-card>
+        <el-row>
+            <el-col :span="6">
+                <el-input :prefix-icon="Search" v-model="navInput" @input="handleNavChange" clearable />
+                <el-scrollbar height="330px" class="scrollbar-demo-item" v-if="geneType == 'TF'">
+                    <p v-for="item in tFGeneFilterList" :key="item.gene">
+                        <span class="menu-item">
+                            {{item.gene}}
+                        </span>
+                    </p>
+                </el-scrollbar>
+                <el-scrollbar height="330px" class="scrollbar-demo-item" v-if="geneType == 'NTF'">
+                    <p v-for="item in nonTFGeneFilterList" :key="item.gene">
+                        <span class="menu-item">
+                            {{item.gene}}
+                        </span>
+                    </p>
+                </el-scrollbar>
+            </el-col>
+        </el-row>
+    </el-card>
+
 </template>
 
 <script setup>
@@ -69,6 +72,21 @@
 </script>
 
 <style scoped>
+    /* PC端 */
+    @media screen and (min-width: 992px) {
+        .el-card {
+            max-width: 70%;
+            margin: 0 auto;
+        }
+    }
+
+    /* 手机端 */
+    @media screen and (max-width: 993px) {
+        .el-card {
+            max-width: 100%;
+        }
+    }
+
     .scrollbar-demo-item {
         @apply mt-6 bg-white;
     }

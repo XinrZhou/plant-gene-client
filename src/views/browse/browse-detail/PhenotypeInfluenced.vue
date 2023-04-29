@@ -1,23 +1,22 @@
 <template>
   <PageCenterTitle page-title="Phenotype Influenced" />
-  <el-row>
-    <el-col :span="menuCol" :class="menuClass">
-      <LeftMenu :attribute-list="phenoList" @openMenu="handleOpen" @clickList="handleClick" :isLoading="loading"
-        :attr-detail-list="phenoSubList"/>
-    </el-col>
-    <el-col :span="tableCol" :offset="2" class="animate__animated animate__backInDown">
-      <el-input :prefix-icon="Search" v-model="tableInput" @input="handleTableFilter" clearable />
-      <el-table :data="tableInput==''?phenoGeneList:phenoGeneFilterList" class="el-table-vertical-demo" height="550px"
-        stripe>
-        <el-table-column prop="gene" label="gene name">
-          <template v-slot="{ row }">
-            <a href="" @click.prevent="goGeneDetail(row)" class="underline">{{row.gene}}</a>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-col>
-  </el-row>
-  <div id="jsmind_container"></div>
+    <el-row :gutter="40" justify="space-between">
+      <el-col :span="menuCol" :class="menuClass">
+        <LeftMenu :attribute-list="phenoList" @openMenu="handleOpen" @clickList="handleClick" :isLoading="loading"
+          :attr-detail-list="phenoSubList" />
+      </el-col>
+      <el-col :span="tableCol" class="animate__animated animate__backInDown">
+        <el-input :prefix-icon="Search" v-model="tableInput" @input="handleTableFilter" clearable />
+        <el-table :data="tableInput==''?phenoGeneList:phenoGeneFilterList" class="el-table-vertical-demo" height="550px"
+          stripe>
+          <el-table-column prop="gene" label="gene name">
+            <template v-slot="{ row }">
+              <a href="" @click.prevent="goGeneDetail(row)" class="underline">{{row.gene}}</a>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-col>
+    </el-row>
 
 </template>
 
@@ -28,7 +27,7 @@
   import { useBrowseStore } from '~/store/useBrowseStore.js'
   import { ref, computed, toRaw } from 'vue'
   import router from "~/router"
-  import {useRoute} from "vue-router";
+  import { useRoute } from "vue-router";
 
   const store = useBrowseStore()
   store.getPhenoTypeListData()
@@ -52,8 +51,8 @@
 
   let handleClick = (attrName, attrItem2) => {
     menuClass.value = 'animate__animated animate__backInUp'
-    tableCol.value = 11
-    menuCol.value = 11
+    tableCol.value = 12
+    menuCol.value = 12
     store.getPhenoGeneListData({
       phenotype: toRaw(attrItem2).name,
       phenotypeGroup: attrName

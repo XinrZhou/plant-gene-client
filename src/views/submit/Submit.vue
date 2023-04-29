@@ -136,7 +136,7 @@
       }
     }
     .submit-tip {
-        @apply mb-8;
+        @apply mb-8 mt-8;
     }
 
     .submit-form {

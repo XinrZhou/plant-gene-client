@@ -77,15 +77,38 @@
 </script>
 
 <style scoped>
+    @media screen and (min-width: 992px) {
+        .el-card {
+            max-width: 70%;
+            margin: 0 auto;
+        }
+        .el-row {
+            max-width: 70%;
+            margin: 0 auto;
+        }
+    }
+
+    /* 手机端 */
+    @media screen and (max-width: 993px) {
+        .el-card {
+            max-width: 100%;
+        }
+        .el-row {
+            max-width: 70%;
+            margin: 0 auto;
+        }
+    }
+
     .page-info {
         @apply flex items-center font-bold pt-5 pb-3 text-4xl my-5 mx-3
     }
-   
-    .card-nav p{
+
+    .card-nav p {
         @apply flex items-center font-normal py-2 pb-3 text-base mx-11 tracking-wide
     }
-    .card-nav  h1 {
-        @apply flex items-center font-semibold py-5  text-2xl mx-11
+
+    .card-nav h1 {
+        @apply flex items-center font-semibold py-5 text-2xl mx-11
     }
 
     .description-list {

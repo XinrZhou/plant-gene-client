@@ -1,6 +1,6 @@
 <template>
   <PageCenterTitle page-title="Expression Organs / Location" />
-  <el-row>
+  <el-row :gutter="40" justify="space-between">
     <el-col :span="menuCol" style="height: 550px;" :class="menuClass">
       <el-input :prefix-icon="Search" v-model="navInput" @input="handleNavChange" clearable />
       <el-scrollbar max-height="550px" class="scrollbar-demo-item">
@@ -16,7 +16,7 @@
       </el-scrollbar>
     </el-col>
 
-    <el-col :span="tableCol" :offset="2" class="animate__animated animate__backInUp">
+    <el-col :span="tableCol" class="animate__animated animate__backInUp">
       <GeneListTable :tableData="expOrgansGeneList" />
     </el-col>
   </el-row>
@@ -45,8 +45,8 @@
   let navInput = ref('')
 
   if(route.query.expressionOrgans!=null) {
-    menuCol.value = 11
-    tableCol.value = 11
+    menuCol.value = 12
+    tableCol.value = 12
     store.getExpressionGeneListData(route.query.expressionOrgans)
   }
 
@@ -56,8 +56,8 @@
 
   let handleMenuClick = (name) => {
     menuClass.value = 'animate__animated animate__backInLeft'
-    menuCol.value = 11
-    tableCol.value = 11
+    menuCol.value = 12
+    tableCol.value = 12
     store.getExpressionGeneListData(name)
   }
 
@@ -96,5 +96,9 @@
 
   .loading {
     @apply absolute top-1/2 right-1/4
+  }
+
+  p {
+    padding-left: 10px;
   }
 </style>

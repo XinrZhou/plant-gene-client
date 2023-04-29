@@ -1,7 +1,7 @@
 <template>
     <PageCenterTitle page-title="Species" />
 
-    <el-row>
+    <el-row :gutter="40">
         <el-col :span="menuCol" style="height: 550px;" :class="menuClass">
             <el-input :prefix-icon="Search" v-model="navInput" @input="handleNavChange" clearable />
             <el-scrollbar max-height="550px" class="scrollbar-demo-item">
@@ -17,14 +17,14 @@
             </el-scrollbar>
         </el-col>
 
-        <el-col :span="tableCol" :offset="2" class="animate__animated animate__backInUp">
+        <el-col :span="tableCol" class="animate__animated animate__backInUp">
             <div>
                 <Suspense v-if="show">
                     <template #default>
                         <GeneAsyncComponent :name="speciesName"></GeneAsyncComponent>
                     </template>
                     <template #fallback>
-                        <div class="loading" v-loading="true"/>
+                        <div class="loading" v-loading="true" />
                     </template>
                 </Suspense>
             </div>
@@ -37,7 +37,7 @@
     import { Search } from '@element-plus/icons-vue'
     import { useBrowseStore } from '~/store/useBrowseStore.js'
     import { ref, computed, watch, toRaw, defineAsyncComponent } from 'vue'
-    import {useRoute} from "vue-router";
+    import { useRoute } from "vue-router";
 
     const route = useRoute()
     const store = useBrowseStore()
@@ -54,11 +54,11 @@
     let menuClass = ref('')
     let navInput = ref('')
 
-    if(route.query.species!=null) {
-      menuCol.value = 11
-      tableCol.value = 11
-      show.value = true
-      speciesName.value = route.query.species
+    if (route.query.species != null) {
+        menuCol.value = 12
+        tableCol.value = 12
+        show.value = true
+        speciesName.value = route.query.species
     }
 
     watch(() => store.speciesDataList, () => {
@@ -69,8 +69,8 @@
         menuClass.value = 'animate__animated animate__backInLeft'
         show.value = true
         speciesName.value = item.name
-        menuCol.value = 11
-        tableCol.value = 11
+        menuCol.value = 12
+        tableCol.value = 12
     }
 
     let handleNavChange = (() => {

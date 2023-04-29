@@ -107,9 +107,6 @@
 </script>
 
 <style scoped>
-    /* .el-tabs {
-        @apply w-5/6 mx-auto
-    } */
     /* PC端 */
     @media screen and (min-width: 992px) {
       .el-row {
