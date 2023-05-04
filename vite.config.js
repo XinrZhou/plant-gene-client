@@ -1,21 +1,22 @@
 import { defineConfig } from 'vite'
+import viteCompression from "vite-plugin-compression"
+import externalGlobals from 'rollup-plugin-external-globals'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  resolve:{
-    alias:{
-      "~":path.resolve(__dirname,"src")
+  resolve: {
+    alias: {
+      "~": path.resolve(__dirname, "src")
     }
   },
-  server:{
+  server: {
     host: '0.0.0.0',
     port: 8081,
-    proxy:{
+    proxy: {
       '/api': {
         //本地测试
-        // target: 'http://localhost:8093',
+        // target: 'http://localhost:8093/',
         //连接远程API接口
         target: 'http://175.178.9.163:8093',
         changeOrigin: true,
@@ -23,5 +24,27 @@ export default defineConfig({
       },
     }
   },
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    viteCompression({
+      ext: ".gz",
+      deleteOriginFile: false
+    })
+  ],
+  build: {
+    rollupOptions: {
+      external: ['vue', 'element-plus', 'pinia', 'vue-demi', 'echarts', 'gsap'],
+      plugins: [
+        externalGlobals({
+          vue: 'Vue',
+          'element-plus': 'ElementPlus',
+          pinia: 'Pinia',
+          'vue-router': 'VueRouter',
+          'vue-demi': 'VueDemi',
+          echarts: 'echarts',
+          gsap: 'gsap'
+        }),
+      ],
+    }
+  }
 })
