@@ -1,12 +1,12 @@
 import { async } from "@kangc/v-md-editor"
 import { defineStore } from "pinia"
-import { 
-    reqGetBrowseList, 
-    reqGetStressTypeList, 
-    reqGetStressTypeItemList, 
-    reqGetGeneOverview, 
-    reqGetSpeciesList, 
-    reqGetGeneListBySciName, 
+import {
+    reqGetBrowseList,
+    reqGetStressTypeList,
+    reqGetStressTypeItemList,
+    reqGetGeneOverview,
+    reqGetSpeciesList,
+    reqGetGeneListBySciName,
     reqGetExpressionOrgansList,
     reqGetExpressionOrgansGeneList,
     reqGetSubcellularList,
@@ -17,7 +17,7 @@ import {
     reqGetTFGeneFamilyList,
     reqGetNonTFGeneFamilyList,
     reqGetTFGeneList,
-    reqGetNonTFGeneList
+    reqGetNonTFGeneList, reqGetGeneByGo, reqGetGeneByKeGG
 } from "~/api/browse.js"
 
 export const useBrowseStore = defineStore('browseStore', {
@@ -28,6 +28,8 @@ export const useBrowseStore = defineStore('browseStore', {
             stressTypeItemDataList: [], // stress type详情页各项基因list
             itemPageTotal: 1,
             geneOverviewDataList: {}, // 基因概述列表
+            geneKeGGList:[],
+            geneGoList:[],
             speciesDataList: [], // 物种名列表
             geneDataList: [], //基因列表
             expOrgansDataList: [], 
@@ -71,6 +73,20 @@ export const useBrowseStore = defineStore('browseStore', {
         getGeneOverviewData(geneName) {
             reqGetGeneOverview(geneName).then(res => {
                 this.geneOverviewDataList = res.data
+            }).catch(err => Promise.reject(err))
+        },
+
+        // browse -- 根据基因名获取基因KeGG
+        getGeneByKeGGData(geneName) {
+            reqGetGeneByKeGG(geneName).then(res => {
+                this.geneKeGGList = res.data
+            }).catch(err => Promise.reject(err))
+        },
+
+        // browse -- 根据基因名获取基因Go
+        getGeneByGoData(geneName) {
+            reqGetGeneByGo(geneName).then(res => {
+                this.geneGoList = res.data
             }).catch(err => Promise.reject(err))
         },
 

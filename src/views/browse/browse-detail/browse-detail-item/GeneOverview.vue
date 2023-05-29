@@ -45,8 +45,10 @@
         <div class="bottom-collapse">
             <el-collapse @change="handleChange" accordion>
                 <el-collapse-item title="Click here to view the DNA sequence" name="1">
+                  {{geneInfo.aminoAcidSequence}}
                 </el-collapse-item>
                 <el-collapse-item title="Click here to view the Protein sequence" name="2">
+                  {{geneInfo.nucleotideSequence}}
                 </el-collapse-item>
             </el-collapse>
         </div>
@@ -66,9 +68,13 @@
     const store = useBrowseStore()
     const geneInfo = computed(() => store.geneOverviewDataList)
 
+    const geneKeGGInfo = computed(() => store.geneKeGGList)
+    const geneGoInfo = computed(() => store.geneGoList)
+
     const geneName = route.query.geneName
     store.getGeneOverviewData(geneName)
-
+    store.getGeneByKeGGData(geneName)
+    store.getGeneByGoData(geneName)
     // API调用
     let handleChange = (event) => {
         console.log(event)

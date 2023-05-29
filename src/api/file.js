@@ -7,6 +7,16 @@ export function reqPostUploadFile(data,file) {
 
 }
 
+export function reqPostUploadBlastSeq(data) {
+    return axios.post("/file-model/blastSeq",data)
+
+}
+
+export function reqPostUploadBlastFile(data,file) {
+    return axios.post(`/file-model/blastFile?sequence=${data.sequence}&category=${data.category}`,file)
+
+}
+
 export function reqPostFilesList(data) {
     return axios.post("/file-model/list",data)
 }

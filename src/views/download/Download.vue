@@ -1,7 +1,7 @@
 <template>
-    <PageLeftTitle page-title="Analysis" class="page-title"/>
-    <el-card>
-        <el-row >
+    <PageLeftTitle page-title="DownLoad Data" class="page-title"/>
+    <el-card shadow="hover">
+        <el-row>
             <el-col :lg="12" :md="12">
                 <el-form :model="form" label-position="top" class="el-form-style">
                     <el-form-item label="Stress Type">
@@ -176,7 +176,7 @@
     }
 
     .el-card {
-        @apply mt-8;
+        @apply mt-6;
     }
 
     .select-item {

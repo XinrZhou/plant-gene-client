@@ -307,22 +307,22 @@
     let changeScrollHeight = (value) => {
         switch (value) {
             case 1:
-                speciesScrollHeight.value = speciesScrollHeight.value == '' ? '136px' : ''
+                speciesScrollHeight.value = speciesScrollHeight.value == '' ? '136px' : '600px'
                 break
             case 2:
                 stressTypeScrollHeight.value = stressTypeScrollHeight.value == '' ? '136px' : ''
                 break
             case 3:
-                geneFamilyScrollHeight.value = geneFamilyScrollHeight.value == '' ? '136px' : ''
+                geneFamilyScrollHeight.value = geneFamilyScrollHeight.value == '' ? '136px' : '600px'
                 break
             case 4:
-                phenoTypeScrollHeight.value = phenoTypeScrollHeight.value == '' ? '136px' : ''
+                phenoTypeScrollHeight.value = phenoTypeScrollHeight.value == '' ? '136px' : '600px'
                 break
             case 5:
-                expressionScrollHeight.value = expressionScrollHeight.value == '' ? '136px' : ''
+                expressionScrollHeight.value = expressionScrollHeight.value == '' ? '136px' : '600px'
                 break
             case 6:
-                subCellularScrollHeight.value = subCellularScrollHeight.value == '' ? '136px' : ''
+                subCellularScrollHeight.value = subCellularScrollHeight.value == '' ? '136px' : '600px'
                 break
         }
     }
@@ -496,7 +496,7 @@
     }
 
     ::v-deep .el-card__header {
-        background-color: #d6d9d6;
+        background-color: #FAFAFA;
     }
 
     ::v-deep .el-card__body {

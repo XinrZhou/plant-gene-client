@@ -1,6 +1,6 @@
 <!-- 卡片组件 -->
 <template>
-  <el-card class="box-card h-60" shadow="hover">
+  <el-card class="box-card h-52" shadow="hover">
     <template #header>
       <div class="card-header">
         <span class="my-content">{{cardInfo.title}}</span>

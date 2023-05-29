@@ -1,41 +1,43 @@
 <template>
-    <PageLeftTitle page-title="Submit" />
-    <el-row class="flex justify-center">
-      <el-col :lg="24" :md="24">
-        <p class="submit-tip">You can upload the data to our database, and once the review is completed, we will notify you of the results via email.</p>
-        <div class="submit-form">
-            <el-form :model="form" label-width="120px" label-position="left">
-                <el-form-item label="Description">
-                    <el-input v-model="form.description" />
-                </el-form-item>
-                <el-form-item label="Emails">
-                    <el-input v-model="form.emails" />
-                </el-form-item>
-                <el-form-item label="File">
-                    <el-upload ref="uploadRef" :file-list="fileList" :auto-upload="false" :on-change="change"
-                        class="upload-demo">
-                        <el-button class="form-btn">Click to <uplo></uplo>ad</el-button>
-                        <template #tip>
-                            <div class="el-upload__tip">
-                                jpg/png files with a size less than 500KB.
-                            </div>
-                        </template>
-                    </el-upload>
-                </el-form-item>
-                <el-form-item label="Name">
-                    <el-input v-model="form.name" />
-                </el-form-item>
-                <el-form-item label="Organization">
-                    <el-input v-model="form.organization" />
-                </el-form-item>
-                <el-form-item>
-                    <el-button @click="onReset" class="form-btn">Reset</el-button>
-                    <el-button @click="onSubmit" class="form-btn" v-loading="submitting">Submit</el-button>
-                </el-form-item>
-            </el-form>
-        </div>
-      </el-col>
-    </el-row>
+    <PageLeftTitle page-title="Submit" class="page-title"/>
+    <el-card shadow="hover">
+      <el-row class="flex justify-center">
+        <el-col :lg="24" :md="24">
+          <p class="submit-tip">You can upload the data to our database, and once the review is completed, we will notify you of the results via email.</p>
+          <div class="submit-form">
+              <el-form :model="form" label-width="120px" label-position="left">
+                  <el-form-item label="Description">
+                      <el-input v-model="form.description" />
+                  </el-form-item>
+                  <el-form-item label="Emails">
+                      <el-input v-model="form.emails" />
+                  </el-form-item>
+                  <el-form-item label="File">
+                      <el-upload ref="uploadRef" :file-list="fileList" :auto-upload="false" :on-change="change"
+                          class="upload-demo">
+                          <el-button class="form-btn">Click to <uplo></uplo>ad</el-button>
+                          <template #tip>
+                              <div class="el-upload__tip">
+                                  jpg/png files with a size less than 500KB.
+                              </div>
+                          </template>
+                      </el-upload>
+                  </el-form-item>
+                  <el-form-item label="Name">
+                      <el-input v-model="form.name" />
+                  </el-form-item>
+                  <el-form-item label="Organization">
+                      <el-input v-model="form.organization" />
+                  </el-form-item>
+                  <el-form-item>
+                      <el-button @click="onReset" class="form-btn">Reset</el-button>
+                      <el-button @click="onSubmit" class="form-btn" v-loading="submitting">Submit</el-button>
+                  </el-form-item>
+              </el-form>
+          </div>
+        </el-col>
+      </el-row>
+    </el-card>
 </template>
 
 <script setup>
@@ -124,19 +126,33 @@
 
 <style scoped>
     @media screen and (min-width: 992px) {
-      .el-row {
+      .page-title {
+        max-width: 70%;
+        margin: 0 auto;
+      }
+
+      .el-card {
         max-width: 70%;
         margin: 0 auto;
       }
     }
+
     /* 手机端 */
     @media screen and (max-width: 993px) {
-      .el-row {
+      .page-title {
         max-width: 100%;
       }
+
+      .el-card {
+        max-width: 70%;
+        margin: 0 auto;
+      }
+    }
+    .el-card {
+      @apply mt-6;
     }
     .submit-tip {
-        @apply mb-8 mt-8;
+        @apply mb-4 mt-4 text-xl;
     }
 
     .submit-form {

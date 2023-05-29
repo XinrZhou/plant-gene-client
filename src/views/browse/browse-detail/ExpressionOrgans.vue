@@ -1,5 +1,5 @@
 <template>
-  <PageCenterTitle page-title="Expression Organs / Location" />
+  <PageCenterTitle page-title="Expression Organs / Location" class="page-title"/>
   <el-row :gutter="40" justify="space-between">
     <el-col :span="menuCol" style="height: 550px;" :class="menuClass">
       <el-input :prefix-icon="Search" v-model="navInput" @input="handleNavChange" clearable />
@@ -82,6 +82,27 @@
 </script>
 
 <style scoped>
+  @media screen and (min-width: 992px) {
+    .page-title {
+      max-width: 70%;
+      margin: 0 auto;
+    }
+    .el-row{
+      position: absolute;
+      left: 15%;
+      right: 15%;
+    }
+  }
+
+  /* 手机端 */
+  @media screen and (max-width: 993px) {
+    .page-title {
+      max-width: 100%;
+    }
+    .el-row {
+      max-width: 100%;
+    }
+  }
   .scrollbar-demo-item {
     @apply mt-6 bg-white;
   }

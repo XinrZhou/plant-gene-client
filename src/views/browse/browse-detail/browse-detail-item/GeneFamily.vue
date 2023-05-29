@@ -1,17 +1,18 @@
 <template>
   <PageCenterTitle page-title="Gene Family" />
-  <el-card>
+  <el-card shadow="hover">
     <el-row class="row-bg" justify="space-around">
       <el-col :span="7">
         <p class="list-title">Transcription Factor</p>
         <el-scrollbar height="490px">
           <el-row class="row-bg" justify="space-between">
             <el-col :span="12" v-for="item in tFGeneFamilyList" :id="item.gene" class="gene-list">
-              <el-link class="list-content" type="info" @click="goMYB(item.gene,'TF')">{{item.gene}}</el-link>
+              <el-link class="list-content" type="info" @click="goMYB(item.gene,'TF')" >{{item.gene}}</el-link>
             </el-col>
           </el-row>
         </el-scrollbar>
       </el-col>
+      <el-divider direction="vertical"></el-divider>
       <el-col :span="7">
         <p class="list-title">Non-transcription Factor</p>
         <el-scrollbar height="490px">
@@ -77,5 +78,8 @@
 
   .list-content {
     @apply font-normal text-gray-900 text-opacity-75 leading-relaxed;
+  }
+  .gene-list{
+    @apply font-bold text-2xl text-blue-500;
   }
 </style>

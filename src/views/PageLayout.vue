@@ -49,9 +49,9 @@
 
   let activeIndex = ref('1')
 
-  onMounted(() => {
-    router.push('/')
-  })
+  // onMounted(() => {
+  //   router.push('/')
+  // })
 
   let handleSelect = (key, keyPath) => {
     key = key.split(' ').join('').toLowerCase()

@@ -82,12 +82,16 @@ onMounted(async () => {
         dataZoom: {
           type: 'inside', // 支持手动滑动和缩放
           start: 0,
-          end: 25
+          end: 5
         }
+      });
+      myChart.on('click', function (params) {
+        const url = '/browse/species?species='
+        router.push(url + params.name.replaceAll(' ', '+'))
       });
       break
     case 1: // 各胁迫类型基因的统计数据比例
-      renderChart(pieConfig('Stress Type', ['50%', '65%'], ['50%', '65%']), '/plant-details/StressTypeCount')
+      renderChart(pieConfig('Stress Type', ['45%', '65%'], ['50%', '65%']), '/plant-details/StressTypeCount')
       myChart.on('click', function (params) {
         const url = '/browse/stresstype/list?stressName='
         router.push(url + params.name.replaceAll(' ', '+'))
@@ -110,12 +114,38 @@ onMounted(async () => {
       }
       option && myChart.setOption(option)
       renderChart(pieConfig('Phenotype Influenced', ['40%', '60%'], ['50%', '67%']), '/plant-details/PhenotypeCount')
+      myChart.on('click', function (params) {
+        const url = '/browse/stresstype/list?stressName='
+        router.push(url + params.name.replaceAll(' ', '+'))
+      });
       break
     case 4:
-      renderChart(pieConfig('Expression Organs'), '/plant-details/expressionOrgansGeneCount')
+      renderChart(barConfig('Expression Organs'), '/plant-details/expressionOrgansGeneCount')
+      myChart.setOption({
+        dataZoom: {
+          type: 'inside', // 支持手动滑动和缩放
+          start: 1,
+          end: 15
+        }
+      });
+      myChart.on('click', function (params) {
+        const url = '/browse/expressionorgans?expressionOrgans='
+        router.push(url + params.name.replaceAll(' ', '+'))
+      });
       break
     case 5:
       renderChart(barConfig('SubCellular Localization'), '/plant-details/subCellularLocalizationCount')
+      myChart.setOption({
+        dataZoom: {
+          type: 'inside', // 支持手动滑动和缩放
+          start: 1,
+          end: 40
+        }
+      });
+      myChart.on('click', function (params) {
+        const url = '/browse/subcellularlocalization?subCellular='
+        router.push(url + params.name.replaceAll(' ', '+'))
+      });
       break
     default:
       option && myChart.setOption(option);

@@ -1,22 +1,25 @@
 <template>
-  <PageCenterTitle page-title="Phenotype Influenced" />
-    <el-row :gutter="40" justify="space-between">
-      <el-col :span="menuCol" :class="menuClass">
-        <LeftMenu :attribute-list="phenoList" @openMenu="handleOpen" @clickList="handleClick" :isLoading="loading"
-          :attr-detail-list="phenoSubList" />
-      </el-col>
-      <el-col :span="tableCol" class="animate__animated animate__backInDown">
-        <el-input :prefix-icon="Search" v-model="tableInput" @input="handleTableFilter" clearable />
-        <el-table :data="tableInput==''?phenoGeneList:phenoGeneFilterList" class="el-table-vertical-demo" height="550px"
-          stripe>
-          <el-table-column prop="gene" label="gene name">
-            <template v-slot="{ row }">
-              <a href="" @click.prevent="goGeneDetail(row)" class="underline">{{row.gene}}</a>
-            </template>
-          </el-table-column>
-        </el-table>
-      </el-col>
-    </el-row>
+  <PageCenterTitle page-title="Phenotype Influenced" class="page-title"/>
+  <el-row :gutter="40" justify="space-between">
+    <el-col :span="menuCol" :class="menuClass">
+      <LeftMenu :attribute-list="phenoList" @openMenu="handleOpen" @clickList="handleClick" :isLoading="loading"
+        :attr-detail-list="phenoSubList" />
+    </el-col>
+    <el-col :span="tableCol" class="animate__animated animate__backInDown">
+      <el-input :prefix-icon="Search" v-model="tableInput" @input="handleTableFilter" clearable />
+      <el-table :data="tableInput==''?phenoGeneList:phenoGeneFilterList" class="el-table-vertical-demo" height="550px"
+        stripe>
+        <el-table-column prop="gene" label="gene name">
+          <template v-slot="{ row }">
+            <a href="" @click.prevent="goGeneDetail(row)" class="underline">{{row.gene}}</a>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-col>
+  </el-row>
+<!--  <el-row :gutter="40" justify="space-between">-->
+<!--   <div id="jsmind_container"></div>-->
+<!--  </el-row>-->
 
 </template>
 
@@ -179,6 +182,27 @@
 </script>
 
 <style scoped>
+  @media screen and (min-width: 992px) {
+    .page-title {
+      max-width: 70%;
+      margin: 0 auto;
+    }
+    .el-row{
+      position: absolute;
+      left: 15%;
+      right: 15%;
+    }
+  }
+
+  /* 手机端 */
+  @media screen and (max-width: 993px) {
+    .page-title {
+      max-width: 100%;
+    }
+    .el-row {
+      max-width: 100%;
+    }
+  }
   #jsmind_container {
     width: 100%;
     height: 150vh;

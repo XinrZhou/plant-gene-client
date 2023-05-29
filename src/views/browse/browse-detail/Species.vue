@@ -1,7 +1,7 @@
 <template>
-    <PageCenterTitle page-title="Species" />
-
+    <PageCenterTitle page-title="Species" class="page-title"/>
     <el-row :gutter="40">
+
         <el-col :span="menuCol" style="height: 550px;" :class="menuClass">
             <el-input :prefix-icon="Search" v-model="navInput" @input="handleNavChange" clearable />
             <el-scrollbar max-height="550px" class="scrollbar-demo-item">
@@ -29,6 +29,7 @@
                 </Suspense>
             </div>
         </el-col>
+
     </el-row>
 </template>
 
@@ -83,6 +84,34 @@
 </script>
 
 <style scoped>
+    /*::v-deep(element .style){*/
+    /*  margin-left: 0!important;*/
+    /*  margin-right: 0!important;*/
+    /*}*/
+    /*::v-deep .el-card__body {*/
+    /*  padding: 0;*/
+    /*}*/
+    @media screen and (min-width: 992px) {
+      .page-title {
+        max-width: 70%;
+        margin: 0 auto;
+      }
+      .el-row{
+        position: absolute;
+        left: 15%;
+        right: 15%;
+      }
+    }
+
+    /* 手机端 */
+    @media screen and (max-width: 993px) {
+      .page-title {
+        max-width: 100%;
+      }
+      .el-row {
+        max-width: 100%;
+      }
+    }
     .scrollbar-demo-item {
         @apply mt-6 bg-white;
     }

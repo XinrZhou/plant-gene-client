@@ -1,5 +1,9 @@
 import { defineStore } from "pinia"
-import { reqPostUploadFile } from "~/api/file.js"
+import {
+    reqPostUploadFile,
+    reqPostUploadBlastSeq,
+    reqPostUploadBlastFile
+} from "~/api/file.js"
 import { ElMessageBox, ElMessage } from 'element-plus'
 
 export const useSubmitStore = defineStore('submit', {
@@ -13,6 +17,17 @@ export const useSubmitStore = defineStore('submit', {
             return reqPostUploadFile(data,file).then(res=>{
                 return Promise.resolve()
             }).catch(err => Promise.reject(err))
+        },
+        async reqPostUploadBlastSeq(data) {
+            return reqPostUploadBlastSeq(data).then(res=>{
+                return Promise.resolve()
+            }).catch(err => Promise.reject(err))
+        },
+        async reqPostUploadBlastFile(data,file) {
+            return reqPostUploadBlastFile(data,file).then(res=>{
+                return Promise.resolve()
+            }).catch(err => Promise.reject(err))
         }
+
     }
 })

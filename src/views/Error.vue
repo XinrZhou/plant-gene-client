@@ -10,4 +10,7 @@
             </template>
         </el-result>
     </div>
+  <div>
+    <img src="https://rest.kegg.jp/get/map01240/image2x">
+  </div>
 </template>

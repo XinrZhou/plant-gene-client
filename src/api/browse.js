@@ -22,6 +22,14 @@ export function reqGetGeneOverview(geneName) {
     return axios.get(`/search/getGeneDetails?gene=${geneName}`)
 }
 
+export function reqGetGeneByGo(geneName) {
+    return axios.get(`/search/getGeneKeGG?gene=${geneName}`)
+}
+
+export function reqGetGeneByKeGG(geneName) {
+    return axios.get(`/search/getGeneGo?gene=${geneName}`)
+}
+
 
 // Expression Organs
 // Browse ExpressionOrgans
