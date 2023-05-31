@@ -9,6 +9,7 @@ import { ElMessageBox, ElMessage } from 'element-plus'
 export const useSubmitStore = defineStore('submit', {
     state: () => {
         return {
+            BlastSeqDataList: {}
         }
     },
     actions: {
@@ -20,6 +21,7 @@ export const useSubmitStore = defineStore('submit', {
         },
         async reqPostUploadBlastSeq(data) {
             return reqPostUploadBlastSeq(data).then(res=>{
+                this.BlastSeqDataList = res.data
                 return Promise.resolve()
             }).catch(err => Promise.reject(err))
         },
