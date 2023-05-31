@@ -45,12 +45,78 @@
         <div class="bottom-collapse">
             <el-collapse @change="handleChange" accordion>
                 <el-collapse-item title="Click here to view the DNA sequence" name="1">
-                  {{geneInfo.aminoAcidSequence}}
+                    {{geneInfo.aminoAcidSequence}}
                 </el-collapse-item>
                 <el-collapse-item title="Click here to view the Protein sequence" name="2">
-                  {{geneInfo.nucleotideSequence}}
+                    {{geneInfo.nucleotideSequence}}
                 </el-collapse-item>
             </el-collapse>
+        </div>
+
+        <div class="card-nav" v-if="geneGoInfo.length != 0">
+            <h1>Go</h1>
+            <el-row>
+                <el-col :span="8">
+                    <h3>biological_process:</h3>
+                </el-col>
+                <el-col :span="16">
+                    <template v-for="(item, index) in goBiological" :key="index">
+                        <p>
+                            {{item?.name }}
+                            <el-button v-if="item != null"  size="small">
+                                <a :href=item.goId target="_blank">Source:data</a>
+                            </el-button>
+                        </p>
+                    </template>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="8">
+                    <h3>molecular_function:</h3>
+                </el-col>
+                <el-col :span="16">
+                    <template v-for="(item, index) in goMolecular" :key="index">
+                        <p>
+                            {{item?.name }}
+                            <el-button v-if="item != null"  size="small">
+                                <a :href=item.goId target="_blank">Source:data</a>
+                            </el-button>
+                        </p>
+                    </template>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="8">
+                    <h3>cellur_component:</h3>
+                </el-col>
+                <el-col :span="16">
+                    <template v-for="(item, index) in goCellur" :key="index">
+                        <p>
+                            {{item?.name }}
+                            <el-button v-if="item != null"  size="small">
+                                <a :href=item.goId target="_blank">Source:data</a>
+                            </el-button>
+                        </p>
+                    </template>
+                </el-col>
+            </el-row>
+        </div>
+        <div class="card-nav" v-if="geneKeGGInfo.length != 0">
+            <h1>KeGG</h1>
+            <el-table :data="geneKeGGInfo" height="250" style="width: 100%">
+                <el-table-column prop="description" label="Description" width="300" />
+                <el-table-column prop="koNumber" label="KoNumber" width="200" />
+                <el-table-column fixed="right" label="Link" width="200">
+                    <template #default="scope">
+                        <el-button size="small">
+                            <a :href=scope.row.mapId target="_blank">MapId</a>
+                        </el-button>
+                        <el-button size="small">
+                            <a :href=scope.row.imgMap target="_blank">ImgMap</a>
+                        </el-button>
+                    </template>
+                  </el-table-column>
+            </el-table>
         </div>
     </el-card>
 
@@ -70,6 +136,9 @@
 
     const geneKeGGInfo = computed(() => store.geneKeGGList)
     const geneGoInfo = computed(() => store.geneGoList)
+    const goBiological = computed(() => geneGoInfo.value.map(item => item.ontology == 'biological_process' ? item : null))
+    const goMolecular = computed(() => geneGoInfo.value.map(item => item.ontology == 'molecular_function' ? item : null))
+    const goCellur = computed(() => geneGoInfo.value.map(item => item.ontology == 'cellur_component' ? item : null))
 
     const geneName = route.query.geneName
     store.getGeneOverviewData(geneName)
@@ -87,10 +156,12 @@
         .el-card {
             max-width: 70%;
             margin: 0 auto;
+            margin-bottom: 30px;
         }
+
         .el-row {
             max-width: 70%;
-            margin: 0 auto;
+            /* margin: 0 auto; */
         }
     }
 
@@ -99,6 +170,7 @@
         .el-card {
             max-width: 100%;
         }
+
         .el-row {
             max-width: 70%;
             margin: 0 auto;
@@ -110,11 +182,19 @@
     }
 
     .card-nav p {
-        @apply flex items-center font-normal py-2 pb-3 text-base mx-11 tracking-wide
+        @apply flex items-center font-normal py-1 text-base mx-11 tracking-wide
+    }
+
+    .card-nav span {
+        @apply font-normal py-2 pb-3 text-base mx-11 tracking-wide
     }
 
     .card-nav h1 {
         @apply flex items-center font-semibold py-5 text-2xl mx-11
+    }
+
+    .card-nav h3 {
+        @apply flex items-center font-semibold py-1 text-lg mx-11
     }
 
     .description-list {
@@ -123,5 +203,9 @@
 
     .bottom-collapse {
         @apply mx-4 my-6
+    }
+
+    .el-table {
+        @apply mx-11;
     }
 </style>
