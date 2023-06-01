@@ -23,11 +23,11 @@ export function reqGetGeneOverview(geneName) {
 }
 
 export function reqGetGeneByGo(geneName) {
-    return axios.get(`/search/getGeneKeGG?gene=${geneName}`)
+    return axios.get(`/search/getGeneGo?gene=${geneName}`)
 }
 
 export function reqGetGeneByKeGG(geneName) {
-    return axios.get(`/search/getGeneGo?gene=${geneName}`)
+    return axios.get(`/search/getGeneKeGG?gene=${geneName}`)
 }
 
 
