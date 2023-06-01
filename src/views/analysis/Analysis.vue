@@ -47,11 +47,11 @@
             label-align="left">{{blastSeqInfo.blastVersion}}</el-descriptions-item>
           <el-descriptions-item label="database" label-align="left">{{blastSeqInfo.database}}</el-descriptions-item>
           <el-descriptions-item label="length" label-align="left">{{blastSeqInfo.length}}</el-descriptions-item>
-          <el-descriptions-item label="length" label-align="left">{{blastSeqInfo.query}}</el-descriptions-item>
+          <el-descriptions-item label="query" label-align="left">{{blastSeqInfo.query}}</el-descriptions-item>
         </el-descriptions>
-        <el-tabs v-model="activeName"  type="border-card">
+        <el-tabs v-model="activeName" type="border-card">
           <el-tab-pane label="Descriptions" name="first">
-            <el-table :data="blastSeqList" height="250" style="width: 100%">
+            <el-table :data="blastSeqList" height="300" style="width: 100%">
               <el-table-column prop="beginDbSeqNumber" label="beginDbSeqNumber" />
               <el-table-column prop="beginQuerySeqNumber" label="beginQuerySeqNumber" />
               <el-table-column prop="dbSeqId" label="dbSeqId" />
