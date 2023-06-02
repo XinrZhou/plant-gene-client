@@ -133,7 +133,7 @@
                     </p>
                 </el-col>
             </el-row>
-            <protvista-uniprot accession="A0A804LV25"/>
+            <protvista-uniprot :accession="state.pid" :key="state.pid"></protvista-uniprot>
         </div>
     </el-card>
 </template>
