@@ -133,24 +133,7 @@
                     </p>
                 </el-col>
             </el-row>
-            <el-row justify="start">
-                <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
-                    <h3>Protein Structure ID (PDB/AlphaFold):</h3>
-                </el-col>
-                <el-col :xs="24" :sm="24" :md="24" :lg="16" :xl="16">
-                    <p>
-                        {{ sid }}
-                    </p>
-                </el-col>
-            </el-row>
-            <nightingale-structure :protein-accession=pid :structure-id=sid></nightingale-structure>
-            <h2>W/S/A/D: Move Camera</h2>
-            <h2>Mouse Wheel: Zoom</h2>
-            <h2>LMB: Select Component</h2>
-            <h2>RMB: Move Protein</h2>
-            <br/>
-            <h2>Guest from Mainland China may meets loading issue for 3D view.</h2>
-            <!--            <nightingale-structure protein-accession="A0A804LV25" structure-id="AF-A0A804LV25-F1"/>-->
+            <protvista-uniprot accession="A0A804LV25"/>
         </div>
     </el-card>
 </template>
@@ -163,6 +146,10 @@ import {computed, reactive, toRefs} from 'vue'
 import '@nightingale-elements/nightingale-structure/dist/index.js'
 import {reqGetGeneOverview} from "~/api/browse.js";
 import md5 from 'md5'
+// import ProtvistaUniprot from 'protvista-uniprot';
+import 'protvista-uniprot/dist/protvista-uniprot.js'
+
+// window.customElements.define('protvista-uniprot', ProtvistaUniprot);
 
 const route = useRoute()
 const store = useBrowseStore()
@@ -213,23 +200,9 @@ reqGetGeneOverview(geneName).then(res => {
             console.log(data[0])
             state.pid = data[0].accession
             console.log(state.pid)
-            fetch(`https://rest.uniprot.org/uniprotkb/search?query=accession:${state.pid}&fields=structure_3d,xref_alphafolddb`, options)
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data.results[0])
-                    const struct_data = data.results[0]
-                    state.sid = state.pid
-                    if (struct_data.uniProtKBCrossReferences[0].database === "AlphaFoldDB") {
-                        state.sid = "AF-" + struct_data.uniProtKBCrossReferences[0].id + "-F1"
-                    } else if (struct_data.uniProtKBCrossReferences[0].database === "PDB") {
-                        state.sid = struct_data.uniProtKBCrossReferences[0].id
-                    }
-                })
-                .catch(error => console.log('RESTful EBI API Error: ', error))
         })
         .catch(error => console.log('EBI API Error: ', error))
     // state.pid = 'A0A804LV25'
-    // state.sid = 'AF-A0A804LV25-F1'
 })
 
 </script>
