@@ -39,42 +39,70 @@
     </el-col>
   </el-row>
 
-  <el-row class="blast-result flex justify-center" v-if="blastSeqInfo != null">
+  <el-row class="blast-result flex justify-center ml-auto" v-if="blastSeqInfo != null">
     <el-col :lg="24" :md="24">
       <el-card>
         <el-descriptions :column="1" border>
-          <el-descriptions-item label="blastVersion"
+          <el-descriptions-item label="Blast Version"
             label-align="left">{{blastSeqInfo.blastVersion}}</el-descriptions-item>
-          <el-descriptions-item label="database" label-align="left">{{blastSeqInfo.database}}</el-descriptions-item>
-          <el-descriptions-item label="length" label-align="left">{{blastSeqInfo.length}}</el-descriptions-item>
-          <el-descriptions-item label="query" label-align="left">{{blastSeqInfo.query}}</el-descriptions-item>
+          <el-descriptions-item label="Database" label-align="left">{{blastSeqInfo.database}}</el-descriptions-item>
+          <el-descriptions-item label="QuerySeq Length" label-align="left">{{blastSeqInfo.length}}</el-descriptions-item>
+          <el-descriptions-item label="Query" label-align="left">{{blastSeqInfo.query}}</el-descriptions-item>
         </el-descriptions>
         <el-tabs v-model="activeName" type="border-card">
           <el-tab-pane label="Descriptions" name="first">
-            <el-table :data="blastSeqList" height="300" style="width: 100%">
-              <el-table-column prop="beginDbSeqNumber" label="beginDbSeqNumber" />
-              <el-table-column prop="beginQuerySeqNumber" label="beginQuerySeqNumber" />
-              <el-table-column prop="dbSeqId" label="dbSeqId" />
-              <el-table-column prop="endDbSeqNumber" label="endDbSeqNumber" />
-              <el-table-column prop="evalue" label="evalue" />
+            <el-button @click="handleDownload('table')"  class="mr-auto  font-bold text-blue-500" >Down Data</el-button>
+
+            <el-table :data="blastSeqList"  style="width: 100%">
+              <el-table-column prop="querySeqId" label="QuerySeqId">
+                <template v-slot="{ row }">
+                  <a href="" @click.prevent="handleGeneClick(row)" class="underline font-bold">{{row.querySeqId}}</a>
+                </template>
+              </el-table-column>
               <el-table-column prop="length" label="length" />
-              <el-table-column prop="misMatchNumber" label="misMatchNumber" />
-              <el-table-column prop="querySeqId" label="querySeqId" />
-              <el-table-column prop="score" label="score" />
-              <el-table-column prop="similar" label="similar" />
-              <el-table-column prop="spaceNumber" label="spaceNumber" />
+              <el-table-column prop="beginDbSeqNumber" label="StressType" />
+              <el-table-column prop="endDbSeqNumber" label="ScientificName" />
+              <el-table-column prop="score" label="Max score" />
+              <el-table-column prop="similar" label="Similar" />
+              <el-table-column prop="misMatchNumber" label="MisMatchNumber" />
+              <el-table-column prop="spaceNumber" label="SpaceNumber" />
+              <el-table-column prop="evalue" label="E value" />
+              <el-table-column prop="dbSeqId" label="PlantASRGId">
+                <template v-slot="{ row }">
+                  <a href="" @click.prevent="handleGeneClick(row)" class="underline font-bold">{{row.dbSeqId}}</a>
+                </template>
+              </el-table-column>
+              <el-table-column prop="" label="" />
             </el-table>
           </el-tab-pane>
-          <el-tab-pane label="Alignments" name="second">
+          <el-tab-pane label="Alignments" name="second" v-if="form.category=='blastn'">
+            <el-button @click="handleDownload('result')"  class="mr-auto  font-bold text-blue-500" >Down Data</el-button>
             <div class="blastSeq-alignments" v-for="(item, index) in blastSeqReslt" :key="index">
               <p class="alignments-item">{{item.name}}</p>
               <p class="alignments-item"><span class="text-gray-400">Length:&nbsp;</span>{{item.length}}</p>
-              <el-descriptions direction="vertical" :column="5" :size="size" border>
+              <el-descriptions direction="vertical" :column="5" border>
                 <el-descriptions-item label="Score">{{item.score}}</el-descriptions-item>
                 <el-descriptions-item label="Expect">{{item.expect}}</el-descriptions-item>
                 <el-descriptions-item label="Identities">{{item.identities}}</el-descriptions-item>
                 <el-descriptions-item label="Gaps">{{item.gaps}}</el-descriptions-item>
                 <el-descriptions-item label="Strand">{{item.strand}}</el-descriptions-item>
+              </el-descriptions>
+              <p class="alignments-sequence">{{item.sequence}}</p>
+              <el-divider />
+            </div>
+          </el-tab-pane>
+          <el-tab-pane label="Alignments" name="second" v-if="form.category=='blastp'">
+            <el-button @click="handleDownload('result')"  class="mr-auto  font-bold text-blue-500" >Down Data</el-button>
+            <div class="blastSeq-alignments" v-for="(item, index) in blastSeqReslt" :key="index">
+              <p class="alignments-item">{{item.name}}</p>
+              <p class="alignments-item"><span class="text-gray-400">Length:&nbsp;</span>{{item.length}}</p>
+              <el-descriptions direction="vertical" :column="4" border>
+                <el-descriptions-item label="Score">{{item.score}}</el-descriptions-item>
+                <el-descriptions-item label="Expect">{{item.expect}}</el-descriptions-item>
+                <el-descriptions-item label="Method">{{item.method}}</el-descriptions-item>
+                <el-descriptions-item label="Identities">{{item.identities}}</el-descriptions-item>
+                <el-descriptions-item label="Gaps">{{item.gaps}}</el-descriptions-item>
+                <el-descriptions-item label="Strand">{{item.positives}}</el-descriptions-item>
               </el-descriptions>
               <p class="alignments-sequence">{{item.sequence}}</p>
               <el-divider />
@@ -93,9 +121,12 @@
   import { reactive, toRaw, ref, computed } from 'vue'
   import { useSubmitStore } from '~/store/useSubmitStore.js'
   import { ElMessageBox, ElMessage } from 'element-plus'
+  import {showModal} from "~/composables/util.js";
+  import {useFileStore} from "~/store/useFileStore.js";
+  import router from "~/router/index.js";
 
   const store = useSubmitStore()
-
+  const storeFiles = useFileStore()
   let form = ref({
     sequence: '',
     category: 'blastn'
@@ -156,6 +187,34 @@
       sequence: '',
       category: ''
     }
+  }
+  const handleDownload = (category) => {
+    showModal("是否确认下载？").then(res=>{
+      storeFiles.getFilesByIdAndName(blastSeqInfo.value.id,category).then(response => {
+        console.log(blastSeqInfo.value.id)
+        console.log(category)
+        console.log(response)
+        const contentDisposition = response.headers['content-disposition'];
+        const fileName = contentDisposition
+            .match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/)[1]
+            .replace(/['"]/g, '');
+
+        const blob = new Blob([response.data]);
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();
+      });
+    })
+
+  }
+  let handleGeneClick = (row) => {
+    const link = document.createElement('a');
+    link.href = "https://www.ncbi.nlm.nih.gov/nucleotide/"+row.dbSeqId
+    link.click();
+    link.preventDefault();
   }
 </script>
 

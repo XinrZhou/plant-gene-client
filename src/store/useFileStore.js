@@ -1,7 +1,7 @@
 import { defineStore } from "pinia"
 
 import {
-    reqGetDownFiles, reqPostFilesList, reqPostStaticCount
+    reqGetDownFiles, reqPostDownFilesByIdAndName, reqPostFilesList, reqPostStaticCount
 } from "~/api/file.js";
 
 export const useFileStore = defineStore('file', {
@@ -30,6 +30,16 @@ export const useFileStore = defineStore('file', {
                 this.filesCount = res.data
             }).catch(err => Promise.reject(err))
         },
+        async getFilesByIdAndName(id,name){
+            return reqPostDownFilesByIdAndName(id,name).then(res=>{
+                return Promise.resolve(res)
+                console.log("12312")
+            }).catch(err => {
+                console.log("asdasdasdasdsa")
+                Promise.reject(err)
+            })
+        },
+
 
     }
 })

@@ -27,6 +27,12 @@ export function reqGetDownFiles(id) {
     });
 }
 
+export function reqPostDownFilesByIdAndName(id,name) {
+    return axios.get(`/file-model/blastDownByIDAndName?id=${id}&name=${name}`,{
+        responseType: 'blob'
+    });
+}
+
 export function reqPostStaticCount() {
     return axios.post(`/file-model/staticCount`)
 

@@ -56,7 +56,7 @@
 
         <div class="card-nav" v-if="geneGoInfo.length != 0">
             <h1>Go</h1>
-            <el-row justify="start">
+            <el-row justify="start" v-if="goBiological.length != 0">
                 <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
                     <h3>biological_process:</h3>
                 </el-col>
@@ -71,7 +71,7 @@
                     </template>
                 </el-col>
             </el-row>
-            <el-row justify="start">
+            <el-row justify="start" v-if="goMolecular.length != 0">
                 <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
                     <h3>molecular_function:</h3>
                 </el-col>
@@ -86,7 +86,7 @@
                     </template>
                 </el-col>
             </el-row>
-            <el-row justify="start">
+            <el-row justify="start" v-if="goCellur.length != 0">
                 <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
                     <h3>cellur_component:</h3>
                 </el-col>

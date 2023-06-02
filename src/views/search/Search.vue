@@ -52,8 +52,6 @@
                     </div>
                 </template>
                 <el-scrollbar :height="stressTypeScrollHeight">
-                    <el-input :prefix-icon="Search" v-model="stressTypeInput" @input="handleNavChange('stressType')"
-                        clearable />
                     <el-radio-group v-model="stressTypeRadio" size="large">
                         <el-radio-button name="stressTypeRadio" :label="item.name" v-for="item in stressTypeFilterList"
                             :key="item.name" @change="handleBtnChange" @click="handleClick">
@@ -307,22 +305,22 @@
     let changeScrollHeight = (value) => {
         switch (value) {
             case 1:
-                speciesScrollHeight.value = speciesScrollHeight.value == '' ? '136px' : '600px'
+                speciesScrollHeight.value = speciesScrollHeight.value == '600px' ? '136px' : '600px'
                 break
             case 2:
                 stressTypeScrollHeight.value = stressTypeScrollHeight.value == '' ? '136px' : ''
                 break
             case 3:
-                geneFamilyScrollHeight.value = geneFamilyScrollHeight.value == '' ? '136px' : '600px'
+                geneFamilyScrollHeight.value = geneFamilyScrollHeight.value == '600px' ? '136px' : '600px'
                 break
             case 4:
-                phenoTypeScrollHeight.value = phenoTypeScrollHeight.value == '' ? '136px' : '600px'
+                phenoTypeScrollHeight.value = phenoTypeScrollHeight.value == '600px' ? '136px' : '600px'
                 break
             case 5:
-                expressionScrollHeight.value = expressionScrollHeight.value == '' ? '136px' : '600px'
+                expressionScrollHeight.value = expressionScrollHeight.value == '600px' ? '136px' : '600px'
                 break
             case 6:
-                subCellularScrollHeight.value = subCellularScrollHeight.value == '' ? '136px' : '600px'
+                subCellularScrollHeight.value = subCellularScrollHeight.value == '600px' ? '136px' : '600px'
                 break
         }
     }
