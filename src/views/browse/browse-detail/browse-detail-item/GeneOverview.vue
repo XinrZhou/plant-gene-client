@@ -10,19 +10,28 @@
 
     <el-card shadow="hover">
         <div class="card-nav">
-            <h1>{{ geneName }}</h1>
+            <h1>{{ geneInfo.gene }}</h1>
             <p>GenBank:</p>
             <p>GenBank Locus:</p>
-            <p>pmid:{{ geneInfo.pmid }}</p>
+          <p>pmid:<a  :href=link  class="underline ml-4" >{{ geneInfo.pmid }}</a></p>
         </div>
         <!-- 基因卡片表格 -->
         <div class="description-list">
-            <el-descriptions border :column="4">
+            <el-descriptions border :column="3">
                 <el-descriptions-item label="Gene name" label-align="right" align="center" label-class-name="my-label"
                                       class-name="my-content" width="150px">
                     {{ geneInfo.gene }}
                 </el-descriptions-item>
-                <el-descriptions-item label="TF" label-align="right" align="center">
+                <el-descriptions-item label="Gene Family" label-align="right" align="center" :span="2" v-if="geneInfo.kringleDomain!=null">
+                  {{ geneInfo.kringleDomain }}
+                </el-descriptions-item>
+                <el-descriptions-item label="Scientific Name" label-align="right" align="center">
+                  {{ geneInfo.scientificName }}
+                </el-descriptions-item>
+                <el-descriptions-item label="Stress Type" label-align="right" align="center" :span="2">
+                  {{ geneInfo.stressType }}
+                </el-descriptions-item>
+                <el-descriptions-item label="Transcription Factor" label-align="right" align="center">
                     {{ geneInfo.transcriptionFactor }}
                 </el-descriptions-item>
                 <el-descriptions-item label="Gene product" label-align="right" align="center" :span="2">
@@ -31,10 +40,10 @@
                 <el-descriptions-item label="Phenotype Influenced" label-align="right" align="center" :span="2">
                     {{ geneInfo.phenotypeInfluenced }}
                 </el-descriptions-item>
-                <el-descriptions-item label="Subcellular Localization" label-align="right" align="center">
+                <el-descriptions-item label="Subcellular Localization" label-align="right" align="center" v-if="geneInfo.subCellularLocalization!=null">
                     {{ geneInfo.subCellularLocalization }}
                 </el-descriptions-item>
-                <el-descriptions-item label="Expression Organs/ Location" label-align="right" align="center" :span="2">
+                <el-descriptions-item label="Expression Organs/ Location" label-align="right" align="center" :span="2" v-if="geneInfo.expressionOrgans!=null">
                     {{ geneInfo.expressionOrgans }}
                 </el-descriptions-item>
                 <el-descriptions-item label="Description" label-align="right" align="center">
@@ -45,11 +54,13 @@
 
         <div class="bottom-collapse">
             <el-collapse @change="handleChange" accordion>
-                <el-collapse-item title="Click here to view the DNA sequence" name="1">
-                    {{ geneInfo.aminoAcidSequence }}
+                <el-collapse-item title="Click here to view the Amino Acid sequence" name="1">
+                  <pre class="alignments-sequence font-bold ml-14 text-sm">{{ geneInfo.aminoAcidSequence }}</pre>
+
                 </el-collapse-item>
-                <el-collapse-item title="Click here to view the Protein sequence" name="2">
-                    {{ geneInfo.nucleotideSequence }}
+                <el-collapse-item title="Click here to view the Nucleotide sequence" name="2">
+                  <pre class="alignments-sequence font-bold ml-14 text-sm">{{ geneInfo.nucleotideSequence }}</pre>
+
                 </el-collapse-item>
             </el-collapse>
         </div>
@@ -65,7 +76,7 @@
                         <p>
                             {{ item?.name }}
                             <el-button size="small">
-                                <a :href=item.goId target="_blank">Source:data</a>
+                                <a :href=item.goId target="_blank">Source: Gene Ontology</a>
                             </el-button>
                         </p>
                     </template>
@@ -80,7 +91,7 @@
                         <p>
                             {{ item?.name }}
                             <el-button size="small">
-                                <a :href=item.goId target="_blank">Source:data</a>
+                                <a :href=item.goId target="_blank">Source: Gene Ontology</a>
                             </el-button>
                         </p>
                     </template>
@@ -95,7 +106,7 @@
                         <p>
                             {{ item?.name }}
                             <el-button size="small">
-                                <a :href=item.goId target="_blank">Source:data</a>
+                                <a :href=item.goId target="_blank">Source: Gene Ontology</a>
                             </el-button>
                         </p>
                     </template>
@@ -119,8 +130,8 @@
                 </el-table-column>
             </el-table>
         </div>
-        <div class="card-nav">
-            <h1>3D Protein View of {{ geneName }}</h1>
+        <div class="card-nav"  v-if="geneInfo.keggAnalysis!=null">
+            <h1>3D Protein View of {{ geneInfo.gene }}</h1>
             <!--            <h2>{{ seqMd5 }}</h2>-->
             <!--            <h2>PID: {{ pid }} SID: {{ sid }}</h2>-->
             <el-row justify="start">
@@ -133,9 +144,10 @@
                     </p>
                 </el-col>
             </el-row>
-            <protvista-uniprot :accession="state.pid" :key="state.pid"></protvista-uniprot>
+            <protvista-uniprot :accession="geneInfo.keggAnalysis" :key="geneInfo.keggAnalysis"></protvista-uniprot>
         </div>
     </el-card>
+
 </template>
 
 <script setup>
@@ -166,45 +178,9 @@ store.getGeneOverviewData(geneName)
 store.getGeneByKeGGData(geneName)
 store.getGeneByGoData(geneName)
 // API调用
-let handleChange = (event) => {
-    console.log(event)
-}
 
-const state = reactive({
-    pid: '',
-    sid: ''
-})
 
-let {pid, sid} = toRefs(state)
-
-let geneSeq = ""
-let seqMd5 = ""
-reqGetGeneOverview(geneName).then(res => {
-    geneSeq = res.data.aminoAcidSequence
-    console.log(geneSeq)
-    geneSeq = geneSeq.split('\n').slice(1).join('')
-    console.log(geneSeq)
-    seqMd5 = md5(geneSeq)
-    console.log(seqMd5)
-
-    const options = {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-        },
-    };
-
-    fetch(`https://www.ebi.ac.uk/proteins/api/proteins?offset=0&size=1&md5=${seqMd5}`, options)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data[0])
-            state.pid = data[0].accession
-            console.log(state.pid)
-        })
-        .catch(error => console.log('EBI API Error: ', error))
-    // state.pid = 'A0A804LV25'
-})
-
+const link = "https://pubmed.ncbi.nlm.nih.gov/"+geneInfo.value.pmid
 </script>
 
 <style scoped>

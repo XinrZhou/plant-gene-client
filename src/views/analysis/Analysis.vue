@@ -87,7 +87,7 @@
                 <el-descriptions-item label="Gaps">{{item.gaps}}</el-descriptions-item>
                 <el-descriptions-item label="Strand">{{item.strand}}</el-descriptions-item>
               </el-descriptions>
-              <p class="alignments-sequence">{{item.sequence}}</p>
+              <pre class="alignments-sequence font-bold ml-14">{{item.sequence}}</pre>
               <el-divider />
             </div>
           </el-tab-pane>
@@ -104,7 +104,7 @@
                 <el-descriptions-item label="Gaps">{{item.gaps}}</el-descriptions-item>
                 <el-descriptions-item label="Strand">{{item.positives}}</el-descriptions-item>
               </el-descriptions>
-              <p class="alignments-sequence">{{item.sequence}}</p>
+              <pre class="alignments-sequence font-bold ml-14">{{item.sequence}}</pre>
               <el-divider />
             </div>
           </el-tab-pane>

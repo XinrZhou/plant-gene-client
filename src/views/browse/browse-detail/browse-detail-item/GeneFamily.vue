@@ -2,7 +2,7 @@
   <PageCenterTitle page-title="Gene Family" />
   <el-card shadow="hover">
     <el-row class="row-bg" justify="space-around">
-      <el-col :span="7">
+      <el-col :span="5">
         <p class="list-title">Transcription Factor</p>
         <el-scrollbar height="490px">
           <el-row class="row-bg" justify="space-between">
@@ -12,8 +12,8 @@
           </el-row>
         </el-scrollbar>
       </el-col>
-      <el-divider direction="vertical"></el-divider>
-      <el-col :span="7">
+<!--      <el-divider direction="vertical"></el-divider>-->
+      <el-col :span="6">
         <p class="list-title">Non-transcription Factor</p>
         <el-scrollbar height="490px">
           <el-row class="row-bg" justify="space-between">
@@ -24,7 +24,30 @@
         </el-scrollbar>
       </el-col>
       <el-col :span="7">
-        <p>图内容区域</p>
+        <el-card class="charts-card" shadow="hover">
+          <div id="1" ref="el" style="height:350px;"></div>
+        </el-card>
+      </el-col>
+    </el-row>
+  </el-card>
+
+  <el-card>
+    <el-row>
+      <el-col :span="6">
+        <el-scrollbar height="330px" class="scrollbar-demo-item" v-if="geneType == 'TF'">
+          <p v-for="item in tFGeneDataList" :key="item.gene">
+            <span class="menu-item">
+                {{item.gene}}
+            </span>
+          </p>
+        </el-scrollbar>
+        <el-scrollbar height="330px" class="scrollbar-demo-item" v-if="geneType == 'NTF'">
+          <p v-for="item in nonTFGeneDataList" :key="item.gene">
+            <span class="menu-item">
+                {{item.gene}}
+            </span>
+          </p>
+        </el-scrollbar>
       </el-col>
     </el-row>
   </el-card>
@@ -33,7 +56,7 @@
 <script setup>
   import PageCenterTitle from "~/components/PageCenterTitle.vue"
   import { useBrowseStore } from '~/store/useBrowseStore.js'
-  import { computed } from 'vue'
+  import {computed, toRaw, watch} from 'vue'
   import router from "~/router"
 
   const store = useBrowseStore()
@@ -44,14 +67,13 @@
   const tFGeneFamilyList = computed(() => store.tFGeneFamilyDataList)
   const nonTFGeneFamilyList = computed(() => store.nonTFGeneFamilyDataList)
 
+
   let goMYB = (name, type) => {
-    router.push({
-      path: '/browse/genefamily/myb',
-      query: {
-        name,
-        type
-      }
-    })
+    type == 'TF' ? store.getTFGeneList(name) : store.getNonTFGeneList(name)
+    const tFGeneDataList = computed(() => store.tFGeneDataList)
+    const nonTFGeneDataList = computed(() => store.nonTFGeneDataList)
+    console.log(tFGeneDataList.value)
+    console.log("dsad")
   }
 
 </script>

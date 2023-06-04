@@ -170,16 +170,21 @@ export const useBrowseStore = defineStore('browseStore', {
         },
 
          // browse -- GeneFamily TFGeneDeatil
-         getTFGeneList(geneName) {
+         async getTFGeneList(geneName) {
             reqGetTFGeneList(geneName).then(res => {
                 this.tFGeneDataList = res.data
             }).catch(err => Promise.reject(err))
         },
 
         // browse -- GeneFamily TFGeneDeatil
-        getNonTFGeneList(geneName) {
+        async getNonTFGeneList(geneName) {
             reqGetNonTFGeneList(geneName).then(res => {
                 this.nonTFGeneDataList = res.data
+            }).catch(err => Promise.reject(err))
+        },
+        async getTfGeneCount(){
+            reqPostTfGeneCount().then(res=>{
+                return res.data
             }).catch(err => Promise.reject(err))
         }
     }

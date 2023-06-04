@@ -45,7 +45,7 @@
         router.push({
             name: 'geneoverview',
             query: {
-                geneName: row.gene
+                geneName: row.id
             }
         })
     }

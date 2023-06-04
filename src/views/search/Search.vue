@@ -2,7 +2,7 @@
     <el-row>
         <el-col :span="24">
             <el-select v-model="value" filterable remote clearable reserve-keyword placeholder="Please enter keywords"
-                :remote-method="remoteMethod" :loading="loading" class="w-full" @change="handleRemoteSearch">
+                :remote-method="remoteMethod" :loading="loading" class="w-full  rounded-3xl" @change="handleRemoteSearch" size="large" >
                 <el-option v-for="(item,index) in options" :value="item.content" :key="index"
                     @click="goDetailPage(item)">
                     <span style="float: left">
@@ -338,6 +338,7 @@
     let goDetailPage = (item) => {
         const attribute = item.attribute
         const content = item.content
+        const id = item.id
         switch (attribute) {
             case 'Expression_Organs':
                 router.push({
@@ -375,7 +376,7 @@
                 router.push({
                     path: 'browse/stresstype/geneoverview',
                     query: {
-                        geneName: content
+                        geneName: id
                     }
                 })
                 break
@@ -463,7 +464,7 @@
         router.push({
             name: 'geneoverview',
             query: {
-                geneName: row.gene
+                geneName: row.id
             }
         })
     }
