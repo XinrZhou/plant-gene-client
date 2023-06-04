@@ -453,7 +453,6 @@
 
     // radio change
     let handleBtnChange = (e, b) => {
-        //此处有坑，el - radio点击时触发两次
         if (e.target.tagName != 'INPUT') {
             return
         }
@@ -543,5 +542,10 @@
         justify-content: center;
         margin-top: 16px;
         width: 100%;
+    }
+
+    ::v-deep .el-input__wrapper {
+        height: 50px;
+        border-radius: 30px;
     }
 </style>
