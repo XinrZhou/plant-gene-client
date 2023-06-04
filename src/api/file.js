@@ -13,7 +13,7 @@ export function reqPostUploadBlastSeq(data) {
 }
 
 export function reqPostUploadBlastFile(data,file) {
-    return axios.post(`/file-model/blastFile?sequence=${data.sequence}&category=${data.category}`,file)
+    return axios.post(`/file-model/blastFile?category=${data.category}`,file)
 
 }
 

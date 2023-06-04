@@ -67,7 +67,7 @@
 
         <div class="card-nav" v-if="geneGoInfo.length != 0">
             <h1>Go</h1>
-            <el-row justify="start" v-if="goBiological.length != 0">
+            <el-row justify="start" v-if="goBiological.length != 0" class="ml-10">
                 <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
                     <h3>biological_process:</h3>
                 </el-col>
@@ -82,7 +82,7 @@
                     </template>
                 </el-col>
             </el-row>
-            <el-row justify="start" v-if="goMolecular.length != 0">
+            <el-row justify="start" v-if="goMolecular.length != 0" class="ml-10">
                 <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
                     <h3>molecular_function:</h3>
                 </el-col>
@@ -97,7 +97,7 @@
                     </template>
                 </el-col>
             </el-row>
-            <el-row justify="start" v-if="goCellur.length != 0">
+            <el-row justify="start" v-if="goCellur.length != 0" class="ml-10">
                 <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
                     <h3>cellur_component:</h3>
                 </el-col>
@@ -115,7 +115,7 @@
         </div>
         <div class="card-nav" v-if="geneKeGGInfo.length != 0">
             <h1>KeGG</h1>
-            <el-table :data="geneKeGGInfo" height="250" style="width: 100%">
+            <el-table :data="geneKeGGInfo" height="250" style="width: 100%" class="ml-10">
                 <el-table-column prop="description" label="Description" width="300"/>
                 <el-table-column prop="koNumber" label="KoNumber" width="200"/>
                 <el-table-column fixed="right" label="Link" width="200">
@@ -130,20 +130,26 @@
                 </el-table-column>
             </el-table>
         </div>
-        <div class="card-nav"  v-if="geneInfo.keggAnalysis!=null">
-            <h1>3D Protein View of {{ geneInfo.gene }}</h1>
-            <el-row justify="start">
-                <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
-                    <h3>Protein Accession ID:</h3>
-                </el-col>
-                <el-col :xs="24" :sm="24" :md="24" :lg="16" :xl="16">
-                    <p>
-                        {{ pid }}
-                    </p>
-                </el-col>
-            </el-row>
-            <protvista-uniprot :accession="geneInfo.keggAnalysis" :key="geneInfo.keggAnalysis"></protvista-uniprot>
-        </div>
+
+    </el-card>
+
+    <el-card shadow="hover">
+      <div class="card-nav" >
+        <h1>3D Protein View of {{ geneInfo.gene }}</h1>
+        <!--            <h2>{{ seqMd5 }}</h2>-->
+        <!--            <h2>PID: {{ pid }} SID: {{ sid }}</h2>-->
+        <el-row justify="start">
+          <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
+            <h3>Protein Accession ID:</h3>
+          </el-col>
+          <el-col :xs="24" :sm="24" :md="24" :lg="16" :xl="16">
+            <p>
+              {{ pid }}
+            </p>
+          </el-col>
+        </el-row>
+        <protvista-uniprot :accession="geneInfo.keggAnalysis" :key="geneInfo.keggAnalysis"></protvista-uniprot>
+      </div>
     </el-card>
 
 </template>

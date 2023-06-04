@@ -3,36 +3,11 @@
   <el-card shadow="hover">
     <el-row class="flex justify-center">
       <el-col :lg="24" :md="24">
-        <p class="submit-tip">You can upload the data to our database, and once the review is completed, we will notify
-          you of the results via email.</p>
+        <p class="submit-tip ml-4">You can upload the data to our database, and once the review is completed</p>
+        <p class="submit-tip ml-10"> we will notify you of the results via email.</p>
         <div class="submit-form">
           <el-form :model="form" label-width="120px" label-position="left">
-            <el-form-item>
-              <template #label>
-                <span class="font-bold">Description</span>
-              </template>
-              <el-input size="large" v-model="form.description" />
-            </el-form-item>
-            <el-form-item>
-              <template #label>
-                <span class="font-bold">Emails</span>
-              </template>
-              <el-input size="large" v-model="form.emails" />
-            </el-form-item>
-            <el-form-item>
-              <template #label>
-                <span class="font-bold">File</span>
-              </template>
-              <el-upload ref="uploadRef" :file-list="fileList" :auto-upload="false" :on-change="change"
-                class="upload-demo">
-                <el-button class="form-btn">Click to <uplo></uplo>ad</el-button>
-                <template #tip>
-                  <div class="el-upload__tip">
-                    jpg/png files with a size less than 500KB.
-                  </div>
-                </template>
-              </el-upload>
-            </el-form-item>
+
             <el-form-item>
               <template #label>
                 <span class="font-bold">Name</span>
@@ -45,6 +20,34 @@
               </template>
               <el-input size="large" v-model="form.organization" />
             </el-form-item>
+            <el-form-item>
+              <template #label>
+                <span class="font-bold">File</span>
+              </template>
+
+              <el-upload ref="uploadRef" :file-list="fileList" :auto-upload="false" :on-change="change"
+                class="upload-demo">
+                <el-button class="form-btn">Click to <uplo></uplo>ad</el-button>
+                <template #tip>
+                  <div class="el-upload__tip">
+                    Hello, you can upload your data regardless of file type(20MB maximum).
+                  </div>
+                </template>
+              </el-upload>
+            </el-form-item>
+            <el-form-item>
+              <template #label>
+                <span class="font-bold">Description</span>
+              </template>
+              <el-input size="large" v-model="form.description"></el-input>
+            </el-form-item>
+            <el-form-item>
+              <template #label>
+                <span class="font-bold">Emails</span>
+              </template>
+              <el-input size="large" v-model="form.emails" />
+            </el-form-item>
+
             <el-form-item>
               <el-button @click="onReset" class="form-btn">Reset</el-button>
               <el-button @click="onSubmit" class="form-btn" v-loading="submitting">Submit</el-button>

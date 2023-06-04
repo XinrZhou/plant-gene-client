@@ -115,7 +115,7 @@ onMounted(async () => {
       option && myChart.setOption(option)
       renderChart(pieConfig('Phenotype Influenced', ['40%', '60%'], ['50%', '67%']), '/plant-details/PhenotypeCount')
       myChart.on('click', function (params) {
-        const url = '/browse/stresstype/list?stressName='
+        const url = '/browsePhenoType/geneList/list?stressName='
         router.push(url + params.name.replaceAll(' ', '+'))
       });
       break

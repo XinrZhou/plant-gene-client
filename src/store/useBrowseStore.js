@@ -149,8 +149,8 @@ export const useBrowseStore = defineStore('browseStore', {
         }, 
 
         // browse -- PhenoType geneList
-        getPhenoGeneListData(phenotypeQuery) {
-            reqGetPhenoTypeGeneList(phenotypeQuery).then(res => {
+        getPhenoGeneListData(phenotype,phenotypeGroup) {
+            reqGetPhenoTypeGeneList(phenotype,phenotypeGroup).then(res => {
                 this.phenoTypeGeneDataList = res.data
             }).catch(err => Promise.reject(err))
         },

@@ -16,9 +16,10 @@ export default defineConfig({
     proxy: {
       '/api': {
         //本地测试
-        target: 'http://localhost:8093/',
+        // target: 'http://localhost:8093/',
         //连接远程API接口
         // target: 'http://124.223.40.46:8093',
+        target: 'http://175.178.9.163:8093',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       },

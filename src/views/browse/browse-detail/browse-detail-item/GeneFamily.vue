@@ -36,9 +36,9 @@
       <el-col :span="24">
         <p class="list-title">Gene Name</p>
         <div>
-          <el-link :label="item.id" v-for="item in tFGeneDataList" :id="item.id" class="gene-list">
+          <a :label="item.id" v-for="item in tFGeneDataList" :id="item.id" class="gene-list " href="" @click.prevent="handleGeneClick(item.id)" >
             {{item.gene}}
-          </el-link>
+          </a>
         </div>
       </el-col>
     </el-row>
@@ -49,9 +49,9 @@
       <el-col :span="24">
         <p class="list-title">Gene Name</p>
         <div>
-          <el-link :label="item.id" v-for="item in nonTFGeneDataList" :id="item.id" class="gene-list">
+          <a :label="item.id" v-for="item in nonTFGeneDataList" :id="item.id" class="gene-list"  @click="goListItem(item.id)">
             {{item.gene}}
-          </el-link>
+          </a>
         </div>
       </el-col>
     </el-row>
@@ -88,7 +88,14 @@
       isShowNonTFGeneR.value = true
     }
   }
-
+  let handleGeneClick = (id) => {
+    router.push({
+      name: 'geneoverview',
+      query: {
+        geneName: id
+      }
+    })
+  }
 </script>
 
 <style scoped>
@@ -116,13 +123,10 @@
   }
 
   .gene-list {
-    @apply inline-block w-40;
+    @apply inline-block w-40 mt-2;
   }
 
   .list-content {
     @apply font-normal text-gray-900 text-opacity-75 leading-relaxed;
-  }
-  .gene-list{
-    @apply font-bold text-2xl text-blue-500;
   }
 </style>

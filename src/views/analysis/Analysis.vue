@@ -8,11 +8,11 @@
       <el-card label="Blast">
         <div class="blast-form">
           <el-form :model="form" label-width="120px" label-position="left">
-            <el-form-item label="E-value">
-              <el-input v-model="form.sequence" :autosize="{ minRows: 6, maxRows: 10 }"
-                :disabled="fileCount > 0 ? true : false" type="textarea" style="width: 70%;" />
+            <el-form-item label="Sequence">
+              <el-input v-model="form.sequence"  :autosize="{ minRows: 6, maxRows: 10 }"
+                :disabled="fileCount > 0 ? true : false" type="textarea" style="width: 70%;"  placeholder="Please enter the nucleotide or amino acid sequence and select the corresponding 'blast' type."/>
             </el-form-item>
-            <el-form-item label="Input">
+            <el-form-item label="Type">
               <el-radio-group v-model="form.category">
                 <el-radio label="blastn" />
                 <el-radio label="blastp" />
@@ -59,7 +59,6 @@
                   <a href="" @click.prevent="handleGeneClick(row)" class="underline font-bold">{{row.querySeqId}}</a>
                 </template>
               </el-table-column>
-              <el-table-column prop="length" label="length" />
               <el-table-column prop="beginDbSeqNumber" label="StressType" />
               <el-table-column prop="endDbSeqNumber" label="ScientificName" />
               <el-table-column prop="score" label="Max score" />
@@ -67,6 +66,12 @@
               <el-table-column prop="misMatchNumber" label="MisMatchNumber" />
               <el-table-column prop="spaceNumber" label="SpaceNumber" />
               <el-table-column prop="evalue" label="E value" />
+              <el-table-column prop="length" label="length" />
+              <el-table-column prop="endQuerySeqNumber" label="Gene">
+                <template v-slot="{ row }">
+                  <a href="" @click.prevent="handleGeneClick1(row)" class="underline font-bold">{{row.endQuerySeqNumber}}</a>
+                </template>
+              </el-table-column>
               <el-table-column prop="dbSeqId" label="PlantASRGId">
                 <template v-slot="{ row }">
                   <a href="" @click.prevent="handleGeneClick(row)" class="underline font-bold">{{row.dbSeqId}}</a>
@@ -143,7 +148,6 @@
   const activeName = ref('first')
 
   const fileChange = (file, lists) => {
-    console.log('调用了')
     let list = toRaw(lists)
     fileCount.value = list.length
     list.forEach(item => {
@@ -194,7 +198,7 @@
     }
   }
   const handleDownload = (category) => {
-    showModal("是否确认下载？").then(res=>{
+    showModal("Are you sure to download?？").then(res=>{
       storeFiles.getFilesByIdAndName(blastSeqInfo.value.id,category).then(response => {
         console.log(blastSeqInfo.value.id)
         console.log(category)
@@ -220,6 +224,14 @@
     link.href = "https://www.ncbi.nlm.nih.gov/nucleotide/"+row.dbSeqId
     link.click();
     link.preventDefault();
+  }
+  let handleGeneClick1 = (row) => {
+    router.push({
+      name: 'geneoverview',
+      query: {
+        geneName: row.beginQuerySeqNumber
+      }
+    })
   }
 </script>
 

@@ -78,8 +78,8 @@ export function reqGetPhenoTypeSubList(name) {
 }
 
 // PhenoType -- GeneList
-export function reqGetPhenoTypeGeneList(phenotypeQuery) {
-    return axios.post('/browsePhenoType/geneList',phenotypeQuery)
+export function reqGetPhenoTypeGeneList(phenotype,phenotypeGroup) {
+    return axios.get(`/browsePhenoType/geneList?phenotype=${phenotype}&phenotypeGroup=${phenotypeGroup}`)
 }
 
 // Gene Family
