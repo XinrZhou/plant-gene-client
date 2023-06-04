@@ -19,10 +19,10 @@
                 <el-table-column prop="name" label="Scientific Name" type="name" fit />
                 <el-table-column prop="product" label="Gene Product" type="product" fit />
                 <el-table-column prop="localization" label="Subcellular Localization" type="localization" fit />
-                <el-table-column prop="organs" label="Principal Expression Organs / Location" type="organs" fit>
+                <el-table-column prop="organs" label="Expression Organs" type="organs" fit>
                     <!-- tag -->
                     <template v-slot="scope">
-                        <el-tag class="ml-2" effect="dark" :type="tagType[index%4]"
+                        <el-tag class="ml-2 mt-1" effect="dark" :type="tagType[index%4]"
                             v-for="(item,index) in scope.row.organs" :key="index">
                             {{item}}
                         </el-tag>

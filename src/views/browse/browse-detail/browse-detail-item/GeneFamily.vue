@@ -2,7 +2,7 @@
   <PageCenterTitle page-title="Gene Family" />
   <el-card shadow="hover">
     <el-row class="row-bg" justify="space-around">
-      <el-col :span="5">
+      <el-col :span="6">
         <p class="list-title">Transcription Factor</p>
         <el-scrollbar height="490px">
           <el-row class="row-bg" justify="space-between">
@@ -13,7 +13,7 @@
         </el-scrollbar>
       </el-col>
 <!--      <el-divider direction="vertical"></el-divider>-->
-      <el-col :span="6">
+      <el-col :span="7">
         <p class="list-title">Non-transcription Factor</p>
         <el-scrollbar height="490px">
           <el-row class="row-bg" justify="space-between">
@@ -23,9 +23,9 @@
           </el-row>
         </el-scrollbar>
       </el-col>
-      <el-col :span="7">
+      <el-col :span="11">
         <el-card class="charts-card" shadow="hover">
-          <div id="1" ref="el" style="height:350px;"></div>
+          <div id="1" ref="el" style="height:500px;"></div>
         </el-card>
       </el-col>
     </el-row>
@@ -33,16 +33,16 @@
 
   <el-card>
     <el-row>
-      <el-col :span="6">
-        <el-scrollbar height="330px" class="scrollbar-demo-item" v-if="geneType == 'TF'">
-          <p v-for="item in tFGeneDataList" :key="item.gene">
+      <el-col :span="24">
+        <el-scrollbar height="330px" class="scrollbar-demo-item" v-if="geneType === 'TF'">
+          <p v-for="item in tFGeneList" :key="item.gene">
             <span class="menu-item">
                 {{item.gene}}
             </span>
           </p>
         </el-scrollbar>
-        <el-scrollbar height="330px" class="scrollbar-demo-item" v-if="geneType == 'NTF'">
-          <p v-for="item in nonTFGeneDataList" :key="item.gene">
+        <el-scrollbar height="330px" class="scrollbar-demo-item" v-if="geneType === 'NTF'">
+          <p v-for="item in nonTFGeneList" :key="item.gene">
             <span class="menu-item">
                 {{item.gene}}
             </span>
@@ -56,24 +56,32 @@
 <script setup>
   import PageCenterTitle from "~/components/PageCenterTitle.vue"
   import { useBrowseStore } from '~/store/useBrowseStore.js'
-  import {computed, toRaw, watch} from 'vue'
+  import {computed, ref, toRaw, watch} from 'vue'
   import router from "~/router"
 
   const store = useBrowseStore()
 
   store.getTFGeneFamilyList()
   store.getNonTFGeneFamilyList()
+  let geneType = ''
 
   const tFGeneFamilyList = computed(() => store.tFGeneFamilyDataList)
   const nonTFGeneFamilyList = computed(() => store.nonTFGeneFamilyDataList)
 
+  const tFGeneList = computed(() => store.tFGeneDataList)
+  const nonTFGeneList = computed(() => store.nonTFGeneDataList)
+  watch(() => store.tFGeneDataList, () => {
+    tFGeneList.value = store.tFGeneDataList
+  })
 
+  watch(() => store.nonTFGeneDataList, () => {
+    nonTFGeneList.value = store.nonTFGeneDataList
+  })
   let goMYB = (name, type) => {
     type == 'TF' ? store.getTFGeneList(name) : store.getNonTFGeneList(name)
-    const tFGeneDataList = computed(() => store.tFGeneDataList)
-    const nonTFGeneDataList = computed(() => store.nonTFGeneDataList)
-    console.log(tFGeneDataList.value)
-    console.log("dsad")
+    geneType = type
+    console.log(tFGeneList.value)
+    console.log(geneType)
   }
 
 </script>

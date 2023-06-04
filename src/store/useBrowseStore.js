@@ -181,11 +181,6 @@ export const useBrowseStore = defineStore('browseStore', {
             reqGetNonTFGeneList(geneName).then(res => {
                 this.nonTFGeneDataList = res.data
             }).catch(err => Promise.reject(err))
-        },
-        async getTfGeneCount(){
-            reqPostTfGeneCount().then(res=>{
-                return res.data
-            }).catch(err => Promise.reject(err))
         }
     }
 })
