@@ -33,7 +33,7 @@
     line-height: 25px;
   }
   .el-card {
-    background-color: transparent !important;
+    background-color: rgb(250,250,255);
   }
 
 </style>

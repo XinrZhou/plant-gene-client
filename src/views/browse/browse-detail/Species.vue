@@ -8,7 +8,7 @@
                 <p :index="index+''" v-for="(item,index) in speciesFilterList" :key="index"
                     @click="handleMenuClick(item)">
                     <span class="menu-item">
-                        {{item.name}}
+                        <el-link>{{item.name}}</el-link>
                         <el-tag class="ml-2" type="success" style="vertical-align: -1%;">
                             {{item.value}}
                         </el-tag>

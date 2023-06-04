@@ -1,7 +1,7 @@
 <template>
     <PageCenterTitle page-title="Stress Type" />
-    <el-row :gutter="10">
-        <el-col :lg="11" :md="24" class="el-col" v-for="item in stressTypeDataList" :key="item.id" :offset="1">
+    <el-row justify="center">
+        <el-col :sm="22" :md="22" :lg="8" class="el-col" v-for="item in stressTypeDataList" :key="item.id" :offset="1">
             <BrowseCard :card-info="item" @click="goListItem(item.title)" />
         </el-col>
     </el-row>
@@ -35,24 +35,8 @@
 
 
 <style scoped>
-    @media screen and (min-width: 992px) {
-      .el-row {
-        position: absolute;
-        left: 15%;
-        right: 15%;
-      }
-    }
-    /* 手机端 */
-    @media screen and (max-width: 993px) {
-      .el-row {
-        max-width: 100%;
-      }
-    }
     .el-col {
         @apply mb-6;
     }
-    .element.style {
-      margin-left: 0px!important;
-      margin-right: 0px!important;
-    }
+
 </style>

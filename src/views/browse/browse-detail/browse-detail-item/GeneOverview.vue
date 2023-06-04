@@ -132,8 +132,6 @@
         </div>
         <div class="card-nav"  v-if="geneInfo.keggAnalysis!=null">
             <h1>3D Protein View of {{ geneInfo.gene }}</h1>
-            <!--            <h2>{{ seqMd5 }}</h2>-->
-            <!--            <h2>PID: {{ pid }} SID: {{ sid }}</h2>-->
             <el-row justify="start">
                 <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
                     <h3>Protein Accession ID:</h3>
@@ -221,7 +219,7 @@ const link = "https://pubmed.ncbi.nlm.nih.gov/"+geneInfo.value.pmid
 }
 
 .card-nav p {
-    @apply flex items-center font-normal py-1 text-sm mx-11 tracking-wide;
+    @apply flex items-center font-normal py-1 text-base mx-11 tracking-wide;
 }
 
 .el-button {

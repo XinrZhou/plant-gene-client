@@ -7,13 +7,13 @@
         <el-scrollbar height="490px">
           <el-row class="row-bg" justify="space-between">
             <el-col :span="12" v-for="item in tFGeneFamilyList" :id="item.gene" class="gene-list">
-              <el-link class="list-content" type="info" @click="goMYB(item.gene,'TF')" >{{item.gene}}</el-link>
+              <el-link class="list-content" type="info" @click="goMYB(item.gene,'TF')">{{item.gene}}</el-link>
             </el-col>
           </el-row>
         </el-scrollbar>
       </el-col>
-<!--      <el-divider direction="vertical"></el-divider>-->
-      <el-col :span="7">
+      <!--      <el-divider direction="vertical"></el-divider>-->
+      <el-col :span="6">
         <p class="list-title">Non-transcription Factor</p>
         <el-scrollbar height="490px">
           <el-row class="row-bg" justify="space-between">
@@ -31,23 +31,28 @@
     </el-row>
   </el-card>
 
-  <el-card>
+  <el-card v-if="isShowTFGeneR">
     <el-row>
       <el-col :span="24">
-        <el-scrollbar height="330px" class="scrollbar-demo-item" v-if="geneType === 'TF'">
-          <p v-for="item in tFGeneList" :key="item.gene">
-            <span class="menu-item">
-                {{item.gene}}
-            </span>
-          </p>
-        </el-scrollbar>
-        <el-scrollbar height="330px" class="scrollbar-demo-item" v-if="geneType === 'NTF'">
-          <p v-for="item in nonTFGeneList" :key="item.gene">
-            <span class="menu-item">
-                {{item.gene}}
-            </span>
-          </p>
-        </el-scrollbar>
+        <p class="list-title">Gene Name</p>
+        <div>
+          <el-link :label="item.id" v-for="item in tFGeneDataList" :id="item.id" class="gene-list">
+            {{item.gene}}
+          </el-link>
+        </div>
+      </el-col>
+    </el-row>
+  </el-card>
+
+  <el-card v-if="isShowNonTFGeneR">
+    <el-row>
+      <el-col :span="24">
+        <p class="list-title">Gene Name</p>
+        <div>
+          <el-link :label="item.id" v-for="item in nonTFGeneDataList" :id="item.id" class="gene-list">
+            {{item.gene}}
+          </el-link>
+        </div>
       </el-col>
     </el-row>
   </el-card>
@@ -56,32 +61,32 @@
 <script setup>
   import PageCenterTitle from "~/components/PageCenterTitle.vue"
   import { useBrowseStore } from '~/store/useBrowseStore.js'
-  import {computed, ref, toRaw, watch} from 'vue'
+  import { computed, toRaw, watch, ref } from 'vue'
   import router from "~/router"
 
   const store = useBrowseStore()
 
   store.getTFGeneFamilyList()
   store.getNonTFGeneFamilyList()
-  let geneType = ''
 
   const tFGeneFamilyList = computed(() => store.tFGeneFamilyDataList)
   const nonTFGeneFamilyList = computed(() => store.nonTFGeneFamilyDataList)
+  const tFGeneDataList = computed(() => store.tFGeneDataList)
+  const nonTFGeneDataList = computed(() => store.nonTFGeneDataList)
+  let isShowTFGeneR = ref(false)
+  let isShowNonTFGeneR = ref(false)
 
-  const tFGeneList = computed(() => store.tFGeneDataList)
-  const nonTFGeneList = computed(() => store.nonTFGeneDataList)
-  watch(() => store.tFGeneDataList, () => {
-    tFGeneList.value = store.tFGeneDataList
-  })
 
-  watch(() => store.nonTFGeneDataList, () => {
-    nonTFGeneList.value = store.nonTFGeneDataList
-  })
   let goMYB = (name, type) => {
-    type == 'TF' ? store.getTFGeneList(name) : store.getNonTFGeneList(name)
-    geneType = type
-    console.log(tFGeneList.value)
-    console.log(geneType)
+    if (type == 'TF') {
+      store.getTFGeneList(name)
+      isShowTFGeneR.value = true
+      isShowNonTFGeneR.value = false
+    } else {
+      store.getNonTFGeneList(name)
+      isShowTFGeneR.value = false
+      isShowNonTFGeneR.value = true
+    }
   }
 
 </script>
@@ -104,6 +109,14 @@
 
   .list-title {
     @apply text-xl font-semibold mt-4 my-3;
+  }
+
+  .el-card {
+    @apply mb-8;
+  }
+
+  .gene-list {
+    @apply inline-block w-40;
   }
 
   .list-content {

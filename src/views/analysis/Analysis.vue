@@ -10,7 +10,7 @@
           <el-form :model="form" label-width="120px" label-position="left">
             <el-form-item label="E-value">
               <el-input v-model="form.sequence" :autosize="{ minRows: 6, maxRows: 10 }"
-                :disabled="fileCount>0?true:false" type="textarea" style="width: 70%;" />
+                :disabled="fileCount > 0 ? true : false" type="textarea" style="width: 70%;" />
             </el-form-item>
             <el-form-item label="Input">
               <el-radio-group v-model="form.category">
@@ -19,8 +19,8 @@
               </el-radio-group>
             </el-form-item>
             <el-form-item label="Select File">
-              <el-upload ref="uploadRef" :file-list="fileList" :auto-upload="false" :on-change="change"
-                class="upload-demo">
+              <el-upload ref="uploadRef" :file-list="fileList" :auto-upload="false" :on-change="fileChange" 
+              :on-remove="fileRemove" class="upload-demo">
                 <el-button class="form-btn">Click to upload</el-button>
                 <template #tip>
                   <div class="el-upload__tip">
@@ -92,7 +92,7 @@
             </div>
           </el-tab-pane>
           <el-tab-pane label="Alignments" name="second" v-if="form.category=='blastp'">
-            <el-button @click="handleDownload('result')"  class="mr-auto  font-bold text-blue-500" >Down Data</el-button>
+            <el-button @click="handleDownload('result')" class="ont-bold text-blue-500" >Down Data</el-button>
             <div class="blastSeq-alignments" v-for="(item, index) in blastSeqReslt" :key="index">
               <p class="alignments-item">{{item.name}}</p>
               <p class="alignments-item"><span class="text-gray-400">Length:&nbsp;</span>{{item.length}}</p>
@@ -142,12 +142,17 @@
   let blastSeqReslt = computed(() => store.BlastSeqDataList.result)
   const activeName = ref('first')
 
-  const change = (file, lists) => {
+  const fileChange = (file, lists) => {
+    console.log('调用了')
     let list = toRaw(lists)
     fileCount.value = list.length
     list.forEach(item => {
-      formData.append('file', item.raw, item.name);
-    });
+      formData.append('file', item.raw, item.name)
+    })
+  }
+
+  const fileRemove = () => {
+    fileCount.value = fileCount.value - 1
   }
 
   const onSubmit = () => {
@@ -260,6 +265,10 @@
 
   .el-tabs {
     @apply mt-6;
+  }
+
+  .el-button {
+    @apply float-right mr-2 mb-2;
   }
 
   .form-btn {
