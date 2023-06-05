@@ -151,7 +151,7 @@
     let list = toRaw(lists)
     fileCount.value = list.length
     list.forEach(item => {
-      formData.append('file', item.raw, item.name)
+      formData.set('file', item.raw, item.name)
     })
   }
 

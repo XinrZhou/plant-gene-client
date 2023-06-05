@@ -27,6 +27,7 @@ export const useSubmitStore = defineStore('submit', {
         },
         async reqPostUploadBlastFile(data,file) {
             return reqPostUploadBlastFile(data,file).then(res=>{
+                this.BlastSeqDataList = res.data
                 return Promise.resolve()
             }).catch(err => Promise.reject(err))
         }
