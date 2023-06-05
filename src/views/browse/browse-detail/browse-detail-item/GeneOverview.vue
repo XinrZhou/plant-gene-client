@@ -133,7 +133,7 @@
 
     </el-card>
 
-    <el-card shadow="hover">
+    <el-card shadow="hover" v-if="geneInfo.keggAnalysis!=null">
       <div class="card-nav" >
         <h1>3D Protein View of {{ geneInfo.gene }}</h1>
         <!--            <h2>{{ seqMd5 }}</h2>-->

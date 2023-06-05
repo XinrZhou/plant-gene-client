@@ -99,6 +99,10 @@ onMounted(async () => {
       break
     case 2: // 各基因家族的占比
       renderChart(pieConfig('Gene Family', ['50%', '70%'], ['50%', '65%']), '/plant-details/GeneFamilyCount')
+      myChart.on('click', function (params) {
+        const url = '/browse/genefamily?type=TF&name='
+        router.push(url + params.name)
+      });
       break
     case 3: // 大类表型出现的概率
       option.legend = {
@@ -115,8 +119,8 @@ onMounted(async () => {
       option && myChart.setOption(option)
       renderChart(pieConfig('Phenotype Influenced', ['40%', '60%'], ['50%', '67%']), '/plant-details/PhenotypeCount')
       myChart.on('click', function (params) {
-        const url = '/browsePhenoType/geneList/list?stressName='
-        router.push(url + params.name.replaceAll(' ', '+'))
+        const url = '/browse/phenotypeinfluenced?group='
+        router.push(url + params.name)
       });
       break
     case 4:

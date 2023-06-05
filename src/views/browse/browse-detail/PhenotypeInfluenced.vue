@@ -52,12 +52,25 @@
     store.getPhenoTypeSubListData(value)
   }
 
+  if(route.query.group!=null) {
+    console.log(route.query.group)
+    store.getPhenoTypeSubListData(route.query.group)
+  }
+
+  if(route.query.group!=null&& route.query.pheno!=null) {
+    menuClass.value = 'animate__animated animate__backInUp'
+    tableCol.value = 12
+    menuCol.value = 12
+    store.getPhenoGeneListData(route.query.pheno, route.query.group)
+  }
   let handleClick = (attrName, attrItem2) => {
     menuClass.value = 'animate__animated animate__backInUp'
     tableCol.value = 12
     menuCol.value = 12
     store.getPhenoGeneListData(toRaw(attrItem2).name, attrName)
   }
+
+
 
   let handleTableFilter = () => {
     if (tableInput.value) {

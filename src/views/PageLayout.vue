@@ -31,7 +31,11 @@
         <router-view></router-view>
       </el-main>
       <el-footer class="f-footer">
-        &copy2023 Northeast Forestry University. All Rights Reserved.
+        <el-image src="http://plantasrg.cn/static/img/2023/06/10173aba-c005-4bd5-a618-4d57bddb2431.png" style="width: 40px; height: 40px" class="mr-4"></el-image>
+        Main by：
+          <el-link href="https://life.nefu.edu.cn/index.htm" class="text-base">College of Life Sciences</el-link>,
+          <el-link href="https://icec.nefu.edu.cn/" class="text-base">CCEC</el-link>,
+          <el-link href="https://www.nefu.edu.cn/" class="text-base">Nartheast Foreastry University</el-link>, 150040 Harbin, China.
       </el-footer>
     </el-container>
   </div>

@@ -5,7 +5,7 @@
   </el-row>
   <el-row class="flex justify-center">
     <el-col :lg="24" :md="24">
-      <el-card label="Blast">
+      <el-card label="Blast" shadow="hover">
         <div class="blast-form">
           <el-form :model="form" label-width="120px" label-position="left">
             <el-form-item label="Sequence">
@@ -20,7 +20,7 @@
             </el-form-item>
             <el-form-item label="Select File">
               <el-upload ref="uploadRef" :file-list="fileList" :auto-upload="false" :on-change="fileChange" 
-              :on-remove="fileRemove" class="upload-demo">
+              :on-remove="fileRemove" class="upload-demo" :limit="1" :on-exceed="handleExceed">
                 <el-button class="form-btn">Click to upload</el-button>
                 <template #tip>
                   <div class="el-upload__tip">
@@ -41,7 +41,7 @@
 
   <el-row class="blast-result flex justify-center ml-auto" v-if="blastSeqInfo != null">
     <el-col :lg="24" :md="24">
-      <el-card>
+      <el-card shadow="hover">
         <el-descriptions :column="1" border>
           <el-descriptions-item label="Blast Version"
             label-align="left">{{blastSeqInfo.blastVersion}}</el-descriptions-item>
@@ -155,8 +155,15 @@
     })
   }
 
+  const handleExceed = (files, lists) => {
+    uploadRef.value.clearFiles()  //清空上传文件（限制一个，所以直接清空即可）
+    const file = files[0]
+    uploadRef.value.handleStart(file)  //重新上传
+  }
+
   const fileRemove = () => {
     fileCount.value = fileCount.value - 1
+    uploadRef.value.clearFiles()
   }
 
   const onSubmit = () => {
@@ -285,5 +292,8 @@
 
   .form-btn {
     background-color: #CCD5AE;
+  }
+  ::v-deep .el-card {
+    --el-card-border-radius: 20px;
   }
 </style>

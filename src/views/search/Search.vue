@@ -1,7 +1,7 @@
 <template>
     <el-row>
         <el-col :span="24">
-            <el-select v-model="value" filterable remote clearable reserve-keyword placeholder="Please enter keywords"
+            <el-select v-model="value" filterable remote clearable reserve-keyword placeholder="Please enter keywords e.g. ZmDREB2.7"
                 :remote-method="remoteMethod" :loading="loading" class="w-full  rounded-3xl" @change="handleRemoteSearch" size="large" >
                 <el-option v-for="(item,index) in options" :value="item.content" :key="index"
                     @click="goDetailPage(item)">
@@ -338,6 +338,7 @@
     let goDetailPage = (item) => {
         const attribute = item.attribute
         const content = item.content
+        const group = item.group
         const id = item.id
         switch (attribute) {
             case 'Expression_Organs':
@@ -368,7 +369,8 @@
                 router.push({
                     path: 'browse/genefamily',
                     query: {
-                        geneFamily: content
+                      type: 'TF',
+                      name: item.content
                     }
                 })
                 break
@@ -384,7 +386,8 @@
                 router.push({
                     path: 'browse/phenotypeinfluenced',
                     query: {
-                        phenotype: content
+                        group: group,
+                        pheno: content
                     }
                 })
                 break
@@ -547,5 +550,8 @@
     ::v-deep .el-input__wrapper {
         height: 50px;
         border-radius: 30px;
+    }
+    ::v-deep .el-card {
+      --el-card-border-radius: 12px;
     }
 </style>

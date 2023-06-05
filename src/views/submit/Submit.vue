@@ -3,8 +3,8 @@
   <el-card shadow="hover">
     <el-row class="flex justify-center">
       <el-col :lg="24" :md="24">
-        <p class="submit-tip ml-4">You can upload the data to our database, and once the review is completed</p>
-        <p class="submit-tip ml-10"> we will notify you of the results via email.</p>
+        <h3 class="submit-tip ml-4">You can choose to share the data you collected, and we will inform you of the results of the data in time by email.
+          If your data is true and valid, we will update your data on the next version of the data set. Thanks again for sharing.</h3>
         <div class="submit-form">
           <el-form :model="form" label-width="120px" label-position="left">
 
@@ -186,5 +186,8 @@
 
   .form-btn {
     background-color: #CCD5AE;
+  }
+  ::v-deep .el-card {
+    --el-card-border-radius: 20px;
   }
 </style>

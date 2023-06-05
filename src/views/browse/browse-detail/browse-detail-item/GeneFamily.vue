@@ -24,9 +24,7 @@
         </el-scrollbar>
       </el-col>
       <el-col :span="11">
-        <el-card class="charts-card" shadow="hover">
-          <div id="1" ref="el" style="height:500px;"></div>
-        </el-card>
+          <DataChart id="5" />
       </el-col>
     </el-row>
   </el-card>
@@ -34,9 +32,9 @@
   <el-card v-if="isShowTFGeneR">
     <el-row>
       <el-col :span="24">
-        <p class="list-title">Gene Name</p>
+        <p class="list-title">{{ geneName }}</p>
         <div>
-          <a :label="item.id" v-for="item in tFGeneDataList" :id="item.id" class="gene-list " href="" @click.prevent="handleGeneClick(item.id)" >
+          <a :label="item.id" v-for="item in tFGeneDataList" :id="item.id" class="gene-list underline" href="" @click.prevent="handleGeneClick(item)" >
             {{item.gene}}
           </a>
         </div>
@@ -47,9 +45,9 @@
   <el-card v-if="isShowNonTFGeneR">
     <el-row>
       <el-col :span="24">
-        <p class="list-title">Gene Name</p>
+        <p class="list-title">{{ geneName }}</p>
         <div>
-          <a :label="item.id" v-for="item in nonTFGeneDataList" :id="item.id" class="gene-list"  @click="goListItem(item.id)">
+          <a :label="item.id" v-for="item in nonTFGeneDataList" :id="item.id" href="" class="gene-list underline"    @click="handleGeneClick1(item)">
             {{item.gene}}
           </a>
         </div>
@@ -63,9 +61,10 @@
   import { useBrowseStore } from '~/store/useBrowseStore.js'
   import { computed, toRaw, watch, ref } from 'vue'
   import router from "~/router"
+  import {useRoute} from "vue-router";
 
   const store = useBrowseStore()
-
+  const route = useRoute()
   store.getTFGeneFamilyList()
   store.getNonTFGeneFamilyList()
 
@@ -75,11 +74,24 @@
   const nonTFGeneDataList = computed(() => store.nonTFGeneDataList)
   let isShowTFGeneR = ref(false)
   let isShowNonTFGeneR = ref(false)
+  const geneName = ref('')
 
+  if(route.query.type!=null&&route.query.name!=null) {
+    if (route.query.type == 'TF') {
+      store.getTFGeneList(route.query.name)
+      isShowTFGeneR.value = true
+      isShowNonTFGeneR.value = false
+    } else {
+      store.getNonTFGeneList(route.query.name)
+      isShowTFGeneR.value = false
+      isShowNonTFGeneR.value = true
+    }
+  }
 
   let goMYB = (name, type) => {
     if (type == 'TF') {
       store.getTFGeneList(name)
+      geneName.value = name
       isShowTFGeneR.value = true
       isShowNonTFGeneR.value = false
     } else {
@@ -88,11 +100,19 @@
       isShowNonTFGeneR.value = true
     }
   }
-  let handleGeneClick = (id) => {
+  let handleGeneClick = (item) => {
     router.push({
       name: 'geneoverview',
       query: {
-        geneName: id
+        geneName: item.id
+      }
+    })
+  }
+  let handleGeneClick1 = (item) => {
+    router.push({
+      name: 'geneoverview',
+      query: {
+        geneName: item.id
       }
     })
   }
