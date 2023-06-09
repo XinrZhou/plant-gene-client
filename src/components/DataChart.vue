@@ -6,10 +6,11 @@
 
 <script setup>
 import * as echarts from 'echarts';
-import {ref, onBeforeMount, onMounted} from 'vue'
+import {onBeforeMount, onMounted, ref} from 'vue'
 import {useResizeObserver} from "@vueuse/core";
 import router from "~/router/index.js";
 import axios from "~/api/http"
+
 const props = defineProps({
   id: {
     type: Number,
@@ -72,7 +73,7 @@ onMounted(async () => {
   };
 
   let x = props.id
-  let id = x -1
+  let id = x - 1
   // console.log(id)
 
   switch (id) {
@@ -169,31 +170,31 @@ function renderChart(config, url) {
   // console.log(url)
   if (url) {
     axios.post(url)
-        .then(res => {
-          let data = res.data
+      .then(res => {
+        let data = res.data
 
-          if (config.series && config.series[0] && config.series[0].data) {
-            config.series[0].data = data.list.map(item => {
-              return {
-                value: item.value,
-                name: item.name
-              }
-            })
-          }
+        if (config.series && config.series[0] && config.series[0].data) {
+          config.series[0].data = data.list.map(item => {
+            return {
+              value: item.value,
+              name: item.name
+            }
+          })
+        }
 
-          if (config.xAxis && config.xAxis.data) {
-            config.xAxis.data = data.list.map(item => item.name)
-          }
+        if (config.xAxis && config.xAxis.data) {
+          config.xAxis.data = data.list.map(item => item.name)
+        }
 
-          if (config.legend) {
-            config.legend.data = data.list.map(item => item.name).slice(0, 9)
-          }
+        if (config.legend) {
+          config.legend.data = data.list.map(item => item.name).slice(0, 9)
+        }
 
-          myChart.setOption(option)
-        })
-        .catch(err => {
-          console.error(err)
-        })
+        myChart.setOption(option)
+      })
+      .catch(err => {
+        console.error(err)
+      })
   } else {
     myChart.setOption(option)
   }
@@ -203,22 +204,16 @@ function pieConfig(title = '', radius = ['50%', '70%'], center = ['50%', '60%'])
   return {
     tooltip: {
       trigger: 'item',
-      confine:true
+      confine: true
     },
     legend: {
       top: '10%',
       left: 'center',
     },
     toolbox: {
-      show: true,
+      show: false,
       itemSize: 10,
-      feature: {
-        dataView: {
-          readOnly: true
-        },
-        restore: {},
-        saveAsImage: {}
-      }
+      feature: {}
     },
     series: [
       {
@@ -283,15 +278,9 @@ function barConfig(title = '') {
       type: 'value'
     },
     toolbox: {
-      show: true,
+      show: false,
       itemSize: 10,
-      feature: {
-        dataView: {
-          readOnly: true
-        },
-        restore: {},
-        saveAsImage: {}
-      }
+      feature: {}
     },
     series: [
       {
