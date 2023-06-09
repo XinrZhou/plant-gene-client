@@ -46,7 +46,6 @@ onMounted(async () => {
         dataView: {
           readOnly: true
         },
-        restore: {},
         saveAsImage: {}
       }
     },
@@ -211,9 +210,14 @@ function pieConfig(title = '', radius = ['50%', '70%'], center = ['50%', '60%'])
       left: 'center',
     },
     toolbox: {
-      show: false,
+      show: true,
       itemSize: 10,
-      feature: {}
+      feature: {
+        dataView: {
+          readOnly: true
+        },
+        saveAsImage: {}
+      }
     },
     series: [
       {
@@ -278,9 +282,14 @@ function barConfig(title = '') {
       type: 'value'
     },
     toolbox: {
-      show: false,
+      show: true,
       itemSize: 10,
-      feature: {}
+      feature: {
+        dataView: {
+          readOnly: true
+        },
+        saveAsImage: {}
+      }
     },
     series: [
       {
