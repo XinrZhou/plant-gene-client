@@ -1,10 +1,14 @@
 <template>
   <PageLeftTitle page-title="Submit" class="page-title" />
   <el-card shadow="hover">
+    <el-row class="flex">
+      <el-col :lg="18" :md="18">
+        <h3 class="submit-tip ml-4 text-gray-400 ">You can choose to share the data you collected, and we will inform you of the results of the data in time by email.
+          If your data is true and valid, we will update your data on the next version of the data set. Thanks again for sharing.</h3>
+      </el-col>
+    </el-row>
     <el-row class="flex justify-center">
       <el-col :lg="24" :md="24">
-        <h3 class="submit-tip ml-4">You can choose to share the data you collected, and we will inform you of the results of the data in time by email.
-          If your data is true and valid, we will update your data on the next version of the data set. Thanks again for sharing.</h3>
         <div class="submit-form">
           <el-form :model="form" label-width="120px" label-position="left">
 
@@ -54,6 +58,7 @@
             </el-form-item>
           </el-form>
         </div>
+
       </el-col>
     </el-row>
   </el-card>
@@ -173,7 +178,7 @@
   }
 
   .submit-tip {
-    @apply mb-4 mt-4 text-xl;
+    @apply mb-4 mt-4 text-lg;
   }
 
   .submit-form {

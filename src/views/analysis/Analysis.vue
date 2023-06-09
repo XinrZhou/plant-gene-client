@@ -1,7 +1,10 @@
 <template>
   <PageLeftTitle page-title="Analysis" />
   <el-row>
-    <el-col :span="12" class="blast-tip">Blastx/Blastp can be excuted on data stored in our database.</el-col>
+    <el-col :span="12" class="blast-tip">
+      Blastx/Blastp can be excuted on data stored in our database.
+
+    </el-col>
   </el-row>
   <el-row class="flex justify-center">
     <el-col :lg="24" :md="24">
@@ -9,8 +12,14 @@
         <div class="blast-form">
           <el-form :model="form" label-width="120px" label-position="left">
             <el-form-item label="Sequence">
-              <el-input v-model="form.sequence"  :autosize="{ minRows: 6, maxRows: 10 }"
-                :disabled="fileCount > 0 ? true : false" type="textarea" style="width: 70%;"  placeholder="Please enter the nucleotide or amino acid sequence and select the corresponding 'blast' type."/>
+              <el-input v-model="form.sequence"  :autosize="{ minRows: 10, maxRows: 12 }"
+                :disabled="fileCount > 0 ? true : false" type="textarea" style="width: 70%;"
+                        placeholder="Please enter the nucleotide or amino acid sequence and select the corresponding 'blast' type.&#13;
+>Gene1
+MDPFYTSFSDSFLSIPDHRSPVSDSSECSPKLASSCPKKRAGRKKFRETRHPIYRGVRQRNSGKWVCEVR
+EPNKKSRIWLGTFPTVEMAARAHDVAALALRGRSACLNFADSAWRLRIPESTCPKEIQKAAAEAAMAFQN
+ETATTEMMTVVEGVKPAEETVGQTRGETAEENGVFYMDDLRFLEDMAEEMLLPPPELGWNHNDLTGDADV
+SLWSF"/>
             </el-form-item>
             <el-form-item label="Type">
               <el-radio-group v-model="form.category">
@@ -24,7 +33,7 @@
                 <el-button class="form-btn">Click to upload</el-button>
                 <template #tip>
                   <div class="el-upload__tip">
-                    The file content should conform to txt,fasta format (TXT and fasta are supported).
+                    File types support "txt" and "fasta"
                   </div>
                 </template>
               </el-upload>

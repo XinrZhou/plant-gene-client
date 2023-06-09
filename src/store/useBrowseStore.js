@@ -29,6 +29,7 @@ export const useBrowseStore = defineStore('browseStore', {
             itemPageTotal: 1,
             geneOverviewDataList: {}, // 基因概述列表
             geneKeGGList:[],
+            group:[],
             geneGoList:[],
             speciesDataList: [], // 物种名列表
             geneDataList: [], //基因列表
@@ -72,7 +73,8 @@ export const useBrowseStore = defineStore('browseStore', {
         // browse -- 根据基因名获取基因概述
         getGeneOverviewData(geneName) {
             reqGetGeneOverview(geneName).then(res => {
-                this.geneOverviewDataList = res.data
+                this.geneOverviewDataList = res.data.plantDetails
+                this.group = res.data.group
             }).catch(err => Promise.reject(err))
         },
 

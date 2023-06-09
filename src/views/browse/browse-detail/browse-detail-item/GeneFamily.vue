@@ -34,9 +34,8 @@
       <el-col :span="24">
         <p class="list-title">{{ geneName }}</p>
         <div>
-          <a :label="item.id" v-for="item in tFGeneDataList" :id="item.id" class="gene-list underline" href=""
-             @click.prevent="handleGeneClick(item)">
-            {{ item.gene }}
+          <a :label="item.id" v-for="item in tFGeneDataList" :id="item.id" class="gene-list underline" @click.prevent="handleGeneClick(item)" >
+            {{item.gene}}
           </a>
         </div>
       </el-col>
@@ -48,9 +47,8 @@
       <el-col :span="24">
         <p class="list-title">{{ geneName }}</p>
         <div>
-          <a :label="item.id" v-for="item in nonTFGeneDataList" :id="item.id" href="" class="gene-list underline"
-             @click="handleGeneClick1(item)">
-            {{ item.gene }}
+          <a :label="item.id" v-for="item in nonTFGeneDataList" :id="item.id"  class="gene-list underline"  @click="handleGeneClick(item)">
+            {{item.gene}}
           </a>
         </div>
       </el-col>
@@ -91,34 +89,26 @@ if (route.query.type != null && route.query.name != null) {
   }
 }
 
-let goMYB = (name, type) => {
-  if (type == 'TF') {
-    store.getTFGeneList(name)
-    geneName.value = name
-    isShowTFGeneR.value = true
-    isShowNonTFGeneR.value = false
-  } else {
-    store.getNonTFGeneList(name)
-    isShowTFGeneR.value = false
-    isShowNonTFGeneR.value = true
+  let goMYB = (name, type) => {
+    if (type == 'TF') {
+      store.getTFGeneList(name)
+      geneName.value = name
+      isShowTFGeneR.value = true
+      isShowNonTFGeneR.value = false
+    } else {
+      store.getNonTFGeneList(name)
+      isShowTFGeneR.value = false
+      isShowNonTFGeneR.value = true
+    }
   }
-}
-let handleGeneClick = (item) => {
-  router.push({
-    name: 'geneoverview',
-    query: {
-      geneName: item.id
-    }
-  })
-}
-let handleGeneClick1 = (item) => {
-  router.push({
-    name: 'geneoverview',
-    query: {
-      geneName: item.id
-    }
-  })
-}
+  let handleGeneClick = (item) => {
+    router.push({
+      name: 'geneoverview',
+      query: {
+        geneName: item.id
+      }
+    })
+  }
 </script>
 
 <style scoped>
@@ -145,9 +135,10 @@ let handleGeneClick1 = (item) => {
   @apply mb-8;
 }
 
-.gene-list {
-  @apply inline-block w-40 mt-2;
-}
+  .gene-list {
+    @apply inline-block w-40 mt-2;
+    cursor:pointer;
+  }
 
 .list-content {
   @apply font-normal text-gray-900 text-opacity-75 leading-relaxed;

@@ -10,49 +10,59 @@
 
     <el-card shadow="hover">
         <div class="card-nav">
-            <h1>{{ geneInfo.gene }}</h1>
-            <p>GenBank:</p>
-            <p>GenBank Locus:</p>
-          <p>pmid:<a  :href=link  class="underline ml-4" >{{ geneInfo.pmid }}</a></p>
+            <h2>GeneName: <h3>{{ geneInfo.gene }}</h3></h2>
+            <h2>Pmid:<h3><a  class="underline font-semibold text-base alink"  @click.prevent="handleGeneClick(geneInfo.pmid)">{{ geneInfo.pmid }}</a></h3></h2>
+            <h2 v-if="geneInfo.goAnalysis!=null"> GeneId :  <h3>{{geneInfo.goAnalysis}}</h3></h2>
         </div>
         <!-- 基因卡片表格 -->
         <div class="description-list">
-            <el-descriptions border :column="3">
-                <el-descriptions-item label="Gene name" label-align="right" align="center" label-class-name="my-label"
-                                      class-name="my-content" width="150px">
-                    {{ geneInfo.gene }}
-                </el-descriptions-item>
-                <el-descriptions-item label="Gene Family" label-align="right" align="center" :span="2" v-if="geneInfo.kringleDomain!=null">
-                  {{ geneInfo.kringleDomain }}
-                </el-descriptions-item>
-                <el-descriptions-item label="Scientific Name" label-align="right" align="center">
+            <el-descriptions border :column="2">
+                <el-descriptions-item label="Scientific Name" label-align="center" align="center">
                   {{ geneInfo.scientificName }}
                 </el-descriptions-item>
-                <el-descriptions-item label="Stress Type" label-align="right" align="center" :span="2">
+                <el-descriptions-item label="Gene Family" label-align="center" align="center">
+                  {{ geneInfo.kringleDomain }}
+                </el-descriptions-item>
+                <el-descriptions-item label="Expression Organs/ Location" label-align="center" align="center">
+                  {{ geneInfo.expressionOrgans }}
+                </el-descriptions-item>
+                <el-descriptions-item label="Subcellular Localization" label-align="center" align="center">
+                  {{ geneInfo.subCellularLocalization }}
+                </el-descriptions-item>
+
+                <el-descriptions-item label="Stress Type" label-align="center" align="center">
                   {{ geneInfo.stressType }}
                 </el-descriptions-item>
-                <el-descriptions-item label="Transcription Factor" label-align="right" align="center">
-                    {{ geneInfo.transcriptionFactor }}
-                </el-descriptions-item>
-                <el-descriptions-item label="Gene product" label-align="right" align="center" :span="2">
+<!--                <el-descriptions-item label="Transcription Factor" label-align="right" align="center">-->
+<!--                    {{ geneInfo.transcriptionFactor }}-->
+<!--                </el-descriptions-item>-->
+                <el-descriptions-item label="Gene product" label-align="center" align="center">
                     {{ geneInfo.geneProduct }}
                 </el-descriptions-item>
-                <el-descriptions-item label="Phenotype Influenced" label-align="right" align="center" :span="2">
-                    {{ geneInfo.phenotypeInfluenced }}
-                </el-descriptions-item>
-                <el-descriptions-item label="Subcellular Localization" label-align="right" align="center" v-if="geneInfo.subCellularLocalization!=null">
-                    {{ geneInfo.subCellularLocalization }}
-                </el-descriptions-item>
-                <el-descriptions-item label="Expression Organs/ Location" label-align="right" align="center" :span="2" v-if="geneInfo.expressionOrgans!=null">
-                    {{ geneInfo.expressionOrgans }}
-                </el-descriptions-item>
-                <el-descriptions-item label="Description" label-align="right" align="center">
-                    {{ geneInfo.description }}
-                </el-descriptions-item>
             </el-descriptions>
-        </div>
 
-        <div class="bottom-collapse">
+        </div>
+      <div class="card-nav1">
+        <h2>Function:</h2>
+        <h3 class="indent-10">{{ geneInfo.description }}</h3>
+        <h2>Phenotype Influenced:</h2>
+        <el-row justify="start" >
+            <template v-for="(item, index) in phenoGroup" :key="index">
+              <el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10">
+                <h3> {{ item.phenotype }}</h3>
+              </el-col>
+              <el-col :xs="14" :sm="14" :md="14" :lg="14" :xl="14">
+                  <h5 class="ml-4">
+                    <el-button size="small">Phenotype Group:</el-button> {{item.phenotypeGroup}}
+                  </h5>
+              </el-col>
+
+            </template>
+
+        </el-row>
+
+      </div>
+        <div class="bottom-collapse ml-10">
             <el-collapse @change="handleChange" accordion>
                 <el-collapse-item title="Click here to view the Amino Acid sequence" name="1">
                   <pre class="alignments-sequence font-bold ml-14 text-sm">{{ geneInfo.aminoAcidSequence }}</pre>
@@ -158,33 +168,34 @@
 import {useRoute} from 'vue-router'
 import {Histogram} from '@element-plus/icons-vue'
 import {useBrowseStore} from '~/store/useBrowseStore.js'
-import {computed, reactive, toRefs} from 'vue'
-import '@nightingale-elements/nightingale-structure/dist/index.js'
-import {reqGetGeneOverview} from "~/api/browse.js";
-import md5 from 'md5'
-// import ProtvistaUniprot from 'protvista-uniprot';
+import {computed, reactive, ref, toRaw, toRefs, watch} from 'vue'
+// import '@nightingale-elements/nightingale-structure/dist/index.js'
 import 'protvista-uniprot/dist/protvista-uniprot.js'
+import router from "~/router/index.js";
 
-// window.customElements.define('protvista-uniprot', ProtvistaUniprot);
 
 const route = useRoute()
 const store = useBrowseStore()
 const geneInfo = computed(() => store.geneOverviewDataList)
-
+const phenoGroup = computed(() => store.group)
 const geneKeGGInfo = computed(() => store.geneKeGGList)
 const geneGoInfo = computed(() => store.geneGoList)
 const goBiological = computed(() => geneGoInfo.value.filter(item => item.ontology == 'biological_process'))
 const goMolecular = computed(() => geneGoInfo.value.filter(item => item.ontology == 'molecular_function'))
 const goCellur = computed(() => geneGoInfo.value.filter(item => item.ontology == 'cellur_component'))
 
+const link = ref('')
 const geneName = route.query.geneName
 store.getGeneOverviewData(geneName)
 store.getGeneByKeGGData(geneName)
 store.getGeneByGoData(geneName)
 // API调用
-
-
-const link = "https://pubmed.ncbi.nlm.nih.gov/"+geneInfo.value.pmid
+let handleGeneClick = (item) => {
+  const link = document.createElement('a');
+  link.href = "https://pubmed.ncbi.nlm.nih.gov/"+item
+  link.click();
+  link.preventDefault();
+}
 </script>
 
 <style scoped>
@@ -219,6 +230,9 @@ const link = "https://pubmed.ncbi.nlm.nih.gov/"+geneInfo.value.pmid
         max-width: 100%;
     }
 }
+.alink{
+  cursor:pointer;
+}
 
 .page-info {
     @apply flex items-center font-bold pt-6 pb-6 text-4xl my-6;
@@ -233,17 +247,29 @@ const link = "https://pubmed.ncbi.nlm.nih.gov/"+geneInfo.value.pmid
 }
 
 .card-nav span {
-    @apply font-normal py-2 pb-3 text-base mx-11 tracking-wide;
+    @apply font-normal py-2 pb-2 text-base mx-11 tracking-wide;
 }
 
 .card-nav h1 {
-    @apply flex items-center font-semibold py-5 text-2xl mx-11;
+    @apply flex items-center font-semibold py-4 text-2xl ml-11;
+}
+
+.card-nav h2 {
+  @apply flex items-center font-semibold py-4 text-xl ml-11;
 }
 
 .card-nav h3 {
-    @apply flex items-center font-semibold py-1 text-base mx-11;
+    @apply flex items-center font-semibold py-1 text-base ml-6;
 }
-
+.card-nav1 h1 {
+  @apply flex items-center font-semibold py-5 text-2xl ml-11 mr-4;
+}
+.card-nav1 h2 {
+  @apply flex items-center font-semibold py-5 text-xl ml-11 mr-4;
+}
+.card-nav1 h3 {
+  @apply flex items-center font-semibold py-1 text-base ml-20;
+}
 .description-list {
     @apply flex-auto justify-self-center mx-4 my-6;
 }

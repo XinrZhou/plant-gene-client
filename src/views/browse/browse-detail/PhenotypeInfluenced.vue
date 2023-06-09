@@ -82,9 +82,9 @@ let handleTableFilter = () => {
 // 路由跳转-->基因概述
 let goGeneDetail = (row) => {
   router.push({
-    path: 'browse/stresstype/geneoverview',
+    path: 'stresstype/geneoverview',
     query: {
-      geneName: row.gene
+      geneName: row.id
     }
   })
 }
