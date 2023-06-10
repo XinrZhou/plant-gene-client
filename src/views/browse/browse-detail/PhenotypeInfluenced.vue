@@ -1,11 +1,11 @@
 <template>
   <PageCenterTitle page-title="Phenotype Influenced" class="page-title"/>
-  <el-row :gutter="40" justify="space-between">
+  <el-row  justify="center" class="page-title">
     <el-col :span="menuCol" :class="menuClass">
       <LeftMenu :attribute-list="phenoList" @openMenu="handleOpen" @clickList="handleClick" :isLoading="loading"
                 :attr-detail-list="phenoSubList"/>
     </el-col>
-    <el-col :span="tableCol" class="animate__animated animate__backInDown">
+    <el-col :span="tableCol" class="animate__animated animate__backInDown ml-4">
       <el-input :prefix-icon="Search" v-model="tableInput" @input="handleTableFilter" clearable/>
       <el-table :data="tableInput==''?phenoGeneList:phenoGeneFilterList" class="el-table-vertical-demo" height="550px"
                 stripe>
@@ -59,14 +59,14 @@ if (route.query.group != null) {
 
 if (route.query.group != null && route.query.pheno != null) {
   menuClass.value = 'animate__animated animate__backInUp'
-  tableCol.value = 12
-  menuCol.value = 12
+  tableCol.value = 11
+  menuCol.value = 11
   store.getPhenoGeneListData(route.query.pheno, route.query.group)
 }
 let handleClick = (attrName, attrItem2) => {
   menuClass.value = 'animate__animated animate__backInUp'
-  tableCol.value = 12
-  menuCol.value = 12
+  tableCol.value = 11
+  menuCol.value = 11
   store.getPhenoGeneListData(toRaw(attrItem2).name, attrName)
 }
 
@@ -195,12 +195,6 @@ let goGeneDetail = (row) => {
   .page-title {
     max-width: 70%;
     margin: 0 auto;
-  }
-
-  .el-row {
-    position: absolute;
-    left: 15%;
-    right: 15%;
   }
 }
 

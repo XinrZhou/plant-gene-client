@@ -1,6 +1,6 @@
 <template>
   <PageCenterTitle page-title="Subcellular Localization" class="page-title"/>
-  <el-row :gutter="40" justify="space-between">
+  <el-row justify="center" class="page-title">
     <el-col :span="menuCol" style="height: 550px;" :class="menuClass">
       <el-input :prefix-icon="Search" v-model="navInput" @input="handleNavChange" clearable />
       <el-scrollbar max-height="550px" class="scrollbar-demo-item">
@@ -16,7 +16,7 @@
       </el-scrollbar>
     </el-col>
 
-    <el-col :span="tableCol" class="animate__animated animate__backInUp">
+    <el-col :span="tableCol" class="animate__animated animate__backInUp ml-4">
       <GeneListTable :tableData="subcellularGeneList" />
     </el-col>
   </el-row>

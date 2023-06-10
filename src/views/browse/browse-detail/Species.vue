@@ -1,7 +1,6 @@
 <template>
     <PageCenterTitle page-title="Species" class="page-title"/>
-    <el-row :gutter="40">
-
+    <el-row justify="center" class="page-title">
         <el-col :span="menuCol" style="height: 550px;" :class="menuClass">
             <el-input :prefix-icon="Search" v-model="navInput" @input="handleNavChange" clearable />
             <el-scrollbar max-height="550px" class="scrollbar-demo-item">
@@ -17,7 +16,7 @@
             </el-scrollbar>
         </el-col>
 
-        <el-col :span="tableCol" class="animate__animated animate__backInUp">
+        <el-col :span="tableCol" class="animate__animated animate__backInUp ml-4" >
             <div>
                 <Suspense v-if="show">
                     <template #default>
@@ -56,8 +55,8 @@
     let navInput = ref('')
 
     if (route.query.species != null) {
-        menuCol.value = 12
-        tableCol.value = 12
+        menuCol.value = 11
+        tableCol.value = 11
         show.value = true
         speciesName.value = route.query.species
     }
@@ -70,8 +69,8 @@
         menuClass.value = 'animate__animated animate__backInLeft'
         show.value = true
         speciesName.value = item.name
-        menuCol.value = 12
-        tableCol.value = 12
+        menuCol.value = 11
+        tableCol.value = 11
     }
 
     let handleNavChange = (() => {
@@ -95,11 +94,6 @@
       .page-title {
         max-width: 70%;
         margin: 0 auto;
-      }
-      .el-row{
-        position: absolute;
-        left: 15%;
-        right: 15%;
       }
     }
 
