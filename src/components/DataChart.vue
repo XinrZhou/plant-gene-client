@@ -151,6 +151,10 @@ onMounted(async () => {
         router.push(url + params.name.replaceAll(' ', '+'))
       });
       break
+    case 6:
+      renderChart(pieConfig('Transcription Factor Gene Count', ['0%', '65%'], ['50%', '60%']), '/browse-geneFamily/tfGeneCount')
+      console.log("qwe")
+      break
     default:
       option && myChart.setOption(option);
   }

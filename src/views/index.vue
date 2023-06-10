@@ -78,12 +78,12 @@
   }
 
   .bodyleft {
-    @apply flex text-lg  my-4;
+    @apply flex text-lg  my-4 text-justify mr-4;
     text-indent: 2em;
   }
 
   .bodyright {
-    @apply my-4;
+    @apply mt-6;
 
   }
 

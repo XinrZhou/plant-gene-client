@@ -8,7 +8,7 @@
   </el-row>
   <el-row class="flex justify-center">
     <el-col :lg="24" :md="24">
-      <el-card label="Blast" shadow="hover">
+      <el-card label="Blast" shadow="hover" class="rounded-2xl">
         <div class="blast-form">
           <el-form :model="form" label-width="120px" label-position="left">
             <el-form-item label="Sequence">
@@ -301,8 +301,5 @@ SLWSF"/>
 
   .form-btn {
     background-color: #CCD5AE;
-  }
-  ::v-deep .el-card {
-    --el-card-border-radius: 20px;
   }
 </style>

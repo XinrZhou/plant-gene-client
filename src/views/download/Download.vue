@@ -1,6 +1,6 @@
 <template>
     <PageLeftTitle page-title="DownLoad Data" class="page-title"/>
-    <el-card shadow="hover">
+    <el-card shadow="hover" class="rounded-3xl">
         <el-row>
             <el-col :lg="12" :md="12">
                 <el-form :model="form" label-position="top" class="el-form-style">

@@ -13,18 +13,18 @@
         </el-scrollbar>
       </el-col>
       <!--      <el-divider direction="vertical"></el-divider>-->
-      <el-col :span="6">
+      <el-col :span="14">
         <p class="list-title">Non-transcription Factor</p>
         <el-scrollbar height="490px">
           <el-row class="row-bg" justify="space-between">
-            <el-col :span="24" v-for="item in nonTFGeneFamilyList" :id="item.gene" class="gene-list">
+            <el-col :span="12" v-for="item in nonTFGeneFamilyList" :id="item.gene" class="gene-list">
               <el-link class="list-content" type="info" @click="goMYB(item.gene,'NTF')">{{ item.gene }}</el-link>
             </el-col>
           </el-row>
         </el-scrollbar>
       </el-col>
       <el-col :span="11" class="flex justify-center items-center">
-        <DataChart id="3"/>
+
       </el-col>
     </el-row>
   </el-card>
@@ -54,6 +54,7 @@
       </el-col>
     </el-row>
   </el-card>
+  <DataChart id="7"/>
 </template>
 
 <script setup>
@@ -97,6 +98,7 @@ if (route.query.type != null && route.query.name != null) {
       isShowNonTFGeneR.value = false
     } else {
       store.getNonTFGeneList(name)
+      geneName.value = name
       isShowTFGeneR.value = false
       isShowNonTFGeneR.value = true
     }

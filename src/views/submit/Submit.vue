@@ -1,14 +1,14 @@
 <template>
   <PageLeftTitle page-title="Submit" class="page-title" />
-  <el-card shadow="hover">
+  <el-card shadow="hover" class="rounded-2xl">
     <el-row class="flex">
-      <el-col :lg="18" :md="18">
+      <el-col :lg="14" :md="14">
         <h3 class="submit-tip ml-4 text-gray-400 ">You can choose to share the data you collected, and we will inform you of the results of the data in time by email.
           If your data is true and valid, we will update your data on the next version of the data set. Thanks again for sharing.</h3>
       </el-col>
     </el-row>
-    <el-row class="flex justify-center">
-      <el-col :lg="24" :md="24">
+    <el-row class="flex">
+      <el-col :lg="15" :md="15">
         <div class="submit-form">
           <el-form :model="form" label-width="120px" label-position="left">
 
@@ -60,6 +60,10 @@
         </div>
 
       </el-col>
+      <el-col :lg="9" :md="9">
+          <el-image style="width: 80%; height: 80%" src="http://plantgene.nefunlp.cn/static/img/2023/03/logo.png" fit="fit" />
+      </el-col>
+
     </el-row>
   </el-card>
 </template>

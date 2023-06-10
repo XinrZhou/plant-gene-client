@@ -78,10 +78,10 @@
         <div class="card-nav" v-if="geneGoInfo.length != 0">
             <h1>Go</h1>
             <el-row justify="start" v-if="goBiological.length != 0" class="ml-10">
-                <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
+                <el-col :xs="24" :sm="24" :md="24" :lg="6" :xl="6">
                     <h3>biological_process:</h3>
                 </el-col>
-                <el-col :xs="24" :sm="24" :md="24" :lg="16" :xl="16">
+                <el-col :xs="24" :sm="24" :md="24" :lg="18" :xl="18">
                     <template v-for="(item, index) in goBiological" :key="index">
                         <p>
                             {{ item?.name }}
@@ -93,10 +93,10 @@
                 </el-col>
             </el-row>
             <el-row justify="start" v-if="goMolecular.length != 0" class="ml-10">
-                <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
+                <el-col :xs="24" :sm="24" :md="24" :lg="6" :xl="6">
                     <h3>molecular_function:</h3>
                 </el-col>
-                <el-col :xs="24" :sm="24" :md="24" :lg="16" :xl="16">
+                <el-col :xs="24" :sm="24" :md="24" :lg="18" :xl="18">
                     <template v-for="(item, index) in goMolecular" :key="index">
                         <p>
                             {{ item?.name }}
@@ -108,10 +108,10 @@
                 </el-col>
             </el-row>
             <el-row justify="start" v-if="goCellur.length != 0" class="ml-10">
-                <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
+                <el-col :xs="24" :sm="24" :md="24" :lg="6" :xl="6">
                     <h3>cellur_component:</h3>
                 </el-col>
-                <el-col :xs="24" :sm="24" :md="24" :lg="16" :xl="16">
+                <el-col :xs="24" :sm="24" :md="24" :lg="18" :xl="18">
                     <template v-for="(item, index) in goCellur" :key="index">
                         <p>
                             {{ item?.name }}
@@ -171,7 +171,8 @@ import {useBrowseStore} from '~/store/useBrowseStore.js'
 import {computed, reactive, ref, toRaw, toRefs, watch} from 'vue'
 // import '@nightingale-elements/nightingale-structure/dist/index.js'
 import 'protvista-uniprot/dist/protvista-uniprot.js'
-import router from "~/router/index.js";
+
+
 
 
 const route = useRoute()
@@ -239,7 +240,7 @@ let handleGeneClick = (item) => {
 }
 
 .card-nav p {
-    @apply flex items-center font-normal py-1 text-base mx-11 tracking-wide;
+    @apply flex items-center font-normal py-1 text-base ml-11 tracking-wide;
 }
 
 .el-button {
