@@ -44,7 +44,7 @@
         </div>
       <div class="card-nav1">
         <h2>Function:</h2>
-        <h3 class="indent-10">{{ geneInfo.description }}</h3>
+        <h3 class="indent-10 text-justify">{{ geneInfo.description }}</h3>
         <h2>Phenotype Influenced:</h2>
         <el-row justify="start" >
             <template v-for="(item, index) in phenoGroup" :key="index">
