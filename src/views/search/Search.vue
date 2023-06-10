@@ -377,6 +377,15 @@ let goDetailPage = (item) => {
         }
       })
       break
+    case 'No-TF Family':
+      router.push({
+        path: 'browse/genefamily',
+        query: {
+          type: 'No-Tf',
+          name: item.content
+        }
+      })
+      break
     case 'Gene':
       router.push({
         path: 'browse/stresstype/geneoverview',
