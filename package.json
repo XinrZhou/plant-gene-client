@@ -24,6 +24,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.22",
     "protvista-uniprot": "^2.10.7",
+    "seqviz": "^3.8.8",
     "universal-cookie": "^4.0.4",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"

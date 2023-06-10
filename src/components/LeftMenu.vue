@@ -1,7 +1,7 @@
 <template>
     <el-scrollbar max-height="600px" class="w-full">
-        <el-menu @open="handleOpen" @close="handleClose" unique-opened>
-            <el-sub-menu :index="item.name" v-for="(item,index) in props.attributeList" :key="index">
+        <el-menu @open="handleOpen" @close="handleClose" unique-opened :default-openeds="props.openMenuName">
+            <el-sub-menu :index="item.name" v-for="item in props.attributeList" :key="item.name">
                 <template #title>
                     <span class="menu-item-title">
                         {{item.name}}
@@ -33,7 +33,8 @@
     import { Search } from '@element-plus/icons-vue'
     import { ref, computed, watch, defineEmits, toRaw } from 'vue'
 
-    let props = defineProps(['attributeList', 'attrDetailList', 'isLoading'])
+    let props = defineProps(['attributeList', 'attrDetailList', 'isLoading', 'openMenuName'])
+    console.log(props.openMenuName)
 
     let emits = defineEmits(['openMenu'])
 

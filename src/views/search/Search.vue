@@ -253,7 +253,7 @@ let subCellularScrollHeight = ref('136px')
 // pagination
 const currentPage = ref(1)
 const pageSize = ref(15)
-let pageTotal = ref(1)
+let pageTotal = computed(() => store.recordsCount)
 
 // filter input
 let speciesInput = ref('')
@@ -273,11 +273,6 @@ store.getMultipleChoiceListData({
   species: speciesRadio.value,
   stressType: stressTypeRadio.value,
   subCellular: subCellularRadio.value
-})
-
-// 分页器数据总数
-watch(() => store.recordsCount, () => {
-  pageTotal.value = store.recordsCount
 })
 
 // filter 数组赋值

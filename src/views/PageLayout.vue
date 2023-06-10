@@ -53,10 +53,6 @@
 
   let activeIndex = ref('1')
 
-  // onMounted(() => {
-  //   router.push('/')
-  // })
-
   let handleSelect = (key, keyPath) => {
     key = key.split(' ').join('').toLowerCase()
     key = key.replace("/location","")
@@ -108,7 +104,7 @@
     position: relative;
   }
   .f-footer {
-    @apply flex justify-center bg-gray-100 pt-4 pb-4;
+    @apply flex justify-center items-center bg-gray-100 pt-4 pb-4;
     bottom: 0;
     left: 0;
     right: 0;
