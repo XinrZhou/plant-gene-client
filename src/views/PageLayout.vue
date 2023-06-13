@@ -31,11 +31,31 @@
         <router-view></router-view>
       </el-main>
       <el-footer class="f-footer">
-        <el-image src="http://plantasrg.cn/static/img/2023/06/10173aba-c005-4bd5-a618-4d57bddb2431.png" style="width: 40px; height: 40px" class="mr-4"></el-image>
-        Main by：
-          <el-link href="https://life.nefu.edu.cn/index.htm" class="text-base">College of Life Sciences</el-link>,
-          <el-link href="https://icec.nefu.edu.cn/" class="text-base">CCEC</el-link>,
-          <el-link href="https://www.nefu.edu.cn/" class="text-base">Nartheast Foreastry University</el-link>, 150040 Harbin, China.
+        <el-row justify="center"> 
+          <el-col :span="1">
+            <el-image src="http://plantasrg.cn/static/img/2023/06/10173aba-c005-4bd5-a618-4d57bddb2431.png"
+              style="width: 40px; height: 40px" class="mr-4"></el-image>
+          </el-col>
+          <el-col :span="11">
+            <p class="footer-content">
+              <router-link to="/search" class="underline">Search</router-link>
+              <el-divider direction="vertical" />
+              <router-link to="/analysis" class="underline">Analysis</router-link>
+              <el-divider direction="vertical" />
+              <router-link to="/download" class="underline">Download</router-link>
+              <el-divider direction="vertical" />
+              <router-link to="/helps" class="underline">Helps</router-link>
+              <el-divider direction="vertical" />
+              <router-link to="/submit" class="underline">Submit</router-link>
+            </p>
+            <p class="footer-content">
+              <el-link href="https://life.nefu.edu.cn/index.htm" class="text-base">College of Life Sciences</el-link>,
+              <el-link href="https://icec.nefu.edu.cn/" class="text-base">CCEC</el-link>,
+              <el-link href="https://www.nefu.edu.cn/" class="text-base">Nartheast Foreastry University</el-link>,
+              150040 Harbin, China.
+            </p>
+          </el-col>
+        </el-row>
       </el-footer>
     </el-container>
   </div>
@@ -55,7 +75,7 @@
 
   let handleSelect = (key, keyPath) => {
     key = key.split(' ').join('').toLowerCase()
-    key = key.replace("/location","")
+    key = key.replace("/location", "")
     switch (key) {
       case '1':
         router.push('/')
@@ -96,18 +116,23 @@
     @apply bg-gray-50;
 
   }
-  ::v-deep(.el-main){
-    --el-main-padding:0px;
+
+  ::v-deep(.el-main) {
+    --el-main-padding: 0px;
   }
+
   .el-container {
     min-height: 100vh;
     position: relative;
   }
+
   .f-footer {
-    @apply flex justify-center items-center bg-gray-100 pt-4 pb-4;
+    @apply bg-gray-100 pt-4 pb-4 h-20 block;
     bottom: 0;
-    left: 0;
-    right: 0;
+  }
+
+  .footer-content {
+    @apply text-center align-middle text-gray-600;
   }
 
   .elmenu {

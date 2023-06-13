@@ -3,7 +3,7 @@
   <el-row  justify="center" class="page-title">
     <el-col :span="menuCol" :class="menuClass">
       <LeftMenu :attribute-list="phenoList" @openMenu="handleOpen" @clickList="handleClick" :isLoading="loading"
-                :attr-detail-list="phenoSubList" :openMenuName="menuName"/>
+                :attr-detail-list="phenoSubList"/>
     </el-col>
     <el-col :span="tableCol" class="animate__animated animate__backInDown ml-4">
       <el-input :prefix-icon="Search" v-model="tableInput" @input="handleTableFilter" clearable/>
@@ -41,18 +41,17 @@ let phenoGeneList = computed(() => store.phenoTypeGeneDataList)
 let phenoGeneFilterList = ref([])
 let tableInput = ref('')
 let loading = computed(() => store.isLoading)
-let menuName = ref(route.query.group)
 
 let tableCol = ref(0)
 let menuCol = ref(24)
 let menuClass = ref('')
 
 let handleOpen = (value) => {
+  console.log(value)
   store.getPhenoTypeSubListData(value)
 }
 
 if (route.query.group != null) {
-  console.log(route.query.group)
   store.getPhenoTypeSubListData(route.query.group)
 }
 

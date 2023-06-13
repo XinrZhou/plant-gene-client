@@ -1,6 +1,6 @@
 <template>
     <el-scrollbar max-height="600px" class="w-full">
-        <el-menu @open="handleOpen" @close="handleClose" unique-opened :default-openeds="props.openMenuName">
+        <el-menu @open="handleOpen" @close="handleClose" unique-opened>
             <el-sub-menu :index="item.name" v-for="item in props.attributeList" :key="item.name">
                 <template #title>
                     <span class="menu-item-title">
@@ -34,7 +34,6 @@
     import { ref, computed, watch, defineEmits, toRaw } from 'vue'
 
     let props = defineProps(['attributeList', 'attrDetailList', 'isLoading', 'openMenuName'])
-    console.log(props.openMenuName)
 
     let emits = defineEmits(['openMenu'])
 
