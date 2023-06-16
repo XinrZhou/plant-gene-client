@@ -16,12 +16,8 @@
                   <el-form :model="form" label-width="120px" label-position="left">
                     <el-form-item label="Sequence">
                       <el-input v-model="form.sequence" :autosize="{ minRows: 10, maxRows: 12 }"
-                                :disabled="fileCount > 0 ? true : false" type="textarea" style="width: 70%;" placeholder="Please enter the nucleotide or amino acid sequence and select the corresponding 'blast' type.&#13;
->Gene1
-MDPFYTSFSDSFLSIPDHRSPVSDSSECSPKLASSCPKKRAGRKKFRETRHPIYRGVRQRNSGKWVCEVR
-EPNKKSRIWLGTFPTVEMAARAHDVAALALRGRSACLNFADSAWRLRIPESTCPKEIQKAAAEAAMAFQN
-ETATTEMMTVVEGVKPAEETVGQTRGETAEENGVFYMDDLRFLEDMAEEMLLPPPELGWNHNDLTGDADV
-SLWSF" />
+                                :disabled="fileCount > 0 ? true : false" type="textarea" style="width: 70%;" placeholder="Please enter the nucleotide or amino acid sequence and select the corresponding 'blast' type.&#13;>Gene1
+MDPFYTSFSDSFLSIPDHRSPVSDSSECSPKLASSCPKKRAGRKKFRETRHPIYRGVRQRNSGKWVCEVREPNKKSRIWLGTFPTVEMAARAHDVAALALRGRSACLNFADSAWRLRIPESTCPKEIQKAAAEAAMAFQNETATTEMMTVVEGVKPAEETVGQTRGETAEENGVFYMDDLRFLEDMAEEMLLPPPELGWNHNDLTGDADVSLWSF" />
                     </el-form-item>
                     <el-form-item label="Type">
                       <el-radio-group v-model="form.category">
@@ -63,7 +59,7 @@ SLWSF" />
                   <el-descriptions-item label="Query" label-align="left">{{blastSeqInfo.query}}</el-descriptions-item>
                 </el-descriptions>
                 <el-tabs v-model="activeName" type="border-card">
-                  <el-tab-pane label="Descriptions" name="first">
+                  <el-tab-pane label="Descriptions" name="second">
                     <el-button @click="handleDownload('table')" class="mr-auto  font-bold text-blue-500">Down
                       Data</el-button>
 
@@ -97,7 +93,7 @@ SLWSF" />
                       <el-table-column prop="" label="" />
                     </el-table>
                   </el-tab-pane>
-                  <el-tab-pane label="Alignments" name="second" v-if="form.category=='blastn'">
+                  <el-tab-pane label="Alignments" name="third" v-if="form.category=='blastn'">
                     <el-button @click="handleDownload('result')" class="mr-auto  font-bold text-blue-500">Down
                       Data</el-button>
                     <div class="blastSeq-alignments" v-for="(item, index) in blastSeqReslt" :key="index">
@@ -114,7 +110,7 @@ SLWSF" />
                       <el-divider />
                     </div>
                   </el-tab-pane>
-                  <el-tab-pane label="Alignments" name="second" v-if="form.category=='blastp'">
+                  <el-tab-pane label="Alignments" name="fourth" v-if="form.category=='blastp'">
                     <el-button @click="handleDownload('result')" class="ont-bold text-blue-500">Down Data</el-button>
                     <div class="blastSeq-alignments" v-for="(item, index) in blastSeqReslt" :key="index">
                       <p class="alignments-item">{{item.name}}</p>
@@ -136,7 +132,7 @@ SLWSF" />
             </el-col>
           </el-row>
         </el-tab-pane>
-        <el-tab-pane label="SaGp" name="second">
+        <el-tab-pane label="SaGp" name="five">
           <el-row>
             <el-col :span="24" class="blast-tip">
               Welcome to SaGP
@@ -146,7 +142,7 @@ SLWSF" />
             <el-row justify="space-between">
               <el-col :lg="10" :md="24">
                 <p class="SaGp-desciption">Plants Salt-alkaline Resistance Genes Prediction</p>
-                <p>
+                <p class="text-justify indent-10 text-xl ">
                   Soil saline-alkalization stress reduces crop yield worldwide and leads to plant mortality globally.
                   Identifying novel saline-alkali tolerance genes is key to breed stress-resistant variants, secure
                   food, and conserve species. SaGP provides the first known machine learning model to identify plant
@@ -156,14 +152,14 @@ SLWSF" />
                   conservation.
                 </p>
               </el-col>
-              <el-col :lg="10" :md="24">
-                <img src="http://plantgene.nefunlp.cn/static/img/2023/03/sagp.png" style="width: 100%; height: 280px;">
+              <el-col :lg="12" :md="24">
+                <img src="http://plantgene.nefunlp.cn/static/img/2023/03/sagp.png" style="width: 100%; height: 350px;">
               </el-col>
             </el-row>
             <div class="link-btn">
-              <el-button round>
-                <a href="https://www.sagprediction.com/">
-                  More ...
+              <el-button round class="w-[350px]  mt-6" type="primary" color="#CCFFCC">
+                <a href="https://www.sagprediction.com/" class="font-semibold">
+                  More about SAGP...
                 </a>
               </el-button>
             </div>
@@ -348,7 +344,7 @@ let handleGeneClick1 = (row) => {
 }
 
 .SaGp-desciption {
-  @apply flex items-center font-bold pb-3 text-lg;
+  @apply flex font-bold mt-6 text-xl mb-6 justify-center;
 }
 
 .link-btn {
