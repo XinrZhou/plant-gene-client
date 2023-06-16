@@ -31,11 +31,11 @@
         <router-view></router-view>
       </el-main>
       <el-footer class="f-footer ">
-        <el-row >
-          <el-col :span="6" class="mt-2">
+        <el-row class="flex">
+          <el-col :span="4" class="flex items-center mt-1">
             <el-image src="http://www.plantasrg.cn/static/img/2023/06/logo.png" class="ml-5" style="height: 32px"></el-image>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="14">
             <p class="footer-content">
               <router-link to="/search" class="underline">Search</router-link>
               <el-divider direction="vertical" />
@@ -47,23 +47,22 @@
               <el-divider direction="vertical" />
               <router-link to="/submit" class="underline">Submit</router-link>
             </p>
-            <p class="footer-content">
-              <el-image src="http://plantasrg.cn/static/img/2023/06/10173aba-c005-4bd5-a618-4d57bddb2431.png"
-                        style="width: 25px; height: 25px" class="mr-4"></el-image>
+            <p class="footer-content ">
+              <el-image src="http://www.plantasrg.cn/static/img/2023/06/nefu.png"
+                        style="width: 25px; height: 25px" class="mr-4 mt-2"></el-image>
               <a href="https://life.nefu.edu.cn/index.htm">College of Life Sciences</a>,
               <a href="https://icec.nefu.edu.cn/">CCEC</a>,
               <a href="https://www.nefu.edu.cn/">Nartheast Foreastry University</a>,
               150040 Harbin, China.
             </p>
           </el-col>
-          <el-col :span="6" class="text-gray-200">
-            <span><el-icon size="25"><Message /></el-icon> &#13;</span>
-            <span class="ml-6 ">sunshanwen@nefu.edu.cn</span>
-            <p>Copyright © 2023, All Rights Reserved</p>
+          <el-col :span="6" class="footer-content">
+            <p>
+              <span><el-icon size="25"><Message /></el-icon> &#13;</span>
+              <span class="ml-6 ">sunshanwen@nefu.edu.cn</span>
+            </p>
+            <p class="mt-3">Copyright © 2023, All Rights Reserved</p>
           </el-col>
-        </el-row>
-        <el-row class="justify-center">
-
         </el-row>
       </el-footer>
     </el-container>
@@ -136,13 +135,14 @@ let handleSelect = (key, keyPath) => {
 }
 
 .f-footer {
-  @apply pt-4 pb-4 h-20 block;
+  @apply pt-4 pb-4 h-20 block mt-4 items-center;
   bottom: 0;
   background-color: #609966;
+  height: 100px;
 }
 
 .footer-content {
-  @apply text-center align-middle text-gray-200;
+  @apply text-center align-middle text-gray-200 mt-1;
 }
 
 .elmenu {

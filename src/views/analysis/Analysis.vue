@@ -3,7 +3,7 @@
   <el-row class="page-style">
     <el-col :span="24">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="Blast" name="first">
+        <el-tab-pane label="My Data" name="first">
           <el-row>
             <el-col :span="24" class="blast-tip">
               Blastx/Blastp can be excuted on data stored in our database.
@@ -58,7 +58,7 @@ MDPFYTSFSDSFLSIPDHRSPVSDSSECSPKLASSCPKKRAGRKKFRETRHPIYRGVRQRNSGKWVCEVREPNKKSRIWL
                                         label-align="left">{{blastSeqInfo.length}}</el-descriptions-item>
                   <el-descriptions-item label="Query" label-align="left">{{blastSeqInfo.query}}</el-descriptions-item>
                 </el-descriptions>
-                <el-tabs v-model="activeName" type="border-card">
+                <el-tabs v-model="activeName1" type="border-card">
                   <el-tab-pane label="Descriptions" name="second">
                     <el-button @click="handleDownload('table')" class="mr-auto  font-bold text-blue-500">Down
                       Data</el-button>
@@ -195,7 +195,7 @@ let blastSeqList = computed(() => store.BlastSeqDataList.list)
 let blastSeqInfo = computed(() => store.BlastSeqDataList.mainInfo)
 let blastSeqReslt = computed(() => store.BlastSeqDataList.result)
 const activeName = ref('first')
-
+const activeName1 = ref('second')
 const fileChange = (file, lists) => {
   let list = toRaw(lists)
   fileCount.value = list.length

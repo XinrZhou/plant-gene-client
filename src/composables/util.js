@@ -11,13 +11,13 @@ export function toast(message,type="success",dangerouslyUseHTMLString=false){
     })
 }
 
-export function showModal(content = "提示内容",type = "warning",title = ""){
+export function showModal(content = "Tips",type = "warning",title = ""){
     return ElMessageBox.confirm(
         content,
         title,
         {
-            confirmButtonText: '确认',
-            cancelButtonText: '取消',
+            confirmButtonText: 'Enter',
+            cancelButtonText: 'Cancel',
             type,
         }
     )
