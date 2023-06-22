@@ -558,7 +558,9 @@
   }
 
   .table-content {
+    @apply text-justify;
     word-break: keep-all;
+    display: inline-block;
   }
 
   ::v-deep .el-input__wrapper {

@@ -32,7 +32,7 @@
   </el-row>
   <el-row class="my-card">
     <el-col :lg="8" :md="12" :sm="22" v-for="col in 6" :key="col">
-      <DataChart :id="col" />
+      <DataChart :id="col"/>
     </el-col>
   </el-row>
 </template>

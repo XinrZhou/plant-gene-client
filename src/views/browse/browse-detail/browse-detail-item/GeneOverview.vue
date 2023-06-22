@@ -1,5 +1,5 @@
 <template>
-    <el-row>
+    <el-row class="page-desciption">
         <el-col :xs="24" :sm="24" :md="24" :lg="13" :xl="13" class="page-info page-title">
             <el-icon>
                 <Histogram/>
@@ -48,10 +48,10 @@
         <h2>Phenotype Influenced:</h2>
         <el-row>
             <template v-for="(item, index) in phenoGroup" :key="index">
-              <el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10">
+              <el-col :xs="10" :sm="10" :md="10" :lg="8" :xl="10">
                 <h3> {{ item.phenotype }}</h3>
               </el-col>
-              <el-col :xs="14" :sm="14" :md="14" :lg="14" :xl="14">
+              <el-col :xs="14" :sm="14" :md="14" :lg="16" :xl="14">
                   <h5 class="ml-4">
                     <el-button size="small">Phenotype Group:</el-button> {{item.phenotypeGroup}}
                   </h5>
@@ -195,7 +195,7 @@ let handleGeneClick = (item) => {
         margin-bottom: 30px;
     }
 
-    .el-row {
+    .page-desciption {
         max-width: 70%;
     }
 

@@ -49,7 +49,7 @@
             </p>
             <p class="footer-content ">
               <el-image src="http://www.plantasrg.cn/static/img/2023/06/nefu.png"
-                        style="width: 25px; height: 25px" class="mr-4 mt-2"></el-image>
+                        style="width: 25px; height: 25px; vertical-align: -25%;" class="mr-4"></el-image>
               <a href="https://life.nefu.edu.cn/index.htm">College of Life Sciences</a>,
               <a href="https://icec.nefu.edu.cn/">CCEC</a>,
               <a href="https://www.nefu.edu.cn/">Nartheast Foreastry University</a>,
@@ -58,7 +58,7 @@
           </el-col>
           <el-col :span="6" class="footer-content">
             <p>
-              <span><el-icon size="25"><Message /></el-icon> &#13;</span>
+              <span><el-icon size="25" style="vertical-align: -25%;"><Message /></el-icon> &#13;</span>
               <span class="ml-6 ">sunshanwen@nefu.edu.cn</span>
             </p>
             <p class="mt-3">Copyright © 2023, All Rights Reserved</p>
@@ -122,7 +122,7 @@ let handleSelect = (key, keyPath) => {
 
 .el-main {
   @apply bg-gray-50;
-
+  overflow: hidden;
 }
 
 ::v-deep(.el-main) {
@@ -142,7 +142,7 @@ let handleSelect = (key, keyPath) => {
 }
 
 .footer-content {
-  @apply text-center align-middle text-gray-200 mt-1;
+  @apply text-center text-gray-200 justify-center mt-2;
 }
 
 .elmenu {

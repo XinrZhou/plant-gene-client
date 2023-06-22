@@ -107,8 +107,6 @@ onMounted(async () => {
         }
       });
       myChart.on('click', function (params) {
-        console.log(params)
-        // console.log(ifTf)
         const url = '/browse/genefamily?type='
         router.push(url + params.data.ifTf +'&name=' +params.name.replaceAll("+","*nbsp"))
       });
