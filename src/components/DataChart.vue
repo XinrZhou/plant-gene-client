@@ -102,8 +102,8 @@ onMounted(async () => {
       myChart.setOption({
         dataZoom: {
           type: 'inside', // 支持手动滑动和缩放
-          start: 1,
-          end: 3
+          start: 0,
+          end: 2
         }
       });
       myChart.on('click', function (params) {
@@ -135,7 +135,7 @@ onMounted(async () => {
       myChart.setOption({
         dataZoom: {
           type: 'inside', // 支持手动滑动和缩放
-          start: 1,
+          start: 0,
           end: 15
         }
       });
@@ -145,7 +145,19 @@ onMounted(async () => {
       });
       break
     case 5:
-      renderChart(barConfig('Subcellular Localization'), '/plant-details/subCellularLocalizationCount')
+      option.legend = {
+        top: '10%',
+        left: 'center',
+        orient: 'horizontal',
+        itemWidth: 12,
+        itemHeight: 10,
+        itemGap: 10,
+        textStyle: {
+          fontSize: 12
+        }
+      }
+      option && myChart.setOption(option)
+      renderChart(pieConfig('Subcellular Localization', ['40%', '60%'], ['50%', '67%']), '/plant-details/subCellularLocalizationCount')
       myChart.setOption({
         dataZoom: {
           type: 'inside', // 支持手动滑动和缩放
@@ -280,7 +292,8 @@ function barConfig(title = '') {
       }
     },
     tooltip: {
-      trigger: 'axis'
+      trigger: 'axis',
+      confine: true
     },
     legend: {
       top: '10%',
