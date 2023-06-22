@@ -31,11 +31,11 @@
         <router-view></router-view>
       </el-main>
       <el-footer class="f-footer ">
-        <el-row class="flex">
-          <el-col :span="4" class="flex items-center mt-1">
+        <el-row class="flex f_footer">
+          <el-col :lg="4" :md="24" :sm="20" class="flex items-center mt-1">
             <el-image src="http://www.plantasrg.cn/static/img/2023/06/logo.png" class="ml-5" style="height: 32px"></el-image>
           </el-col>
-          <el-col :span="14">
+          <el-col :lg="14" :md="24" :sm="20">
             <p class="footer-content">
               <router-link to="/search" class="underline">Search</router-link>
               <el-divider direction="vertical" />
@@ -56,7 +56,7 @@
               150040 Harbin, China.
             </p>
           </el-col>
-          <el-col :span="6" class="footer-content">
+          <el-col :lg="6" :md="24" :sm="20" class="footer-content">
             <p>
               <span><el-icon size="25" style="vertical-align: -25%;"><Message /></el-icon> &#13;</span>
               <span class="ml-6 ">sunshanwen@nefu.edu.cn</span>
@@ -136,10 +136,13 @@ let handleSelect = (key, keyPath) => {
 
 .f-footer {
   @apply pt-4 pb-4 h-20 block mt-4 items-center;
+  background-color: #609966;
+}
+.f_footer{
   bottom: 0;
   background-color: #609966;
-  height: 100px;
 }
+
 
 .footer-content {
   @apply text-center text-gray-200 justify-center mt-2;
@@ -149,7 +152,6 @@ let handleSelect = (key, keyPath) => {
   @apply flex font-bold items-center;
   height: 64px;
   z-index: 1000;
-
 }
 
 .right {

@@ -5,10 +5,10 @@
     </el-col>
   </el-row>
   <el-row class="flex">
-    <el-col :lg="9" :md="24" :sm="20">
+    <el-col :lg="11" :md="24" :sm="20">
       <span class="bodyleft">{{ homeContentData.bodyContent }}</span>
     </el-col>
-    <el-col :lg="14" :md="24" :sm="20" :offset="1" class="bodyright">
+    <el-col :lg="12" :md="24" :sm="20" :offset="1" class="bodyright">
       <div v-for="item in homeContentData.bodyPicture">
         <!--        <el-carousel :interval="5000" arrow="always" style="width: 100%;  height: 600px;" arrow-class="my-arrow" autoplay>-->
         <!--          <el-carousel-item v-for="item in homeContentData.bodyPicture" :key="item.picture" style="height:500px;">-->

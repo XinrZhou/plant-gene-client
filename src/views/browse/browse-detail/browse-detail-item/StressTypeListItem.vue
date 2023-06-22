@@ -17,7 +17,11 @@
                     </template>
                 </el-table-column>
                 <el-table-column prop="name" label="Species" type="name" fit />
-                <el-table-column prop="product" label="Gene Product" type="product" fit />
+                <el-table-column prop="product" label="Gene Product">
+                  <template v-slot="{ row }">
+                    <span class="table-content">{{ row.product }}</span>
+                  </template>
+                </el-table-column>
                 <el-table-column prop="localization" label="Subcellular Localization" type="localization" fit />
                 <el-table-column prop="organs" label="Expression Organs" type="organs" fit>
                     <!-- tag -->
@@ -116,5 +120,9 @@
     .el-pagination {
         margin-top: 10px;
         justify-content: center;
+    }
+    .table-content {
+      word-break: keep-all;
+      text-align: justify
     }
 </style>

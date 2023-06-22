@@ -3,7 +3,7 @@
   <el-card shadow="hover" class="rounded-2xl">
     <el-row class="flex">
       <el-col :lg="14" :md="14">
-        <h3 class="submit-tip ml-4 text-gray-400 ">You can choose to share the data you collected, and we will inform you of the results of the data in time by email.
+        <h3 class="submit-tip ml-4 text-gray-400 text-justify">You can choose to share the data you collected, and we will inform you of the results of the data in time by email.
           If your data is true and valid, we will update your data on the next version of the data set. Thanks again for sharing.</h3>
       </el-col>
     </el-row>
