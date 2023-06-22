@@ -129,20 +129,21 @@ let handleSelect = (key, keyPath) => {
   --el-main-padding: 0px;
 }
 
-.el-container {
+::v-deep .el-container {
   min-height: 100vh;
   position: relative;
 }
 
-.f-footer {
-  @apply pt-4 pb-4 h-20 block mt-4 items-center;
-  background-color: #609966;
-}
-.f_footer{
-  bottom: 0;
-  background-color: #609966;
+.el-footer {
+  @apply py-6;
+  height: auto;
 }
 
+.f-footer {
+  @apply py-4 block mt-4 items-center;
+  background-color: #609966;
+  height: auto
+}
 
 .footer-content {
   @apply text-center text-gray-200 justify-center mt-2;
