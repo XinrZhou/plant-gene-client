@@ -85,7 +85,7 @@
           <el-radio-group v-model="geneFamilyRadio" size="large">
             <el-radio-button name="geneFamilyRadio" :label="item.name" v-for="item in geneFamilyFilterList"
                              :key="item.name" @change="handleBtnChange" @click="handleClick">
-              <span class="card-item-span">{{ item.name }}</span>&nbsp;
+              <span class="card-item-span mt-1">{{ item.name }}</span>&nbsp;
               <el-tag type="info" round>{{ item.value }}</el-tag>
             </el-radio-button>
           </el-radio-group>
@@ -186,8 +186,9 @@
             <a href="" @click.prevent="handleGeneClick(row)" class="underline">{{ row.gene }}</a>
           </template>
         </el-table-column>
-        <el-table-column prop="scientificName" label="scientificName" width="180"/>
-        <el-table-column prop="description" label="description" fit/>
+        <el-table-column prop="scientificName" label="Species" width="180"/>
+        <el-table-column prop="description" label="Gene mechanism" class="text-justify"/>
+
       </el-table>
       <!-- pagination  -->
       <div>
@@ -326,7 +327,7 @@ let changeScrollHeight = (value) => {
 // remote Search
 const remoteMethod = (query) => {
   if (query) {
-    store.getFuzzySearchListData(query)
+    store.getFuzzySearchListData(query.replaceAll("+","*nbsp"))
   } else {
     options.value = []
   }
@@ -368,7 +369,7 @@ let goDetailPage = (item) => {
         path: 'browse/genefamily',
         query: {
           type: 'TF',
-          name: item.content
+          name: item.content.replaceAll("+","*nbsp")
         }
       })
       break
@@ -377,7 +378,7 @@ let goDetailPage = (item) => {
         path: 'browse/genefamily',
         query: {
           type: 'No-Tf',
-          name: item.content
+          name: item.content.replaceAll("+","*nbsp")
         }
       })
       break

@@ -92,12 +92,12 @@ if (route.query.type != null && route.query.name != null) {
 
   let goMYB = (name, type) => {
     if (type == 'TF') {
-      store.getTFGeneList(name)
+      store.getTFGeneList(name.replaceAll("+","*nbsp"))
       geneName.value = name
       isShowTFGeneR.value = true
       isShowNonTFGeneR.value = false
     } else {
-      store.getNonTFGeneList(name)
+      store.getNonTFGeneList(name.replaceAll("+","*nbsp"))
       geneName.value = name
       isShowTFGeneR.value = false
       isShowNonTFGeneR.value = true

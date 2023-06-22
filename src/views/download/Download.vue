@@ -1,5 +1,5 @@
 <template>
-    <PageLeftTitle page-title="DownLoad Data" class="page-title"/>
+    <PageLeftTitle page-title="Download Data" class="page-title"/>
     <el-card shadow="hover" class="rounded-3xl">
         <el-row>
             <el-col :lg="12" :md="12">
@@ -41,7 +41,7 @@
                     class="inline-block ml-10 text-black" round v-if="geneList && geneList.length">Select
                     All</el-button>
                 <el-scrollbar height="400px">
-                    <el-checkbox-group v-model="ids">
+                    <el-checkbox-group v-model="ids" v-if="geneList && geneList.length">
                         <el-checkbox :label="item.id" v-for="item in geneList" :id="item.id+''"
                             class="checkbox-content">
                             {{item.gene}}
@@ -109,7 +109,7 @@
 
     let onConfirm = () => {
         if (!form.value.stressType) {
-            ElMessage.error("Please select a stressType!")
+            ElMessage.error("Please select a Stress Type!")
             return
         }
         store.getGeneListData(form.value)
@@ -118,7 +118,7 @@
     let onDownload = () => {
         if (ids.value.length == 0) {
             ElMessageBox.confirm(
-                'You must select the gene name!',
+                'You must select the Gene!',
                 'Tips',
                 {
                     confirmButtonText: 'OK',

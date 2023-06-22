@@ -7,9 +7,9 @@
             <el-menu :default-active="activeIndex" class="elmenu" mode="horizontal" text-color="#F3F4F6"
                      active-text-color="#D1FAE5" @select="handleSelect" background-color="#609966" show-timeout="5000">
               <el-menu-item index="1">
-                <el-icon :size="30">
-                  <Management />
-                </el-icon><img src="/src/assets/logo.png" class="ml-5" style="height: 32px">
+
+                <img src="http://www.plantasrg.cn/static/img/2023/06/black.svg" class="ml-5" style="height: 25px">
+                <img src="/src/assets/logo.png" class="ml-5" style="height: 32px">
               </el-menu-item>
               <div class="right">
                 <el-sub-menu index="2">
@@ -42,8 +42,8 @@
               <router-link to="/analysis" class="underline">Analysis</router-link>
               <el-divider direction="vertical" />
               <router-link to="/download" class="underline">Download</router-link>
-              <el-divider direction="vertical" />
-              <router-link to="/helps" class="underline">Helps</router-link>
+<!--              <el-divider direction="vertical" />-->
+<!--              <router-link to="/helps" class="underline">Helps</router-link>-->
               <el-divider direction="vertical" />
               <router-link to="/submit" class="underline">Submit</router-link>
             </p>

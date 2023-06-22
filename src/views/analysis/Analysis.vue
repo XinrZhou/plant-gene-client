@@ -3,7 +3,7 @@
   <el-row class="page-style">
     <el-col :span="24">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="My Data" name="first">
+        <el-tab-pane label="Blast" name="first">
           <el-row>
             <el-col :span="24" class="blast-tip">
               Blastx/Blastp can be excuted on data stored in our database.
@@ -121,7 +121,7 @@ MDPFYTSFSDSFLSIPDHRSPVSDSSECSPKLASSCPKKRAGRKKFRETRHPIYRGVRQRNSGKWVCEVREPNKKSRIWL
                         <el-descriptions-item label="Method">{{item.method}}</el-descriptions-item>
                         <el-descriptions-item label="Identities">{{item.identities}}</el-descriptions-item>
                         <el-descriptions-item label="Gaps">{{item.gaps}}</el-descriptions-item>
-                        <el-descriptions-item label="Strand">{{item.positives}}</el-descriptions-item>
+                        <el-descriptions-item label="Positives">{{item.positives}}</el-descriptions-item>
                       </el-descriptions>
                       <pre class="alignments-sequence font-bold ml-14">{{item.sequence}}</pre>
                       <el-divider />
@@ -139,21 +139,15 @@ MDPFYTSFSDSFLSIPDHRSPVSDSSECSPKLASSCPKKRAGRKKFRETRHPIYRGVRQRNSGKWVCEVREPNKKSRIWL
             </el-col>
           </el-row>
           <el-card shadow="hover" class="rounded-2xl">
-            <el-row justify="space-between">
+            <el-row class="flex items-center">
               <el-col :lg="10" :md="24">
                 <p class="SaGp-desciption">Plants Salt-alkaline Resistance Genes Prediction</p>
                 <p class="text-justify indent-10 text-xl ">
-                  Soil saline-alkalization stress reduces crop yield worldwide and leads to plant mortality globally.
-                  Identifying novel saline-alkali tolerance genes is key to breed stress-resistant variants, secure
-                  food, and conserve species. SaGP provides the first known machine learning model to identify plant
-                  saline-alkali tolerance genes. It outperformed traditional computational tools, BLAST and PHMMER and
-                  correctly identified the latest published genes. SaGP can be used to fast and accurately identify
-                  saline-alkali tolerance genes in plants at large scale, thus promoting crop breeding and plant
-                  conservation.
+                  Soil saline-alkalization stress reduces crop yield and leads to plant mortality globally. Identifying novel saline-alkali tolerance genes is key to breeding stress-resistant variants to combat the negative effects of stress and secure food, and to conserving species. SaGP provides the first known machine learning model to identify plant saline-alkali tolerance genes. It outperformed traditional computational tools, BLAST and PHMMER and correctly identified the latest published genes. SaGP can be used for the large-scale identification of saline-alkali tolerance genes, thus promoting crop breeding and plant conservation.
                 </p>
               </el-col>
-              <el-col :lg="12" :md="24">
-                <img src="http://plantgene.nefunlp.cn/static/img/2023/03/sagp.png" style="width: 100%; height: 350px;">
+              <el-col :offset="1" :lg="11" :md="23" >
+                <img src="http://www.plantasrg.cn/static/img/2023/06/sagp.png" style="width: 100%; height: 350px;">
               </el-col>
             </el-row>
             <div class="link-btn">

@@ -16,7 +16,7 @@
                         <a href="" @click.prevent="goGeneDetail(row)" class="underline">{{row.gene}}</a>
                     </template>
                 </el-table-column>
-                <el-table-column prop="name" label="Scientific Name" type="name" fit />
+                <el-table-column prop="name" label="Species" type="name" fit />
                 <el-table-column prop="product" label="Gene Product" type="product" fit />
                 <el-table-column prop="localization" label="Subcellular Localization" type="localization" fit />
                 <el-table-column prop="organs" label="Expression Organs" type="organs" fit>
@@ -49,7 +49,7 @@
     const store = useBrowseStore()
     const route = useRoute()
 
-    const pageTitle = "List of " + route.query.stressName + " genes"
+    const pageTitle = "List of " + route.query.stressName + " Genes"
 
     // 搜索框内容
     const searchContent = ref('')

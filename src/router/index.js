@@ -52,7 +52,7 @@ const router = createRouter({
 //全局前置首位
 let hasGetInfo = false;
 router.beforeEach(async (to, from, next) => {
-    let title = (to.meta.title ? to.meta.title : "") + "-plantasrg";
+    let title = (to.meta.title ? to.meta.title : "") + "PlantASRG (Plant Abiotic Stress Resistance Gene Database)";
     document.title = title;
     // 判断是否后台，后台需要登陆
     if(to.meta.requiresAuth){

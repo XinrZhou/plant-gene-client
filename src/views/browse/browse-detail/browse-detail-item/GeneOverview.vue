@@ -10,14 +10,14 @@
 
     <el-card shadow="hover">
         <div class="card-nav">
-            <h2>GeneName: <h3>{{ geneInfo.gene }}</h3></h2>
-            <h2>Pmid:<h3><a  class="underline font-semibold text-base alink"  @click.prevent="handleGeneClick(geneInfo.pmid)">{{ geneInfo.pmid }}</a></h3></h2>
-            <h2 v-if="geneInfo.goAnalysis!=null"> GeneId :  <h3>{{geneInfo.goAnalysis}}</h3></h2>
+            <h1>{{ geneInfo.gene }}</h1>
+            <h2>PMID:<h3><a  class="underline font-semibold text-base alink"  @click.prevent="handleGeneClick(geneInfo.pmid)">{{ geneInfo.pmid }}</a></h3></h2>
+            <h2 v-if="geneInfo.goAnalysis!=null"> GeneID :  <h3>{{geneInfo.goAnalysis}}</h3></h2>
         </div>
         <!-- 基因卡片表格 -->
         <div class="description-list">
             <el-descriptions border :column="2">
-                <el-descriptions-item label="Scientific Name" label-align="center" align="center">
+                <el-descriptions-item label="Species" label-align="center" align="center">
                   {{ geneInfo.scientificName }}
                 </el-descriptions-item>
                 <el-descriptions-item label="Gene Family" label-align="center" align="center">
@@ -36,17 +36,17 @@
 <!--                <el-descriptions-item label="Transcription Factor" label-align="right" align="center">-->
 <!--                    {{ geneInfo.transcriptionFactor }}-->
 <!--                </el-descriptions-item>-->
-                <el-descriptions-item label="Gene product" label-align="center" align="center">
+                <el-descriptions-item label="Gene Product" label-align="center" align="center">
                     {{ geneInfo.geneProduct }}
                 </el-descriptions-item>
             </el-descriptions>
 
         </div>
       <div class="card-nav1">
-        <h2>Function:</h2>
+        <h2>Gene mechanism:</h2>
         <h3 class="indent-10 text-justify">{{ geneInfo.description }}</h3>
         <h2>Phenotype Influenced:</h2>
-        <el-row justify="start" >
+        <el-row>
             <template v-for="(item, index) in phenoGroup" :key="index">
               <el-col :xs="10" :sm="10" :md="10" :lg="10" :xl="10">
                 <h3> {{ item.phenotype }}</h3>
@@ -76,7 +76,7 @@
         </div>
 
         <div class="card-nav" v-if="geneGoInfo.length != 0">
-            <h1>Go</h1>
+            <h2>Go annotation</h2>
             <el-row justify="start" v-if="goBiological.length != 0" class="ml-10">
                 <el-col :xs="24" :sm="24" :md="24" :lg="6" :xl="6">
                     <h3>biological_process:</h3>
@@ -124,7 +124,7 @@
             </el-row>
         </div>
         <div class="card-nav" v-if="geneKeGGInfo.length != 0">
-            <h1>KeGG</h1>
+            <h2>KEGG</h2>
             <el-table :data="geneKeGGInfo" height="250" style="width: 100%" class="ml-10">
                 <el-table-column prop="description" label="Description" width="300"/>
                 <el-table-column prop="koNumber" label="KoNumber" width="200"/>
@@ -145,19 +145,7 @@
 
     <el-card shadow="hover" v-if="geneInfo.keggAnalysis!=null">
       <div class="card-nav" >
-        <h1>3D Protein View of {{ geneInfo.gene }}</h1>
-        <!--            <h2>{{ seqMd5 }}</h2>-->
-        <!--            <h2>PID: {{ pid }} SID: {{ sid }}</h2>-->
-        <el-row justify="start">
-          <el-col :xs="24" :sm="24" :md="24" :lg="8" :xl="8">
-            <h3>Protein Accession ID:</h3>
-          </el-col>
-          <el-col :xs="24" :sm="24" :md="24" :lg="16" :xl="16">
-            <p>
-              {{ pid }}
-            </p>
-          </el-col>
-        </el-row>
+        <h1>3D Protein View of  ({{ geneInfo.gene }})</h1>
         <protvista-uniprot :accession="geneInfo.keggAnalysis" :key="geneInfo.keggAnalysis"></protvista-uniprot>
       </div>
     </el-card>
@@ -252,7 +240,7 @@ let handleGeneClick = (item) => {
 }
 
 .card-nav h1 {
-    @apply flex items-center font-semibold py-4 text-2xl ml-11;
+    @apply flex items-center font-semibold py-4 text-3xl ml-11;
 }
 
 .card-nav h2 {

@@ -57,9 +57,9 @@ onMounted(async () => {
         radius: ['50%', '70%'],
         avoidLabelOverlap: false,
         itemStyle: {
-          borderRadius: 2,
+          borderRadius: 10,
           borderColor: '#fff',
-          borderWidth: 2
+          borderWidth: 10
         },
         label: {
           show: false,
@@ -98,10 +98,19 @@ onMounted(async () => {
       });
       break
     case 2: // 各基因家族的占比
-      renderChart(pieConfig('Gene Family', ['50%', '70%'], ['50%', '65%']), '/plant-details/GeneFamilyCount')
+      renderChart(barConfig('Gene Family'), '/plant-details/GeneFamilyCount')
+      myChart.setOption({
+        dataZoom: {
+          type: 'inside', // 支持手动滑动和缩放
+          start: 1,
+          end: 3
+        }
+      });
       myChart.on('click', function (params) {
-        const url = '/browse/genefamily?type=TF&name='
-        router.push(url + params.name)
+        console.log(params)
+        // console.log(ifTf)
+        const url = '/browse/genefamily?type='
+        router.push(url + params.data.ifTf +'&name=' +params.name.replaceAll("+","*nbsp"))
       });
       break
     case 3: // 大类表型出现的概率
@@ -138,7 +147,7 @@ onMounted(async () => {
       });
       break
     case 5:
-      renderChart(barConfig('SubCellular Localization'), '/plant-details/subCellularLocalizationCount')
+      renderChart(barConfig('Subcellular Localization'), '/plant-details/subCellularLocalizationCount')
       myChart.setOption({
         dataZoom: {
           type: 'inside', // 支持手动滑动和缩放
@@ -178,9 +187,18 @@ function renderChart(config, url) {
 
         if (config.series && config.series[0] && config.series[0].data) {
           config.series[0].data = data.list.map(item => {
-            return {
-              value: item.value,
-              name: item.name
+            if(item.ifTf!=null){
+              console.log(item.ifTf)
+              return {
+                value: item.value,
+                name: item.name,
+                ifTf: item.ifTf
+              }
+            }else {
+              return {
+                value: item.value,
+                name: item.name
+              }
             }
           })
         }
@@ -233,7 +251,7 @@ function pieConfig(title = '', radius = ['50%', '70%'], center = ['50%', '60%'])
         itemStyle: {
           borderRadius: 2,
           borderColor: '#fff',
-          borderWidth: 2
+          borderWidth: 1
         },
         label: {
           show: false,
