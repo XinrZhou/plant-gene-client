@@ -6,7 +6,7 @@
   </el-row>
   <el-row class="flex">
     <el-col :lg="11" :md="24" :sm="20">
-      <span class="bodyleft">{{ homeContentData.bodyContent }}</span>
+      <span class="bodyleft ml-2">{{ homeContentData.bodyContent }}</span>
     </el-col>
     <el-col :lg="12" :md="24" :sm="20" :offset="1" class="bodyright">
       <div v-for="item in homeContentData.bodyPicture">
@@ -89,7 +89,7 @@ const { homeContentData } = storeToRefs(store)
 }
 
 .bodyright {
-  @apply mt-6 ;
+  @apply mt-6;
 
 }
 

@@ -35,7 +35,7 @@
           <el-col :lg="4" :md="24" :sm="20" class="flex items-center mt-1">
             <el-image src="http://www.plantasrg.cn/static/img/2023/06/logo.png" class="ml-5" style="height: 32px"></el-image>
           </el-col>
-          <el-col :lg="14" :md="24" :sm="20">
+          <el-col :lg="12" :md="24" :sm="20">
             <p class="footer-content">
               <router-link to="/search" class="underline">Search</router-link>
               <el-divider direction="vertical" />
@@ -56,12 +56,12 @@
               150040 Harbin, China.
             </p>
           </el-col>
-          <el-col :lg="6" :md="24" :sm="20" class="footer-content">
+          <el-col :lg="8" :md="24" :sm="20" class="footer-content">
             <p>
               <span><el-icon size="25" style="vertical-align: -25%;"><Message /></el-icon> &#13;</span>
               <span class="ml-6 ">sunshanwen@nefu.edu.cn</span>
             </p>
-            <p class="mt-3">Copyright © 2023, All Rights Reserved</p>
+            <p class="mt-3">Copyright © 2023, All Rights Reserved | MENG ICP 2023000908</p>
           </el-col>
         </el-row>
       </el-footer>
