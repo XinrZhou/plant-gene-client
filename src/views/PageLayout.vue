@@ -61,7 +61,7 @@
               <span><el-icon size="25" style="vertical-align: -25%;"><Message /></el-icon> &#13;</span>
               <span class="ml-6 ">sunshanwen@nefu.edu.cn</span>
             </p>
-            <p class="mt-3">Copyright © 2023, All Rights Reserved | MENG ICP 2023000908</p>
+            <p class="mt-3">Copyright © 2023, All Rights Reserved |  <a href="https://beian.miit.gov.cn/" target="_blank">蒙ICP备2023000908号-1</a></p>
           </el-col>
         </el-row>
       </el-footer>

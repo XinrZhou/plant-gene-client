@@ -88,11 +88,6 @@
       max-width: 70%;
       margin: 0 auto;
     }
-    .el-row{
-      position: absolute;
-      left: 15%;
-      right: 15%;
-    }
   }
 
   /* 手机端 */
@@ -118,9 +113,5 @@
 
   .loading {
     @apply absolute top-1/2 right-1/4
-  }
-
-  p {
-    padding-left: 10px;
   }
 </style>
