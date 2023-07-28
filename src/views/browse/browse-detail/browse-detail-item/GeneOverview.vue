@@ -76,7 +76,7 @@
         </div>
 
         <div class="card-nav" v-if="geneGoInfo.length != 0">
-            <h2>Go annotation</h2>
+            <h2>GO annotations</h2>
             <el-row justify="start" v-if="goBiological.length != 0" class="ml-10">
                 <el-col :xs="24" :sm="24" :md="24" :lg="6" :xl="6">
                     <h3>biological_process:</h3>
@@ -147,6 +147,7 @@
       <div class="card-nav" >
         <h1>3D Protein View of  ({{ geneInfo.gene }})</h1>
         <protvista-uniprot :accession="geneInfo.keggAnalysis" :key="geneInfo.keggAnalysis"></protvista-uniprot>
+        <span class="text-gray-400 mr-auto text-sm"> --Api from Uniprot </span>
       </div>
     </el-card>
 

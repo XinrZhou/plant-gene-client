@@ -552,7 +552,7 @@
   .card-item-span {
     @apply float-left inline-block;
     padding-top: 4px;
-    max-width: 240px;
+    max-width: 220px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
