@@ -2,9 +2,11 @@
   <el-row>
     <el-col :span="24">
       <div class="search-bar">
-        <el-select v-model="value" filterable remote clearable reserve-keyword
+        <el-select v-model="remoteValue" filterable remote clearable reserve-keyword
           placeholder="Please enter keywords e.g. ZmDREB2.7" :remote-method="remoteMethod" :loading="loading"
-          class="w-full rounded-3xl" @change="handleRemoteSearch" size="large">
+          class="w-full rounded-3xl" @change="handleRemoteSearch" size="large"
+          @blur="onSelectBlur"
+        >
           <el-option v-for="(item,index) in options" :value="item.content" :key="index" @click="goDetailPage(item)">
             <span style="float: left">
               {{ item.content }}
@@ -222,7 +224,8 @@
   // remote search
   const list = reactive([])
   let options = computed(() => store.searchDataList)
-  const value = ref([])
+  let remoteValue = ref('')
+  let remoteV = ''
 
   // filter list
   let speciesFilterList = ref([])
@@ -325,11 +328,19 @@
   // remote Search
   const remoteMethod = (query) => {
     if (query) {
+      remoteValue.value = query
+      remoteV = query
       store.getFuzzySearchListData(query.replaceAll("+", "*nbsp"))
     } else {
       options.value = []
     }
   }
+
+  watch(remoteValue, (oldValue, newValue) => {
+    if(remoteValue.value === '') {
+      remoteValue.value = remoteV
+    }
+  })
 
   // 根据远程搜索结果跳转
   let goDetailPage = (item) => {
