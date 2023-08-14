@@ -171,7 +171,7 @@ onMounted(async () => {
       });
       break
     case 6:
-      renderChart(pieConfig('Transcription Factor Gene Count', ['0%', '65%'], ['50%', '60%']), '/browse-geneFamily/tfGeneCount')
+      renderChart(pieConfig('Regulatory Gene/Structural Gene Count', ['0%', '65%'], ['50%', '60%']), '/browse-geneFamily/tfGeneCount')
       console.log("qwe")
       break
     default:
