@@ -8,15 +8,16 @@
                      active-text-color="#D1FAE5" @select="handleSelect" background-color="#609966" show-timeout="5000">
               <el-menu-item index="1">
 
-                <img src="http://www.plantasrg.cn/static/img/2023/06/black.svg" class="ml-5" style="height: 25px">
-                <img src="/src/assets/logo.png" class="ml-5" style="height: 32px">
+                <img :src=black_img class="ml-5" style="height: 25px">
+                <img :src=logo_img class="ml-5" style="height: 32px">
               </el-menu-item>
               <div class="right">
                 <el-sub-menu index="2">
-                  <template #title>Data Browse</template>
+                  <template #title>Reference Data Browse</template>
                   <el-menu-item :index="item.title" v-for="(item,index) in browseDataList"
                                 :key="item.id">{{item.title}}</el-menu-item>
                 </el-sub-menu>
+                <el-menu-item index="6">Putative Data</el-menu-item>
                 <el-menu-item index="3">Search</el-menu-item>
                 <el-menu-item index="4">Analysis</el-menu-item>
                 <el-menu-item index="5">Download</el-menu-item>
@@ -33,10 +34,13 @@
       <el-footer class="f-footer ">
         <el-row class="flex f_footer">
           <el-col :lg="4" :md="24" :sm="20" class="flex items-center mt-1">
-            <el-image src="http://www.plantasrg.cn/static/img/2023/06/logo.png" class="ml-5" style="height: 32px"></el-image>
+            <el-image :src=logo_img class="ml-5" style="height: 32px"></el-image>
           </el-col>
           <el-col :lg="12" :md="24" :sm="20">
             <p class="footer-content">
+              <el-divider direction="vertical" />
+              <router-link to="/putative" class="underline">Putative data</router-link>
+              <el-divider direction="vertical" />
               <router-link to="/search" class="underline">Search</router-link>
               <el-divider direction="vertical" />
               <router-link to="/analysis" class="underline">Analysis</router-link>
@@ -48,7 +52,7 @@
               <router-link to="/submit" class="underline">Submit</router-link>
             </p>
             <p class="footer-content ">
-              <el-image src="http://www.plantasrg.cn/static/img/2023/06/nefu.png"
+              <el-image :src=nefu_img
                         style="width: 25px; height: 25px; vertical-align: -25%;" class="mr-4"></el-image>
               <a href="https://life.nefu.edu.cn/index.htm">College of Life Sciences</a>,
               <a href="https://icec.nefu.edu.cn/">CCEC</a>,
@@ -73,7 +77,9 @@
 import router from "~/router"
 import { ref, onMounted, computed } from 'vue'
 import { useBrowseStore } from '~/store/useBrowseStore.js'
-
+import logo_img from '/src/assets/logo.png';
+import black_img from '/src/assets/black.svg';
+import nefu_img from '/src/assets/nefu.png';
 const store = useBrowseStore()
 store.getBrowseListData()
 
@@ -97,9 +103,9 @@ let handleSelect = (key, keyPath) => {
     case '5':
       router.push('/download')
       break
-      // case '6':
-      //   router.push('/helps')
-      //   break
+      case '6':
+        router.push('/putative')
+        break
     case '7':
       router.push('/submit')
       break

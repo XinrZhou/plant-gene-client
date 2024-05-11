@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router"
 import analysis from "./routes/analysis"
 import browse from "./routes/browse"
+import putative from "./routes/putative"
 import download from "./routes/download"
 import helps from "./routes/helps"
 import search from "./routes/search"
@@ -30,7 +31,8 @@ const router = createRouter({
                 ...download,
                 ...helps,
                 ...search,
-                ...submit
+                ...submit,
+                ...putative
             ]
         },
         {

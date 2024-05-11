@@ -23,6 +23,11 @@ export default [{
                     name: 'geneoverview',
                     path: 'geneoverview',
                     component: () => import('~/views/browse/browse-detail/browse-detail-item/GeneOverview.vue')
+                },
+                {
+                    name: 'proteinoverview',
+                    path: 'proteinoverview',
+                    component: () => import('~/views/browse/browse-detail/browse-detail-item/ProteinOverview.vue')
                 }
             ]
         },

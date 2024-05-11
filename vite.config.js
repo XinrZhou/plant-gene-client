@@ -4,7 +4,8 @@ import externalGlobals from 'rollup-plugin-external-globals'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 
-export default defineConfig({
+export default defineConfig(({command, mode, isSsrBuild, isPreview}) => {
+  return {
   resolve: {
     alias: {
       "~": path.resolve(__dirname, "src")
@@ -12,16 +13,16 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    port: 8080,
+    port: 80,
     proxy: {
       '/api': {
-        //本地测试
-        // target: 'http://localhost:8093/',
-        //连接远程API接口
-        target: 'http://124.223.40.46:8093',
-        // target: 'http://175.178.9.163:8093',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
+        // target: 'http://10.155.120.8:8093',
+        // target: 'http://127.0.0.1:8093',
+        target: 'http://bioinfor.nefu.edu.cn',
+        // target: 'http://124.223.40.46:8093',
+        // changeOrigin: true,
+        // rewrite: (path) => path.replace(/^\/api/, '')
+        // rewrite: (path) => path.replace('/api/', '/PlantASRG/api/')
       },
     }
   },
@@ -47,5 +48,9 @@ export default defineConfig({
         }),
       ],
     }
+  },
+  base: command === 'build' || mode === 'production'
+      ? '/PlantASRG/'
+      : '/'
   }
 })

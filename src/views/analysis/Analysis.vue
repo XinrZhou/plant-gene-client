@@ -1,8 +1,73 @@
 <template>
-  <PageLeftTitle page-title="Analysis" class="page-style" />
+  <PageLeftTitle page-title="Analysis" class="page-style"/>
   <el-row class="page-style">
     <el-col :span="24">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
+        <el-tab-pane label="ProCNNCL" name="five">
+          <el-row>
+            <el-col :span="24" class="blast-tip">
+              A Web Tool for Predicting Amino Acid Sequences using Pre-trained Models
+            </el-col>
+          </el-row>
+          <el-row class="flex justify-center">
+
+            <el-col :lg="24" :md="24">
+              <el-card label="Predict" shadow="hover" class="rounded-2xl">
+                <div class="blast-form">
+                  <p style="margin-bottom: 20px;">
+                    Please enter the nucleotide or amino acid sequence and select the corresponding 'predict' model.
+                  </p>
+                  <el-form :model="predictForm" label-width="120px" label-position="left">
+                    <el-form-item label="Sequence">
+                      <el-input v-model="predictForm.predictSequence" :autosize="{ minRows: 14, maxRows: 16 }" type="textarea"
+                                style="width: 90%;" placeholder=">NP_001288418.1 uncharacterized protein LOC103645754 [Zea mays]
+MFSGDWTPPCGSCCTKKYASLVQIPWRVFCKKGCNADGDTWDECIGKCTEICYKDPVLEDRQWSAYIDRSPGQDSYSLECFNACVSGCGFRFDIPTEKVEEIKPNRPSKPSAPEPEVKQTRNADCNEDVPCTSA"/>
+                    </el-form-item>
+                    <el-form-item label="Model">
+                      <el-radio-group v-model="predictForm.modelCategory">
+                        <el-radio label="Drought"/>
+                        <el-radio label="Salt and Alkali"/>
+                        <el-radio label="Cold"/>
+                        <el-radio label="UV"/>
+                      </el-radio-group>
+                    </el-form-item>
+                    <el-form-item>
+                      <el-button @click="onReset" class="form-btn">Reset</el-button>
+                      <el-button :disabled="submittingPredict" @click="onSubmitPredict" class="form-btn" v-loading="submittingPredict">Prediction</el-button>
+                    </el-form-item>
+                  </el-form>
+                </div>
+              </el-card>
+            </el-col>
+          </el-row>
+
+          <el-row class="blast-result flex justify-center ml-auto" v-if="predictSeqList != null">
+            <el-col :lg="24" :md="24">
+              <el-card shadow="hover">
+                <el-table :data="predictSeqList" style="width: 100%">
+                  <el-table-column prop="proteinId" label="Entry"/>
+<!--                    <template v-slot="{ row }">-->
+<!--                      <a v-if="isProteinIdClickable(row.proteinId)" href="" @click.prevent="handleGeneClick(row)"-->
+<!--                         class="underline font-bold">{{ row.proteinId }}</a>-->
+<!--                      <span v-else>{{ row.proteinId }}</span>-->
+<!--                    </template>-->
+<!--                  </el-table-column>-->
+                  <el-table-column prop="plantName" label="Species"/>
+                  <el-table-column prop="prediction" label="Result"/>
+                  <el-table-column prop="proteinSequence" label="Sequence" type="proteinSequence" fit>
+                    <template v-slot="{ row }">
+                      <div class="text-overflow">{{ row.proteinSequence.substring(0,100) }}...</div>
+                    </template>
+                  </el-table-column>
+                </el-table>
+
+                <p style="margin: 20px;">
+                  The number of sequences for which an application can make effective predictions is: {{predictSeqNumber}}
+                </p>
+              </el-card>
+            </el-col>
+          </el-row>
+        </el-tab-pane>
         <el-tab-pane label="Blast" name="first">
           <el-row>
             <el-col :span="24" class="blast-tip">
@@ -16,13 +81,14 @@
                   <el-form :model="form" label-width="120px" label-position="left">
                     <el-form-item label="Sequence">
                       <el-input v-model="form.sequence" :autosize="{ minRows: 10, maxRows: 12 }"
-                                :disabled="fileCount > 0 ? true : false" type="textarea" style="width: 70%;" placeholder="Please enter the nucleotide or amino acid sequence and select the corresponding 'blast' type.&#13;>Gene1
-MDPFYTSFSDSFLSIPDHRSPVSDSSECSPKLASSCPKKRAGRKKFRETRHPIYRGVRQRNSGKWVCEVREPNKKSRIWLGTFPTVEMAARAHDVAALALRGRSACLNFADSAWRLRIPESTCPKEIQKAAAEAAMAFQNETATTEMMTVVEGVKPAEETVGQTRGETAEENGVFYMDDLRFLEDMAEEMLLPPPELGWNHNDLTGDADVSLWSF" />
+                                :disabled="fileCount > 0 ? true : false" type="textarea" style="width: 70%;"
+                                placeholder="Please enter the nucleotide or amino acid sequence and select the corresponding 'blast' type.&#13;>Gene1
+MDPFYTSFSDSFLSIPDHRSPVSDSSECSPKLASSCPKKRAGRKKFRETRHPIYRGVRQRNSGKWVCEVREPNKKSRIWLGTFPTVEMAARAHDVAALALRGRSACLNFADSAWRLRIPESTCPKEIQKAAAEAAMAFQNETATTEMMTVVEGVKPAEETVGQTRGETAEENGVFYMDDLRFLEDMAEEMLLPPPELGWNHNDLTGDADVSLWSF"/>
                     </el-form-item>
                     <el-form-item label="Type">
                       <el-radio-group v-model="form.category">
-                        <el-radio label="blastn" />
-                        <el-radio label="blastp" />
+                        <el-radio label="blastn"/>
+                        <el-radio label="blastp"/>
                       </el-radio-group>
                     </el-form-item>
                     <el-form-item label="Select File">
@@ -38,7 +104,7 @@ MDPFYTSFSDSFLSIPDHRSPVSDSSECSPKLASSCPKKRAGRKKFRETRHPIYRGVRQRNSGKWVCEVREPNKKSRIWL
                     </el-form-item>
                     <el-form-item>
                       <el-button @click="onReset" class="form-btn">Reset</el-button>
-                      <el-button @click="onSubmit" class="form-btn" v-loading="submitting">Run BLAST</el-button>
+                      <el-button :disabled="submitting" @click="onSubmit" class="form-btn" v-loading="submitting">BLAST</el-button>
                     </el-form-item>
                   </el-form>
                 </div>
@@ -51,113 +117,86 @@ MDPFYTSFSDSFLSIPDHRSPVSDSSECSPKLASSCPKKRAGRKKFRETRHPIYRGVRQRNSGKWVCEVREPNKKSRIWL
               <el-card shadow="hover">
                 <el-descriptions :column="1" border>
                   <el-descriptions-item label="Blast Version"
-                                        label-align="left">{{blastSeqInfo.blastVersion}}</el-descriptions-item>
+                                        label-align="left">{{ blastSeqInfo.blastVersion }}
+                  </el-descriptions-item>
                   <el-descriptions-item label="Database"
-                                        label-align="left">{{blastSeqInfo.database}}</el-descriptions-item>
+                                        label-align="left">{{ blastSeqInfo.database }}
+                  </el-descriptions-item>
                   <el-descriptions-item label="QuerySeq Length"
-                                        label-align="left">{{blastSeqInfo.length}}</el-descriptions-item>
-                  <el-descriptions-item label="Query" label-align="left">{{blastSeqInfo.query}}</el-descriptions-item>
+                                        label-align="left">{{ blastSeqInfo.length }}
+                  </el-descriptions-item>
+                  <el-descriptions-item label="Query" label-align="left">{{ blastSeqInfo.query }}</el-descriptions-item>
                 </el-descriptions>
                 <el-tabs v-model="activeName1" type="border-card">
                   <el-tab-pane label="Descriptions" name="second">
                     <el-button @click="handleDownload('table')" class="mr-auto  font-bold text-blue-500">Down
-                      Data</el-button>
+                      Data
+                    </el-button>
 
                     <el-table :data="blastSeqList" style="width: 100%">
-                      <el-table-column prop="querySeqId" label="QuerySeqId">
-                        <template v-slot="{ row }">
-                          <a href="" @click.prevent="handleGeneClick(row)"
-                             class="underline font-bold">{{row.querySeqId}}</a>
-                        </template>
-                      </el-table-column>
-                      <el-table-column prop="beginDbSeqNumber" label="StressType" />
-                      <el-table-column prop="endDbSeqNumber" label="ScientificName" />
-                      <el-table-column prop="score" label="Max score" />
-                      <el-table-column prop="similar" label="Similar" />
-                      <el-table-column prop="misMatchNumber" label="MisMatchNumber" />
-                      <el-table-column prop="spaceNumber" label="SpaceNumber" />
-                      <el-table-column prop="evalue" label="E value" />
-                      <el-table-column prop="length" label="length" />
+                      <el-table-column prop="querySeqId" label="QuerySeqId"/>
+                      <el-table-column prop="beginDbSeqNumber" label="StressType"/>
+                      <el-table-column prop="endDbSeqNumber" label="ScientificName"/>
+                      <el-table-column prop="score" label="Max score"/>
+                      <el-table-column prop="similar" label="Similar"/>
+                      <el-table-column prop="misMatchNumber" label="MisMatchNumber"/>
+                      <el-table-column prop="spaceNumber" label="SpaceNumber"/>
+                      <el-table-column prop="evalue" label="E value"/>
+                      <el-table-column prop="length" label="length"/>
                       <el-table-column prop="endQuerySeqNumber" label="Gene">
                         <template v-slot="{ row }">
                           <a href="" @click.prevent="handleGeneClick1(row)"
-                             class="underline font-bold">{{row.endQuerySeqNumber}}</a>
+                             class="underline font-bold">{{ row.endQuerySeqNumber }}</a>
                         </template>
                       </el-table-column>
                       <el-table-column prop="dbSeqId" label="PlantASRGId">
                         <template v-slot="{ row }">
                           <a href="" @click.prevent="handleGeneClick(row)"
-                             class="underline font-bold">{{row.dbSeqId}}</a>
+                             class="underline font-bold">{{ row.dbSeqId }}</a>
                         </template>
                       </el-table-column>
-                      <el-table-column prop="" label="" />
+                      <el-table-column prop="" label=""/>
                     </el-table>
                   </el-tab-pane>
                   <el-tab-pane label="Alignments" name="third" v-if="form.category=='blastn'">
                     <el-button @click="handleDownload('result')" class="mr-auto  font-bold text-blue-500">Down
-                      Data</el-button>
+                      Data
+                    </el-button>
                     <div class="blastSeq-alignments" v-for="(item, index) in blastSeqReslt" :key="index">
-                      <p class="alignments-item">{{item.name}}</p>
-                      <p class="alignments-item"><span class="text-gray-400">Length:&nbsp;</span>{{item.length}}</p>
+                      <p class="alignments-item">{{ item.name }}</p>
+                      <p class="alignments-item"><span class="text-gray-400">Length:&nbsp;</span>{{ item.length }}</p>
                       <el-descriptions direction="vertical" :column="5" border>
-                        <el-descriptions-item label="Score">{{item.score}}</el-descriptions-item>
-                        <el-descriptions-item label="Expect">{{item.expect}}</el-descriptions-item>
-                        <el-descriptions-item label="Identities">{{item.identities}}</el-descriptions-item>
-                        <el-descriptions-item label="Gaps">{{item.gaps}}</el-descriptions-item>
-                        <el-descriptions-item label="Strand">{{item.strand}}</el-descriptions-item>
+                        <el-descriptions-item label="Score">{{ item.score }}</el-descriptions-item>
+                        <el-descriptions-item label="Expect">{{ item.expect }}</el-descriptions-item>
+                        <el-descriptions-item label="Identities">{{ item.identities }}</el-descriptions-item>
+                        <el-descriptions-item label="Gaps">{{ item.gaps }}</el-descriptions-item>
+                        <el-descriptions-item label="Strand">{{ item.strand }}</el-descriptions-item>
                       </el-descriptions>
-                      <pre class="alignments-sequence font-bold ml-14">{{item.sequence}}</pre>
-                      <el-divider />
+                      <pre class="alignments-sequence font-bold ml-14">{{ item.sequence }}</pre>
+                      <el-divider/>
                     </div>
                   </el-tab-pane>
                   <el-tab-pane label="Alignments" name="fourth" v-if="form.category=='blastp'">
                     <el-button @click="handleDownload('result')" class="ont-bold text-blue-500">Down Data</el-button>
                     <div class="blastSeq-alignments" v-for="(item, index) in blastSeqReslt" :key="index">
-                      <p class="alignments-item">{{item.name}}</p>
-                      <p class="alignments-item"><span class="text-gray-400">Length:&nbsp;</span>{{item.length}}</p>
+                      <p class="alignments-item">{{ item.name }}</p>
+                      <p class="alignments-item"><span class="text-gray-400">Length:&nbsp;</span>{{ item.length }}</p>
                       <el-descriptions direction="vertical" :column="4" border>
-                        <el-descriptions-item label="Score">{{item.score}}</el-descriptions-item>
-                        <el-descriptions-item label="Expect">{{item.expect}}</el-descriptions-item>
-                        <el-descriptions-item label="Method">{{item.method}}</el-descriptions-item>
-                        <el-descriptions-item label="Identities">{{item.identities}}</el-descriptions-item>
-                        <el-descriptions-item label="Gaps">{{item.gaps}}</el-descriptions-item>
-                        <el-descriptions-item label="Positives">{{item.positives}}</el-descriptions-item>
+                        <el-descriptions-item label="Score">{{ item.score }}</el-descriptions-item>
+                        <el-descriptions-item label="Expect">{{ item.expect }}</el-descriptions-item>
+                        <el-descriptions-item label="Method">{{ item.method }}</el-descriptions-item>
+                        <el-descriptions-item label="Identities">{{ item.identities }}</el-descriptions-item>
+                        <el-descriptions-item label="Gaps">{{ item.gaps }}</el-descriptions-item>
+                        <el-descriptions-item label="Positives">{{ item.positives }}</el-descriptions-item>
                       </el-descriptions>
-                      <pre class="alignments-sequence font-bold ml-14">{{item.sequence}}</pre>
-                      <el-divider />
+                      <pre class="alignments-sequence font-bold ml-14">{{ item.sequence }}</pre>
+                      <el-divider/>
                     </div>
                   </el-tab-pane>
                 </el-tabs>
               </el-card>
             </el-col>
           </el-row>
-        </el-tab-pane>
-        <el-tab-pane label="SaGp" name="five">
-          <el-row>
-            <el-col :span="24" class="blast-tip">
-              Welcome to SaGP
-            </el-col>
-          </el-row>
-          <el-card shadow="hover" class="rounded-2xl">
-            <el-row class="flex items-center">
-              <el-col :lg="10" :md="24">
-                <p class="SaGp-desciption">Plants Salt-alkaline Resistance Genes Prediction</p>
-                <p class="text-justify indent-10 text-xl ">
-                  Soil saline-alkalization stress reduces crop yield and leads to plant mortality globally. Identifying novel saline-alkali tolerance genes is key to breeding stress-resistant variants to combat the negative effects of stress and secure food, and to conserving species. SaGP provides the first known machine learning model to identify plant saline-alkali tolerance genes. It outperformed traditional computational tools, BLAST and PHMMER and correctly identified the latest published genes. SaGP can be used for the large-scale identification of saline-alkali tolerance genes, thus promoting crop breeding and plant conservation.
-                </p>
-              </el-col>
-              <el-col :offset="1" :lg="11" :md="23" >
-                <img src="http://www.plantasrg.cn/static/img/2023/06/sagp.png" style="width: 100%; height: 350px;">
-              </el-col>
-            </el-row>
-            <div class="link-btn">
-              <el-button round class="w-[350px]  mt-6" type="primary" color="#CCFFCC">
-                <a href="https://www.sagprediction.com/" class="font-semibold">
-                  More about SAGP...
-                </a>
-              </el-button>
-            </div>
-          </el-card>
         </el-tab-pane>
       </el-tabs>
     </el-col>
@@ -166,18 +205,23 @@ MDPFYTSFSDSFLSIPDHRSPVSDSSECSPKLASSCPKKRAGRKKFRETRHPIYRGVRQRNSGKWVCEVREPNKKSRIWL
 
 <script setup>
 import PageLeftTitle from '~/components/PageLeftTitle.vue'
-import { reactive, toRaw, ref, computed } from 'vue'
-import { useSubmitStore } from '~/store/useSubmitStore.js'
-import { ElMessageBox, ElMessage } from 'element-plus'
-import { showModal } from "~/composables/util.js";
-import { useFileStore } from "~/store/useFileStore.js";
+import {reactive, toRaw, ref, computed} from 'vue'
+import {useSubmitStore} from '~/store/useSubmitStore.js'
+import {ElMessageBox, ElMessage} from 'element-plus'
+import {showModal} from "~/composables/util.js";
+import {useFileStore} from "~/store/useFileStore.js";
 import router from "~/router/index.js";
 
 const store = useSubmitStore()
 const storeFiles = useFileStore()
 let form = ref({
   sequence: '',
-  category: 'blastn'
+  category: 'blastn',
+})
+let predictForm = ref({
+  predictSequence: '',
+  modelCategory: 'Drought',
+  returnCategory: '1'
 })
 let formData = new FormData()
 
@@ -185,10 +229,16 @@ let fileList = reactive([])
 let fileCount = ref(0)
 let uploadRef = ref()
 let submitting = ref(false)
+let submittingPredict = ref(false)
 let blastSeqList = computed(() => store.BlastSeqDataList.list)
 let blastSeqInfo = computed(() => store.BlastSeqDataList.mainInfo)
 let blastSeqReslt = computed(() => store.BlastSeqDataList.result)
-const activeName = ref('first')
+
+let predictSeqList = computed(() => store.PredictSeqDataList.list)
+let predictSeqNumber = computed(() => store.PredictSeqDataList.numSequences)
+let blastSeqFilepath = computed(() => store.PredictSeqDataList.filepath)
+
+const activeName = ref('five')
 const activeName1 = ref('second')
 const fileChange = (file, lists) => {
   let list = toRaw(lists)
@@ -238,6 +288,21 @@ const onSubmit = () => {
   }
 }
 
+const onSubmitPredict = () => {
+  submittingPredict.value = true
+  store.PostUploadPredictSeq(predictForm.value).then(() => {
+    submittingPredict.value = false
+    ElMessage({
+      message: 'Predict Protein-Sequence Successfully!',
+      type: 'success',
+    })
+  }).catch((err) => {
+    submittingPredict.value = false
+    console.error(err)
+  })
+}
+
+
 const onReset = () => {
   uploadRef.value.clearFiles()
   formData = new FormData()
@@ -267,11 +332,17 @@ const handleDownload = (category) => {
       link.click();
     });
   })
-
 }
+const pattern = /[A-Za-z]{2}_[0-9]+\.[0-9]+/;
+
+const isProteinIdClickable = (proteinId) => {
+  return pattern.test(proteinId);
+};
 let handleGeneClick = (row) => {
   const link = document.createElement('a');
-  link.href = "https://www.ncbi.nlm.nih.gov/nucleotide/" + row.dbSeqId
+  // link.href = "https://www.ncbi.nlm.nih.gov/nucleotide/" + row.dbSeqId
+  link.href = "https://www.ncbi.nlm.nih.gov/protein/" + row.dbSeqId
+
   link.click();
   link.preventDefault();
 }
@@ -283,6 +354,7 @@ let handleGeneClick1 = (row) => {
     }
   })
 }
+
 </script>
 
 <style scoped>

@@ -3,7 +3,7 @@
     <el-col :span="24">
       <div class="search-bar">
         <el-select v-model="remoteValue" filterable remote clearable reserve-keyword
-          placeholder="Please enter keywords e.g. ZmDREB2.7" :remote-method="remoteMethod" :loading="loading"
+          placeholder="Please enter keywords e.g. ZmDREB2.7 --only reference data" :remote-method="remoteMethod" :loading="loading"
           class="w-full rounded-3xl" @change="handleRemoteSearch" size="large"
           @blur="onSelectBlur"
         >

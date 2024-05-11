@@ -4,7 +4,8 @@ import {
     reqGetBrowseList,
     reqGetStressTypeList,
     reqGetStressTypeItemList,
-    reqGetGeneOverview,
+    reqListPredictResultBySearch,
+    reqGetGeneOverview, reqGetProteinOverview,
     reqGetSpeciesList,
     reqGetGeneListBySciName,
     reqGetExpressionOrgansList,
@@ -17,7 +18,8 @@ import {
     reqGetTFGeneFamilyList,
     reqGetNonTFGeneFamilyList,
     reqGetTFGeneList,
-    reqGetNonTFGeneList, reqGetGeneByGo, reqGetGeneByKeGG
+    reqGetNonTFGeneList, reqGetGeneByGo, reqGetGeneByKeGG,
+    reqGetProteinByGo, reqGetProteinByKeGG
 } from "~/api/browse.js"
 
 export const useBrowseStore = defineStore('browseStore', {
@@ -26,16 +28,18 @@ export const useBrowseStore = defineStore('browseStore', {
             browseDataList: [], // 首页列表
             stressTypeDataList: [], // stress type详情页list
             stressTypeItemDataList: [], // stress type详情页各项基因list
+            predictResulList:[],
             itemPageTotal: 1,
             geneOverviewDataList: {}, // 基因概述列表
             geneKeGGList:[],
             group:[],
+            proteinOverviewData:[],
             geneGoList:[],
             speciesDataList: [], // 物种名列表
             geneDataList: [], //基因列表
-            expOrgansDataList: [], 
+            expOrgansDataList: [],
             expOrgansGeneDataList: [],
-            subcellularDataList: [], 
+            subcellularDataList: [],
             subcellularGeneDataList: [],
             phenoTypeDataList: [],
             phenoTypeSubDataList: [],
@@ -70,6 +74,14 @@ export const useBrowseStore = defineStore('browseStore', {
             }).catch(err => Promise.reject(err))
         },
 
+        // browse -- 假定预测数据基因list
+        listPredictResultBySearch(data) {
+            reqListPredictResultBySearch(data).then(res => {
+                this.predictResulList = res.data.records
+                this.itemPageTotal = res.data.total
+            }).catch(err => Promise.reject(err))
+        },
+
         // browse -- 根据基因名获取基因概述
         getGeneOverviewData(geneName) {
             reqGetGeneOverview(geneName).then(res => {
@@ -78,10 +90,31 @@ export const useBrowseStore = defineStore('browseStore', {
             }).catch(err => Promise.reject(err))
         },
 
+        // browse -- 根据蛋白质名获取蛋白质概述
+        getProteinOverviewData(proteinId) {
+            reqGetProteinOverview(proteinId).then(res => {
+                this.proteinOverviewData = res.data
+            }).catch(err => Promise.reject(err))
+        },
+
+        // browse -- 根据蛋白质名获取蛋白质KeGG
+        getProteinByKeGGData(proteinId) {
+            reqGetProteinByKeGG(proteinId).then(res => {
+                this.geneKeGGList = res.data
+            }).catch(err => Promise.reject(err))
+        },
+
         // browse -- 根据基因名获取基因KeGG
         getGeneByKeGGData(geneName) {
             reqGetGeneByKeGG(geneName).then(res => {
                 this.geneKeGGList = res.data
+            }).catch(err => Promise.reject(err))
+        },
+
+        // browse -- 根据蛋白质名获取蛋白质Go
+        getProteinByGoData(proteinId) {
+            reqGetProteinByGo(proteinId).then(res => {
+                this.geneGoList = res.data
             }).catch(err => Promise.reject(err))
         },
 
@@ -139,7 +172,7 @@ export const useBrowseStore = defineStore('browseStore', {
             reqGetPhenoTypeList().then(res => {
                 this.phenoTypeDataList = res.data
             }).catch(err => Promise.reject(err))
-        }, 
+        },
 
         // browse -- PhenoTypeSubList
         getPhenoTypeSubListData(name) {
@@ -148,7 +181,7 @@ export const useBrowseStore = defineStore('browseStore', {
                 this.phenoTypeSubDataList = res.data
                 this.isLoading = false
             }).catch(err => Promise.reject(err))
-        }, 
+        },
 
         // browse -- PhenoType geneList
         getPhenoGeneListData(phenotype,phenotypeGroup) {

@@ -10,7 +10,7 @@ const service = axios.create({
     timeout: 20000
 })
 
-service.defaults.baseURL = '/api'
+service.defaults.baseURL = '/PlantASRG/api'
 
 // 请求拦截器
 service.interceptors.request.use(function (config) {
@@ -44,4 +44,15 @@ service.interceptors.response.use(function (response) {
     toast(error.response.data.msg || "The request failed, the server is under maintenance!", "error")
     return Promise.reject(error);
 })
+// 为特定请求设置单独的超时时间
+export const specialRequest = (timeout) => {
+    const specialService = axios.create({
+        baseURL: import.meta.env.VITE_BASE_URL,
+        timeout: timeout
+    })
+    // 设置默认的baseURL
+    specialService.defaults.baseURL = '/api'
+    // 返回单独的axios实例
+    return specialService;
+}
 export default service

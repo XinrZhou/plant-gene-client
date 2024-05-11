@@ -2,14 +2,16 @@ import { defineStore } from "pinia"
 import {
     reqPostUploadFile,
     reqPostUploadBlastSeq,
-    reqPostUploadBlastFile
+    reqPostUploadBlastFile,
+    reqPostUploadPredictSeq
 } from "~/api/file.js"
 import { ElMessageBox, ElMessage } from 'element-plus'
 
 export const useSubmitStore = defineStore('submit', {
     state: () => {
         return {
-            BlastSeqDataList: {}
+            BlastSeqDataList: {},
+            PredictSeqDataList: {}
         }
     },
     actions: {
@@ -22,6 +24,12 @@ export const useSubmitStore = defineStore('submit', {
         async reqPostUploadBlastSeq(data) {
             return reqPostUploadBlastSeq(data).then(res=>{
                 this.BlastSeqDataList = res.data
+                return Promise.resolve()
+            }).catch(err => Promise.reject(err))
+        },
+        async PostUploadPredictSeq(data) {
+            return reqPostUploadPredictSeq(data).then(res=>{
+                this.PredictSeqDataList = res.data
                 return Promise.resolve()
             }).catch(err => Promise.reject(err))
         },

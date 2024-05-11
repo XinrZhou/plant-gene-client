@@ -60,7 +60,7 @@
     top: 0;
     left: 0;
     right: 0;
-    buttom: 50px;
+    bottom: 50px;
     overflow-y: auto;
   }
 

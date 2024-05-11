@@ -1,7 +1,10 @@
 // Browse模块api
 import axios from "~/api/http"
-
+import { specialRequest } from "~/api/http"
 // Browse 主页list
+
+const specialService = specialRequest(50000); // 设置超时时间为15秒
+
 export function reqGetBrowseList() {
     return axios.post("/browse-item/listDataType")
 }
@@ -17,6 +20,10 @@ export function reqGetStressTypeItemList(data) {
     return axios.post('/search/listGeneByStressName', data)
 }
 
+export function reqListPredictResultBySearch(data) {
+    return axios.post('/protein-uniprot/listPredictResultBySearch', data)
+}
+
 // Browse 根据基因名获取基因概述
 export function reqGetGeneOverview(geneName) {
     return axios.get(`/search/getGeneDetails?gene=${geneName}`)
@@ -28,6 +35,19 @@ export function reqGetGeneByGo(geneName) {
 
 export function reqGetGeneByKeGG(geneName) {
     return axios.get(`/search/getGeneKeGG?gene=${geneName}`)
+}
+
+
+export function reqGetProteinOverview(proteinId) {
+    return axios.get(`/protein-uniprot/getDetailsProteinUniProt?proteinId=${proteinId}`)
+}
+
+export function reqGetProteinByGo(proteinId) {
+    return axios.get(`/protein-uniprot/getDetailsProteinGo?proteinId=${proteinId}`)
+}
+
+export function reqGetProteinByKeGG(proteinId) {
+    return axios.get(`/protein-uniprot/getDetailsProteinKeGG?proteinId=${proteinId}`)
 }
 
 

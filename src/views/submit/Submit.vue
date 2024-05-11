@@ -60,7 +60,8 @@
 
       </el-col>
       <el-col :lg="9" :md="9">
-        <el-image style="width: 80%; height: 80%" src="http://www.plantasrg.cn/static/img/2023/06/submit.png" fit="fit" />
+
+        <el-image style="width: 80%; height: 80%" :src=submit_img fit="fit" />
       </el-col>
 
     </el-row>
@@ -73,6 +74,7 @@ import { reactive, toRaw, ref } from 'vue'
 import { useSubmitStore } from '~/store/useSubmitStore.js'
 import { ElMessageBox, ElMessage } from 'element-plus'
 
+import submit_img from '/src/assets/submit.png';
 const store = useSubmitStore()
 
 let form = ref({

@@ -9,8 +9,14 @@ export function reqPostUploadFile(data,file) {
 
 export function reqPostUploadBlastSeq(data) {
     return axios.post("/file-model/blastSeq",data)
-
 }
+
+export function reqPostUploadPredictSeq(data) {
+    return axios.post("/predict/getList", data, {
+        timeout: 0
+    });
+}
+
 
 export function reqPostUploadBlastFile(data,file) {
     return axios.post(`/file-model/blastFile?category=${data.category}`,file)
